@@ -26,11 +26,11 @@ jobs:
           java-version: ${{ matrix.java }}
           cache: maven
       - uses: actions/setup-node@v7
-        if: matrix.java != 8
+        if: matrix.java == 21
         with:
           node-version: 24
       - name: Build native JVMTI component
-        if: matrix.java != 8
+        if: matrix.java == 21
         run: node scripts/build-native-components.mjs
       - name: Verify Java 8 compatible production modules
         if: matrix.java == 8
@@ -38,8 +38,14 @@ jobs:
           mvn -f jvm/pom.xml
           -pl protocol,agent,bootstrap,decompiler,relay
           -am verify
-      - name: Verify complete JVM reactor
-        if: matrix.java != 8
+      - name: Verify Java 11+ production modules
+        if: matrix.java != 8 && matrix.java != 21
+        run: >-
+          mvn -f jvm/pom.xml
+          -pl protocol,agent,bootstrap,attach-helper,decompiler,relay
+          -am verify
+      - name: Verify complete JVM reactor and Attach integration
+        if: matrix.java == 21
         run: mvn -f jvm/pom.xml verify
 
   verify:
@@ -74,8 +80,11 @@ jobs:
       - name: Use repository npm version
         run: npm install --global npm@11.6.2
       - run: npm ci
-      - run: npm run test
-      - run: npm run package:test
+      - run: npm run test:desktop
+      - name: Build unpacked application
+        env:
+          MAVEN_ARGS: -ntp -DskipTests
+        run: npm run package:test
       - name: Packaged application E2E
         if: runner.os != 'Linux'
         run: npm run test:e2e

@@ -80,6 +80,7 @@
     "productName": "探微",
     "icon": "packaging/icon.png",
     "asar": true,
+    "npmRebuild": false,
     "directories": {
       "output": "release",
       "buildResources": "packaging"

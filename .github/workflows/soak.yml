@@ -50,7 +50,10 @@ jobs:
         run: |
           node -e "const value = Number(process.env.TANWEI_SOAK_DURATION_SECONDS); if (!Number.isInteger(value) || value < 30 || value > 18000) throw new Error('duration_seconds must be an integer from 30 to 18000')"
       - run: npm run test:soak:unit
-      - run: npm run package:test
+      - name: Build unpacked application
+        env:
+          MAVEN_ARGS: -ntp -DskipTests
+        run: npm run package:test
       - name: Run packaged desktop soak
         if: runner.os != 'Linux'
         run: npm run test:soak

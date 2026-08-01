@@ -63,8 +63,14 @@ jobs:
             test -n "$APPLE_APP_SPECIFIC_PASSWORD"
             test -n "$APPLE_TEAM_ID"
           fi
-      - run: npm run test
-      - run: npm run package:release
+      - run: npm run test:desktop
+      - name: Verify JVM integration
+        if: runner.os == 'Linux'
+        run: npm run test:jvm
+      - name: Build signed release
+        env:
+          MAVEN_ARGS: -ntp -DskipTests
+        run: npm run package:release
       - name: Verify macOS signature and notarization ticket
         if: runner.os == 'macOS'
         shell: bash

@@ -38,7 +38,8 @@
     "test:soak:smoke": "cross-env TANWEI_SOAK_DURATION_SECONDS=45 TANWEI_SOAK_INTERVAL_MS=1000 TANWEI_SOAK_WARMUP_SECONDS=5 TANWEI_SOAK_RELOAD_EVERY=15 TANWEI_SOAK_LIFECYCLE_EVERY=10 TANWEI_SOAK_JIT_EVERY=5 TANWEI_SOAK_REPOSITORY_EVERY=10 TANWEI_SOAK_PROGRESS_EVERY=15 node scripts/desktop-soak.mjs",
     "test:jvm": "npm run build:native && mvn -f jvm/pom.xml verify",
     "test:e2e": "playwright test",
-    "test": "npm run metadata:verify && npm run verify:ui && npm run typecheck && npm run test:unit && npm run test:soak:unit && npm run test:jvm",
+    "test:desktop": "npm run metadata:verify && npm run verify:ui && npm run typecheck && npm run test:unit && npm run test:soak:unit",
+    "test": "npm run test:desktop && npm run test:jvm",
     "verify:ui": "node scripts/verify-shadcn-controls.mjs",
     "verify": "npm run test && npm run package:test && npm run test:e2e"
   },
