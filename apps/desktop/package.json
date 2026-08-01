@@ -119,6 +119,7 @@
     },
     "linux": {
       "category": "Development",
+      "executableName": "tanwei",
       "target": [
         "AppImage",
         "deb"

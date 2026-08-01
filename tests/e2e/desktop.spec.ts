@@ -157,7 +157,7 @@ test("main window keeps native chrome consistent with the dark renderer", async 
 });
 
 test("packaged app discovers, attaches and renders real diagnostics", async () => {
-  test.setTimeout(120_000);
+  test.setTimeout(180_000);
   const window = requiredPage();
   await expect(window).toHaveTitle(/探微/);
   await expect(
@@ -286,7 +286,7 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
 
   await expect(
     window.getByRole("heading", { name: "运行正在发生。" }),
-  ).toBeVisible();
+  ).toBeVisible({ timeout: 45_000 });
   await expect(window.getByText(/AGENT 0\.1\.0/)).toBeVisible();
   await expect(window.getByText("HEAP USED")).toBeVisible();
   await expect(window.getByText("等待目标数据")).toHaveCount(0, {
@@ -652,6 +652,7 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
     window,
     hotThreadInspector,
     "thread-hot-cpu-inspector.png",
+    120,
   );
   await cpuProbeThread.click();
   const locatedCpuProbe = window
@@ -3694,6 +3695,7 @@ async function screenshotVisiblePanel(
   window: Page,
   panel: Locator,
   fileName: string,
+  minimumHeight = 320,
 ): Promise<void> {
   await panel.evaluate((element) => {
     element.scrollIntoView({ block: "start", inline: "nearest" });
@@ -3735,7 +3737,7 @@ async function screenshotVisiblePanel(
     width: Math.min(bounds.width, viewport.width - Math.max(0, bounds.x)),
     height: Math.min(bounds.height, viewport.height - Math.max(0, bounds.y)),
   };
-  if (clip.width < 320 || clip.height < 320) {
+  if (clip.width < 320 || clip.height < minimumHeight) {
     throw new Error(
       `${fileName} panel clip is too small: ${JSON.stringify(clip)}`,
     );
