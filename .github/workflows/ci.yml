@@ -19,17 +19,24 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: ${{ matrix.java }}
           cache: maven
-      - name: Verify Java 8 production modules
+      - uses: actions/setup-node@v7
+        if: matrix.java != 8
+        with:
+          node-version: 24
+      - name: Build native JVMTI component
+        if: matrix.java != 8
+        run: node scripts/build-native-components.mjs
+      - name: Verify Java 8 compatible production modules
         if: matrix.java == 8
         run: >-
           mvn -f jvm/pom.xml
-          -pl protocol,agent,bootstrap,attach-helper,decompiler,relay
+          -pl protocol,agent,bootstrap,decompiler,relay
           -am verify
       - name: Verify complete JVM reactor
         if: matrix.java != 8
@@ -52,12 +59,12 @@ jobs:
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
@@ -75,7 +82,7 @@ jobs:
       - name: Packaged application E2E (Xvfb)
         if: runner.os == 'Linux'
         run: xvfb-run -a npm run test:e2e
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: diagnostics-${{ matrix.name }}

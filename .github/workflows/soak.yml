@@ -31,12 +31,12 @@ jobs:
       TANWEI_SOAK_DURATION_SECONDS: ${{ inputs.duration_seconds }}
       TANWEI_SOAK_REPORT: output/soak/${{ matrix.name }}.json
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
@@ -57,7 +57,7 @@ jobs:
       - name: Run packaged desktop soak (Xvfb)
         if: runner.os == 'Linux'
         run: xvfb-run -a npm run test:soak
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: soak-${{ matrix.name }}
