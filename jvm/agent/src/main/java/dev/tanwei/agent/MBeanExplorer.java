@@ -18,9 +18,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -55,6 +55,8 @@ final class MBeanExplorer implements AutoCloseable {
   private static final int MAXIMUM_STRUCTURED_VALUE_NODES = 256;
   private static final int MAXIMUM_STRUCTURED_VALUE_DEPTH = 5;
   private static final int MAXIMUM_STRUCTURED_VALUE_CHARACTERS = 32_768;
+  private static final int MAXIMUM_CONCURRENT_INVOCATIONS = 2;
+  private static final int MAXIMUM_PENDING_INVOCATIONS = 2;
   private static final long INVOCATION_TIMEOUT_MILLIS = 3_000L;
   private static final String SCALAR_VALUE_FORMAT = "SCALAR";
   private static final String OPEN_TYPE_JSON_VALUE_FORMAT = "OPEN_TYPE_JSON";
@@ -74,13 +76,14 @@ final class MBeanExplorer implements AutoCloseable {
     this.server = server;
     this.invocationExecutor =
         new ThreadPoolExecutor(
-            0,
-            2,
+            MAXIMUM_CONCURRENT_INVOCATIONS,
+            MAXIMUM_CONCURRENT_INVOCATIONS,
             30L,
             TimeUnit.SECONDS,
-            new SynchronousQueue<Runnable>(),
+            new ArrayBlockingQueue<Runnable>(MAXIMUM_PENDING_INVOCATIONS),
             new MBeanInvocationThreadFactory(),
             new ThreadPoolExecutor.AbortPolicy());
+    this.invocationExecutor.allowCoreThreadTimeOut(true);
   }
 
   Map<String, String> list(String rawQuery, int offset, int limit) {

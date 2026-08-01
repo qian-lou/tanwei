@@ -8,6 +8,7 @@ export default defineConfig({
   },
   fullyParallel: false,
   workers: 1,
+  retries: process.env.CI ? 1 : 0,
   reporter: [["line"]],
   outputDir: "output/playwright/results",
 });

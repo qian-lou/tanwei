@@ -184,6 +184,34 @@ final class MBeanExplorerTest {
   }
 
   @Test
+  void acceptsSequentialOperationsWithoutSpuriousSaturation() throws Exception {
+    MBeanExplorer explorer = new MBeanExplorer(server);
+    try {
+      for (int index = 0; index < 32; index++) {
+        String argument = "sequential-" + index;
+        MBeanExplorer.Preview preview =
+            explorer.previewOperation(
+                objectName.getCanonicalName(),
+                "ping",
+                "java.lang.String",
+                java.util.Collections.singletonList(argument));
+
+        MBeanExplorer.InvocationResult result =
+            explorer.invokeOperation(
+                objectName.getCanonicalName(),
+                "ping",
+                "java.lang.String",
+                java.util.Collections.singletonList(argument),
+                preview.getFingerprint());
+
+        assertEquals("pong:" + argument, result.getReturnValue());
+      }
+    } finally {
+      explorer.close();
+    }
+  }
+
+  @Test
   void previewsAndInvokesOneBoundedOpenTypeOperationArgument()
       throws Exception {
     ObjectName openObjectName =

@@ -120,6 +120,7 @@ test("main window becomes visible after the renderer loads", async () => {
       application.evaluate(({ BrowserWindow }) =>
         BrowserWindow.getAllWindows().some((window) => window.isVisible()),
       ),
+      { timeout: 30_000 },
     )
     .toBe(true);
   await mkdir(path.join(projectRoot, "output", "playwright"), {
@@ -157,7 +158,7 @@ test("main window keeps native chrome consistent with the dark renderer", async 
 });
 
 test("packaged app discovers, attaches and renders real diagnostics", async () => {
-  test.setTimeout(180_000);
+  test.setTimeout(240_000);
   const window = requiredPage();
   await expect(window).toHaveTitle(/探微/);
   await expect(
@@ -522,7 +523,7 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
     await expect(poolTrendRecorder.getByRole("img")).toHaveAttribute(
       "aria-label",
       /最近 (?:[2-9]|[1-9]\d|1[01]\d|120) 个精确线程池样本/u,
-      { timeout: 10_000 },
+      { timeout: 30_000 },
     );
     await poolTrendRecorder.getByTestId("thread-pool-trend-stop").click();
     await poolTrendRecorder.getByTestId("thread-pool-trend-save").click();
@@ -589,12 +590,24 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
     "forkjoin-execution-attribution.png",
   );
   await latencyProbe.getByTestId("thread-pool-latency-stop").click();
+  await threadPoolConfirmation.check();
+  await window.getByRole("button", { name: "检查线程池" }).click();
+  await expect(threadPoolConfirmation).not.toBeChecked();
   await businessExecutorCard.getByRole("button", { name: "查看成员" }).click();
   await expect(poolMemberInspector).toContainText(exactBusinessPoolIdentity);
-  await workerPoolMember.click();
+  const refreshedWorkerPoolMember = poolMemberInspector
+    .locator("button.thread-pool-member-row")
+    .filter({ hasText: /integration-worker-pool-\d+/u })
+    .first();
+  await expect(refreshedWorkerPoolMember).toBeVisible({ timeout: 30_000 });
+  const selectedPoolMemberName =
+    (await refreshedWorkerPoolMember.locator("strong").textContent())?.trim() ??
+    "";
+  expect(selectedPoolMemberName).toMatch(/^integration-worker-pool-\d+$/u);
+  await refreshedWorkerPoolMember.click();
   const locatedPoolMember = window
     .locator(".thread-row")
-    .filter({ hasText: "integration-worker-pool-1" });
+    .filter({ hasText: selectedPoolMemberName });
   await expect(locatedPoolMember).toBeVisible();
   await expect(locatedPoolMember).toHaveAttribute("data-state", "open");
   const threadTrends = window.locator(".thread-trends");

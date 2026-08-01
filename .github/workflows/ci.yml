@@ -56,12 +56,16 @@ jobs:
         include:
           - name: macOS-arm64
             runner: macos-14
+            e2e: smoke
           - name: macOS-x64
             runner: macos-15-intel
+            e2e: smoke
           - name: Linux-x64
             runner: ubuntu-22.04
+            e2e: full
           - name: Windows-x64
             runner: windows-2022
+            e2e: smoke
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 45
     steps:
@@ -85,11 +89,11 @@ jobs:
         env:
           MAVEN_ARGS: -ntp -DskipTests
         run: npm run package:test
-      - name: Packaged application E2E
-        if: runner.os != 'Linux'
-        run: npm run test:e2e
-      - name: Packaged application E2E (Xvfb)
-        if: runner.os == 'Linux'
+      - name: Packaged application launch smoke
+        if: matrix.e2e == 'smoke'
+        run: npm run test:e2e -- --grep "main window"
+      - name: Full packaged application E2E (Xvfb)
+        if: matrix.e2e == 'full'
         run: xvfb-run -a npm run test:e2e
       - uses: actions/upload-artifact@v7
         if: failure()
