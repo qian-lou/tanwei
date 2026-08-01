@@ -17,21 +17,25 @@ jobs:
         include:
           - name: macOS-arm64
             runner: macos-14
+            signing: macos
           - name: macOS-x64
             runner: macos-15-intel
+            signing: macos
           - name: Linux-x64
             runner: ubuntu-22.04
+            signing: none
           - name: Windows-x64
             runner: windows-2022
+            signing: windows
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 60
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      CSC_LINK: ${{ runner.os == 'macOS' && secrets.MAC_CSC_LINK || runner.os == 'Windows' && secrets.WINDOWS_CSC_LINK || '' }}
-      CSC_KEY_PASSWORD: ${{ runner.os == 'macOS' && secrets.MAC_CSC_KEY_PASSWORD || runner.os == 'Windows' && secrets.WINDOWS_CSC_KEY_PASSWORD || '' }}
-      APPLE_ID: ${{ runner.os == 'macOS' && secrets.APPLE_ID || '' }}
-      APPLE_APP_SPECIFIC_PASSWORD: ${{ runner.os == 'macOS' && secrets.APPLE_APP_SPECIFIC_PASSWORD || '' }}
-      APPLE_TEAM_ID: ${{ runner.os == 'macOS' && secrets.APPLE_TEAM_ID || '' }}
+      CSC_LINK: ${{ matrix.signing == 'macos' && secrets.MAC_CSC_LINK || matrix.signing == 'windows' && secrets.WINDOWS_CSC_LINK || '' }}
+      CSC_KEY_PASSWORD: ${{ matrix.signing == 'macos' && secrets.MAC_CSC_KEY_PASSWORD || matrix.signing == 'windows' && secrets.WINDOWS_CSC_KEY_PASSWORD || '' }}
+      APPLE_ID: ${{ matrix.signing == 'macos' && secrets.APPLE_ID || '' }}
+      APPLE_APP_SPECIFIC_PASSWORD: ${{ matrix.signing == 'macos' && secrets.APPLE_APP_SPECIFIC_PASSWORD || '' }}
+      APPLE_TEAM_ID: ${{ matrix.signing == 'macos' && secrets.APPLE_TEAM_ID || '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
