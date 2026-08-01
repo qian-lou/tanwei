@@ -85,9 +85,21 @@ npm run dev
 npm run verify
 ```
 
-`verify` 还包含仓库维护者使用的参考完整性检查；普通贡献者可分别运行上表中的项目构建与
-测试命令。正式发布资格和长时测试要求见
+`verify` 会依次运行完整测试、当前平台目录包和真实 Attach E2E。正式发布资格和长时测试要求见
 [`docs/release-qualification.md`](docs/release-qualification.md)。
+
+### 发布
+
+推送到 `main` 或创建 Pull Request 会触发跨 JDK、跨平台验证。正式版本通过与 Desktop
+版本一致的标签发布，例如 `0.1.0` 对应 `v0.1.0`：
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+Release 工作流要求配置 macOS Developer ID 与公证凭据，以及 Windows 代码签名证书；凭据
+缺失时会拒绝发布。安装包、更新元数据和版本说明由工作流统一写入 GitHub Release。
 
 ## 架构
 

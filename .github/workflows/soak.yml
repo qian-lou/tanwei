@@ -1,0 +1,65 @@
+name: Desktop soak
+
+on:
+  workflow_dispatch:
+    inputs:
+      duration_seconds:
+        description: "Single-session soak duration (default 4 hours; max 5 hours in this workflow)"
+        required: true
+        default: "14400"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  soak:
+    name: ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: macOS-arm64
+            runner: macos-14
+          - name: Linux-x64
+            runner: ubuntu-22.04
+          - name: Windows-x64
+            runner: windows-2022
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 330
+    env:
+      TANWEI_SOAK_DURATION_SECONDS: ${{ inputs.duration_seconds }}
+      TANWEI_SOAK_REPORT: output/soak/${{ matrix.name }}.json
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: runner.os == 'Windows'
+      - name: Use repository npm version
+        run: npm install --global npm@11.6.2
+      - run: npm ci
+      - name: Validate workflow duration
+        run: |
+          node -e "const value = Number(process.env.TANWEI_SOAK_DURATION_SECONDS); if (!Number.isInteger(value) || value < 30 || value > 18000) throw new Error('duration_seconds must be an integer from 30 to 18000')"
+      - run: npm run test:soak:unit
+      - run: npm run package:test
+      - name: Run packaged desktop soak
+        if: runner.os != 'Linux'
+        run: npm run test:soak
+      - name: Run packaged desktop soak (Xvfb)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a npm run test:soak
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: soak-${{ matrix.name }}
+          path: output/soak/*.json
+          if-no-files-found: warn

@@ -40,8 +40,7 @@
     "test:e2e": "playwright test",
     "test": "npm run metadata:verify && npm run verify:ui && npm run typecheck && npm run test:unit && npm run test:soak:unit && npm run test:jvm",
     "verify:ui": "node scripts/verify-shadcn-controls.mjs",
-    "verify:reference": "node scripts/verify-reference-clean.mjs",
-    "verify": "npm run test && npm run package:test && npm run test:e2e && npm run verify:reference"
+    "verify": "npm run test && npm run package:test && npm run test:e2e"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.0",

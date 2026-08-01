@@ -1,0 +1,126 @@
+name: Signed release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    name: Package ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: macOS-arm64
+            runner: macos-14
+          - name: macOS-x64
+            runner: macos-15-intel
+          - name: Linux-x64
+            runner: ubuntu-22.04
+          - name: Windows-x64
+            runner: windows-2022
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CSC_LINK: ${{ runner.os == 'macOS' && secrets.MAC_CSC_LINK || runner.os == 'Windows' && secrets.WINDOWS_CSC_LINK || '' }}
+      CSC_KEY_PASSWORD: ${{ runner.os == 'macOS' && secrets.MAC_CSC_KEY_PASSWORD || runner.os == 'Windows' && secrets.WINDOWS_CSC_KEY_PASSWORD || '' }}
+      APPLE_ID: ${{ runner.os == 'macOS' && secrets.APPLE_ID || '' }}
+      APPLE_APP_SPECIFIC_PASSWORD: ${{ runner.os == 'macOS' && secrets.APPLE_APP_SPECIFIC_PASSWORD || '' }}
+      APPLE_TEAM_ID: ${{ runner.os == 'macOS' && secrets.APPLE_TEAM_ID || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: runner.os == 'Windows'
+      - name: Use repository npm version
+        run: npm install --global npm@11.6.2
+      - run: npm ci
+      - name: Require platform signing credentials
+        if: runner.os != 'Linux'
+        shell: bash
+        run: |
+          test -n "$CSC_LINK"
+          test -n "$CSC_KEY_PASSWORD"
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            test -n "$APPLE_ID"
+            test -n "$APPLE_APP_SPECIFIC_PASSWORD"
+            test -n "$APPLE_TEAM_ID"
+          fi
+      - run: npm run test
+      - run: npm run package:release
+      - name: Verify macOS signature and notarization ticket
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          set -euo pipefail
+          app_path="$(find apps/desktop/release -maxdepth 2 -name '*.app' -print -quit)"
+          test -n "$app_path"
+          codesign --verify --deep --strict --verbose=2 "$app_path"
+          spctl --assess --type execute --verbose=2 "$app_path"
+          for artifact in apps/desktop/release/*.dmg; do
+            xcrun stapler validate "$artifact"
+          done
+      - name: Verify Windows Authenticode signature
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $installers = @(Get-ChildItem 'apps/desktop/release/*.exe')
+          if ($installers.Count -eq 0) { throw 'No Windows installer was produced' }
+          foreach ($installer in $installers) {
+            $signature = Get-AuthenticodeSignature $installer.FullName
+            if ($signature.Status -ne 'Valid') {
+              throw "Invalid Authenticode signature for $($installer.Name): $($signature.Status)"
+            }
+          }
+      - name: Packaged application E2E
+        if: runner.os != 'Linux'
+        run: npm run test:e2e
+      - name: Packaged application E2E (Xvfb)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.name }}
+          path: |
+            apps/desktop/release/*.dmg
+            apps/desktop/release/*.zip
+            apps/desktop/release/*.exe
+            apps/desktop/release/*.AppImage
+            apps/desktop/release/*.deb
+            apps/desktop/release/*.yml
+            apps/desktop/release/*.blockmap
+          if-no-files-found: error
+
+  publish:
+    name: Publish immutable release
+    needs: package
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: release-*
+          path: release-assets
+          merge-multiple: true
+      - name: Publish installers and updater metadata
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >-
+          gh release create "$GITHUB_REF_NAME"
+          release-assets/*
+          --verify-tag
+          --generate-notes
+          --title "探微 $GITHUB_REF_NAME"
