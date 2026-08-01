@@ -1,0 +1,91 @@
+.console-view .console-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  min-block-size: calc(var(--tw-space-8) * 7);
+  border-radius: var(--tw-radius-lg);
+  overflow: hidden;
+  color: var(--accent-foreground);
+  background: var(--card);
+  box-shadow: var(--tw-shadow-elevated);
+}
+
+.console-view .console-command,
+.console-view .console-output {
+  padding: var(--tw-space-5);
+}
+
+.console-view .console-command {
+  border-inline-end: var(--tw-focus-width) solid var(--primary-foreground);
+}
+
+.console-view .console-command label {
+  display: grid;
+  gap: var(--tw-space-3);
+}
+
+.console-view .console-command [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.console-view .console-command pre,
+.console-view .console-output pre,
+.console-view .console-empty,
+.console-view .console-error {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  line-height: var(--tw-leading-mono);
+}
+
+.console-view .console-command pre {
+  min-block-size: calc(var(--tw-space-8) * 3);
+  margin-block: var(--tw-space-5);
+  white-space: pre-wrap;
+}
+
+.console-view .console-command__footer,
+.console-view .console-output header,
+.console-view .console-output article > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.console-view .console-output {
+  overflow: auto;
+  max-block-size: calc(var(--tw-space-8) * 8);
+}
+
+.console-view .console-output header {
+  min-block-size: var(--tw-target-min);
+  border-block-end: var(--tw-focus-width) solid var(--primary-foreground);
+}
+
+.console-view .console-output article {
+  padding-block: var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--primary-foreground);
+}
+
+.console-view .console-output article span {
+  opacity: 0.62;
+}
+
+.console-view .console-output pre {
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+.console-view .console-error {
+  padding-block: var(--tw-space-4);
+}
+
+@media (width < 768px) {
+  .console-view .console-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .console-view .console-command {
+    border-inline-end: 0;
+    border-block-end: var(--tw-focus-width) solid var(--primary-foreground);
+  }
+}

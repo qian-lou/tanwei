@@ -1,0 +1,405 @@
+.loggers-view .logger-toolbar {
+  display: grid;
+  grid-template-columns: minmax(calc(var(--tw-space-8) * 2), auto) minmax(
+      0,
+      1fr
+    ) auto;
+  align-items: end;
+  gap: var(--tw-space-4);
+  margin-block-end: var(--tw-space-4);
+}
+
+.loggers-view .logger-toolbar label,
+.loggers-view .logger-mutation__controls label {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.loggers-view .logger-toolbar input,
+.loggers-view .logger-toolbar [data-slot="select-trigger"],
+.loggers-view .logger-mutation [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.loggers-view .logger-mutation__controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--tw-space-4);
+}
+
+.loggers-view .framework-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tw-space-3);
+  margin-block-end: var(--tw-space-5);
+}
+
+.loggers-view .logger-notice,
+.loggers-view .framework-warning {
+  display: flex;
+  gap: var(--tw-space-4);
+  margin-block-end: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border-radius: var(--tw-radius-sm);
+}
+
+.loggers-view .logger-notice {
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.loggers-view .framework-warning {
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 18%, transparent);
+  background: var(--primary-foreground);
+}
+
+.loggers-view .logger-inspector {
+  display: grid;
+  grid-template-columns: minmax(calc(var(--tw-space-8) * 4), 2fr) minmax(0, 5fr);
+  gap: var(--tw-space-5);
+  align-items: start;
+}
+
+.loggers-view .logger-list,
+.loggers-view .logger-detail {
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 14%, transparent);
+  border-radius: var(--tw-radius-md);
+  background: color-mix(in srgb, var(--primary-foreground) 90%, transparent);
+}
+
+.loggers-view .logger-list {
+  position: sticky;
+  inset-block-start: 0;
+  overflow: hidden;
+}
+
+.loggers-view .logger-list > header,
+.loggers-view .logger-list > footer,
+.loggers-view .logger-detail__header,
+.loggers-view .logger-section > header,
+.loggers-view .handler-list article > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.loggers-view .logger-list > header {
+  min-block-size: calc(var(--tw-space-8) + var(--tw-space-4));
+  padding: var(--tw-space-4);
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 14%, transparent);
+}
+
+.loggers-view .logger-list__items {
+  max-block-size: calc(100vh - var(--tw-space-8) * 6);
+  overflow: auto;
+}
+
+.loggers-view .logger-row {
+  display: grid;
+  inline-size: 100%;
+  min-block-size: calc(var(--tw-space-8) + var(--tw-space-4));
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--tw-space-3);
+  border: 0;
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 12%, transparent);
+  padding: var(--tw-space-4);
+  color: inherit;
+  background: transparent;
+  text-align: start;
+  cursor: pointer;
+}
+
+.loggers-view .logger-row:hover {
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+}
+
+.loggers-view .logger-row--selected {
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.loggers-view .logger-row strong,
+.loggers-view .logger-row small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.loggers-view .logger-row small,
+.loggers-view .logger-row > span:last-child {
+  opacity: 0.62;
+}
+
+.loggers-view .logger-row > span:last-child {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.loggers-view .logger-list__empty,
+.loggers-view .logger-detail__empty {
+  padding: var(--tw-space-6);
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+}
+
+.loggers-view .logger-list > footer {
+  padding: var(--tw-space-3);
+  border-block-start: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 14%, transparent);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.loggers-view .logger-detail {
+  min-inline-size: 0;
+  padding: var(--tw-space-5);
+}
+
+.loggers-view .logger-detail__header {
+  align-items: flex-start;
+}
+
+.loggers-view .logger-detail__header h2 {
+  margin: var(--tw-space-2) 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  line-height: var(--tw-leading-mono);
+}
+
+.loggers-view .logger-detail__header p {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+}
+
+.loggers-view .logger-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--tw-space-3);
+  margin: var(--tw-space-5) 0 0;
+}
+
+.loggers-view .logger-facts > div {
+  min-inline-size: 0;
+  padding: var(--tw-space-4);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 12%, transparent);
+  border-radius: var(--tw-radius-sm);
+}
+
+.loggers-view .logger-facts dt {
+  color: color-mix(in srgb, var(--foreground) 56%, transparent);
+  text-transform: uppercase;
+}
+
+.loggers-view .logger-facts dd {
+  margin: var(--tw-space-2) 0 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.loggers-view .logger-section {
+  display: grid;
+  gap: var(--tw-space-4);
+  margin-block-start: var(--tw-space-6);
+  padding-block-start: var(--tw-space-5);
+  border-block-start: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 18%, transparent);
+}
+
+.loggers-view .logger-section > header {
+  align-items: flex-start;
+}
+
+.loggers-view .logger-section h3,
+.loggers-view .logger-section p {
+  margin: var(--tw-space-2) 0 0;
+}
+
+.loggers-view .logger-section > header > p {
+  max-inline-size: calc(var(--tw-space-8) * 4);
+  color: color-mix(in srgb, var(--foreground) 58%, transparent);
+  text-align: end;
+}
+
+.loggers-view .handler-list {
+  display: grid;
+  gap: var(--tw-space-3);
+}
+
+.loggers-view .handler-list article {
+  display: grid;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-4);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 12%, transparent);
+  border-radius: var(--tw-radius-sm);
+}
+
+.loggers-view .handler-list code {
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.loggers-view .handler-list p {
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+}
+
+.loggers-view .logger-confirmation {
+  display: flex;
+  align-items: center;
+  min-block-size: var(--tw-target-min);
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-3);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 14%, transparent);
+  border-radius: var(--tw-radius-sm);
+}
+
+.loggers-view .logger-confirmation input {
+  inline-size: var(--tw-space-5);
+  block-size: var(--tw-space-5);
+}
+
+.loggers-view .logger-mutation [data-slot="button"] {
+  justify-self: start;
+}
+
+.loggers-view .logger-mutation__preview {
+  display: grid;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 18%, transparent);
+  border-radius: var(--tw-radius-sm);
+}
+
+.loggers-view .logger-mutation__preview dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.loggers-view .logger-mutation__preview dl div {
+  min-inline-size: 0;
+  padding: var(--tw-space-3);
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 14%, transparent);
+}
+
+.loggers-view .logger-mutation__preview dd {
+  margin: var(--tw-space-2) 0 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+}
+
+.loggers-view .logger-mutation__preview code {
+  font-family: inherit;
+}
+
+.loggers-view .logger-mutation__no-change {
+  padding: var(--tw-space-4);
+  border: var(--tw-stroke) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.loggers-view .logger-mutation__result {
+  display: grid;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border-radius: var(--tw-radius-sm);
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.loggers-view .logger-mutation__result header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.loggers-view .logger-mutation__result p,
+.loggers-view .logger-mutation__result dl {
+  margin: 0;
+}
+
+.loggers-view .logger-mutation__result dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.loggers-view .logger-mutation__result dl div {
+  min-inline-size: 0;
+  padding: var(--tw-space-3);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--primary-foreground) 24%, transparent);
+}
+
+.loggers-view .logger-mutation__result dl div:last-child {
+  grid-column: 1 / -1;
+}
+
+.loggers-view .logger-mutation__result dd {
+  margin: var(--tw-space-2) 0 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+}
+
+.loggers-view .logger-mutation__result code {
+  font-family: inherit;
+}
+
+@media (width < 768px) {
+  .loggers-view .logger-toolbar,
+  .loggers-view .logger-inspector,
+  .loggers-view .logger-facts,
+  .loggers-view .logger-mutation__controls,
+  .loggers-view .logger-mutation__preview dl {
+    grid-template-columns: 1fr;
+  }
+
+  .loggers-view .logger-list {
+    position: static;
+  }
+
+  .loggers-view .logger-list__items {
+    max-block-size: calc(var(--tw-space-8) * 6);
+  }
+
+  .loggers-view .logger-section > header {
+    display: grid;
+  }
+
+  .loggers-view .logger-section > header > p {
+    max-inline-size: none;
+    text-align: start;
+  }
+
+  .loggers-view .logger-mutation__result {
+    grid-template-columns: 1fr;
+  }
+
+  .loggers-view .logger-mutation__result header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .loggers-view .logger-mutation__result dl {
+    grid-template-columns: 1fr;
+  }
+
+  .loggers-view .logger-mutation__result dl div:last-child {
+    grid-column: auto;
+  }
+}

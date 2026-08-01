@@ -1,0 +1,1331 @@
+.artifacts-view .artifact-toolbar,
+.artifacts-view .artifact-list article header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.artifacts-view .artifact-toolbar {
+  margin-block-end: var(--tw-space-5);
+  padding-block: var(--tw-space-4);
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .artifact-toolbar p {
+  margin-block: var(--tw-space-2);
+}
+
+.artifacts-view .artifact-notice {
+  display: flex;
+  gap: var(--tw-space-4);
+  margin-block-end: var(--tw-space-5);
+  padding: var(--tw-space-4);
+  border-radius: var(--tw-radius-sm);
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.artifacts-view .artifact-list h2,
+.artifacts-view .artifact-type,
+.artifacts-view .artifact-list dd,
+.artifacts-view .empty-panel__title {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .artifact-list {
+  display: grid;
+  gap: var(--tw-space-4);
+}
+
+.artifacts-view .artifact-list article {
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.artifacts-view .artifact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tw-space-3);
+}
+
+.artifacts-view .artifact-list h2 {
+  overflow-wrap: anywhere;
+}
+
+.artifacts-view .artifact-list dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tw-space-3);
+}
+
+.artifacts-view .artifact-list dl div {
+  min-inline-size: 0;
+  padding-block-end: var(--tw-space-3);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .artifact-list dd {
+  margin: var(--tw-space-2) 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.artifacts-view .empty-panel {
+  padding: var(--tw-space-6);
+  border: var(--tw-focus-width) dashed var(--border);
+  border-radius: var(--tw-radius-md);
+}
+
+.artifacts-view .observation-export-inspector {
+  display: grid;
+  gap: var(--tw-space-5);
+  margin-block-end: var(--tw-space-6);
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-lg);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.artifacts-view .observation-export-inspector > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tw-space-5);
+}
+
+.artifacts-view .observation-export-inspector h2 {
+  margin-block: var(--tw-space-2);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .observation-export-inspector > header p {
+  margin-block: var(--tw-space-2) 0;
+  overflow-wrap: anywhere;
+}
+
+.artifacts-view .observation-export-inspector__identity,
+.artifacts-view .observation-export-inspector__summary {
+  display: grid;
+  margin: 0;
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .observation-export-inspector__identity {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.artifacts-view .observation-export-inspector__summary {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.artifacts-view .observation-export-inspector__identity div,
+.artifacts-view .observation-export-inspector__summary div {
+  min-inline-size: 0;
+  padding: var(--tw-space-4);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .observation-export-inspector__identity div:last-child,
+.artifacts-view .observation-export-inspector__summary div:last-child {
+  border-inline-end: 0;
+}
+
+.artifacts-view .observation-export-inspector dd {
+  margin: var(--tw-space-2) 0 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+}
+
+.artifacts-view .observation-export-inspector__table {
+  overflow: auto;
+  max-block-size: calc(var(--tw-space-8) * 10);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+}
+
+.artifacts-view .observation-export-inspector__table table {
+  inline-size: 100%;
+  min-inline-size: calc(var(--tw-space-8) * 16);
+  border-collapse: collapse;
+}
+
+.artifacts-view .observation-export-inspector__table th,
+.artifacts-view .observation-export-inspector__table td {
+  padding: var(--tw-space-3);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  text-align: end;
+  white-space: nowrap;
+}
+
+.artifacts-view .observation-export-inspector__table th:first-child,
+.artifacts-view .observation-export-inspector__table td:first-child {
+  text-align: start;
+}
+
+.artifacts-view .observation-export-inspector__table code {
+  display: block;
+  overflow: hidden;
+  max-inline-size: calc(var(--tw-space-8) * 8);
+  text-overflow: ellipsis;
+}
+
+.artifacts-view .pool-trend-artifact-inspector {
+  display: grid;
+  gap: var(--tw-space-5);
+  margin-block-end: var(--tw-space-6);
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-lg);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.artifacts-view .pool-trend-artifact-inspector__header,
+.artifacts-view .pool-trend-artifact-comparison > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tw-space-5);
+}
+
+.artifacts-view .pool-trend-artifact-inspector__header h2,
+.artifacts-view .pool-trend-artifact-comparison h3 {
+  margin-block: var(--tw-space-2);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .pool-trend-artifact-inspector__header p,
+.artifacts-view .pool-trend-artifact-comparison p {
+  margin-block: var(--tw-space-2) 0;
+}
+
+.artifacts-view .pool-trend-artifact-inspector__header code {
+  display: block;
+  margin-block-start: var(--tw-space-2);
+  overflow-wrap: anywhere;
+}
+
+.artifacts-view .pool-trend-artifact-inspector__metrics,
+.artifacts-view .pool-trend-artifact-comparison__window {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin: 0;
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .pool-trend-artifact-inspector__metrics div,
+.artifacts-view .pool-trend-artifact-comparison__window div {
+  min-inline-size: 0;
+  padding: var(--tw-space-4);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .pool-trend-artifact-inspector__metrics div:last-child,
+.artifacts-view .pool-trend-artifact-comparison__window div:last-child {
+  border-inline-end: 0;
+}
+
+.artifacts-view .pool-trend-artifact-inspector__metrics dd,
+.artifacts-view .pool-trend-artifact-comparison__window dd {
+  margin: var(--tw-space-2) 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  white-space: nowrap;
+}
+
+.artifacts-view .pool-trend-artifact-inspector__chart {
+  display: grid;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-4);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  background: var(--background);
+}
+
+.artifacts-view .pool-trend-artifact-inspector__legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .pool-trend-artifact-inspector__legend strong {
+  color: var(--muted-foreground);
+  font-weight: 500;
+}
+
+.artifacts-view .pool-trend-artifact-inspector__legend span::before {
+  display: inline-block;
+  inline-size: var(--tw-space-5);
+  margin-inline-end: var(--tw-space-2);
+  border-block-start: 2px solid var(--foreground);
+  content: "";
+  vertical-align: middle;
+}
+
+.artifacts-view
+  .pool-trend-artifact-inspector__legend
+  span:nth-child(2)::before {
+  border-block-start-style: dashed;
+}
+
+.artifacts-view
+  .pool-trend-artifact-inspector__legend
+  span:nth-child(3)::before {
+  border-block-start-style: dotted;
+}
+
+.artifacts-view .pool-trend-artifact-inspector__chart svg {
+  inline-size: 100%;
+  block-size: calc(var(--tw-space-8) * 2);
+  overflow: visible;
+}
+
+.artifacts-view .pool-trend-artifact-inspector__chart line {
+  stroke: var(--border);
+  stroke-width: var(--tw-focus-width);
+}
+
+.artifacts-view .pool-trend-artifact-inspector__chart path {
+  fill: none;
+  stroke: var(--foreground);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.artifacts-view .pool-trend-artifact-inspector__active {
+  stroke-dasharray: 8 5;
+}
+
+.artifacts-view .pool-trend-artifact-inspector__size {
+  stroke-dasharray: 2 5;
+}
+
+.artifacts-view .pool-trend-artifact-inspector__boundary,
+.artifacts-view .pool-trend-artifact-comparison__empty {
+  margin: 0;
+  padding: var(--tw-space-4);
+  border-inline-start: var(--tw-space-1) solid var(--border);
+}
+
+.artifacts-view .pool-trend-artifact-inspector__boundary strong {
+  display: block;
+  margin-block-start: var(--tw-space-2);
+}
+
+.artifacts-view .jit-regression-identity {
+  display: grid;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  background: var(--card);
+}
+
+.artifacts-view .jit-regression-identity > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.artifacts-view .jit-regression-identity h3 {
+  margin: var(--tw-space-2) 0 0;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .jit-regression-identity dl,
+.artifacts-view .jit-regression-comparison__identity {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+  border-block-start: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .jit-regression-identity dl > div,
+.artifacts-view .jit-regression-comparison__identity > div {
+  min-inline-size: 0;
+  padding: var(--tw-space-3);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .jit-regression-identity dl > div:last-child,
+.artifacts-view .jit-regression-comparison__identity > div:last-child {
+  border-inline-end: 0;
+}
+
+.artifacts-view .jit-regression-identity dd,
+.artifacts-view .jit-regression-comparison__identity dd {
+  margin: var(--tw-space-2) 0 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .jit-regression-comparison__identity {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.artifacts-view .jit-regression-comparison__identity dd span {
+  display: block;
+  margin-block-start: var(--tw-space-1);
+  color: var(--muted-foreground);
+}
+
+.artifacts-view .pool-trend-artifact-comparison {
+  display: grid;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  background: var(--background);
+}
+
+.artifacts-view .pool-trend-artifact-comparison__controls {
+  display: flex;
+  align-items: end;
+  gap: var(--tw-space-3);
+  min-inline-size: min(100%, 36rem);
+}
+
+.artifacts-view .pool-trend-artifact-comparison__controls label {
+  display: grid;
+  flex: 1;
+  gap: var(--tw-space-2);
+  min-inline-size: 0;
+}
+
+.artifacts-view .pool-trend-artifact-comparison__controls [data-slot="select-trigger"] {
+  min-inline-size: 0;
+  block-size: 44px;
+}
+
+.artifacts-view .pool-trend-artifact-comparison__window {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.artifacts-view .pool-trend-artifact-comparison__table-wrap {
+  overflow-x: auto;
+}
+
+.artifacts-view .pool-trend-artifact-comparison table {
+  inline-size: 100%;
+  border-collapse: collapse;
+}
+
+.artifacts-view .pool-trend-artifact-comparison th,
+.artifacts-view .pool-trend-artifact-comparison td {
+  padding: var(--tw-space-3);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  text-align: start;
+}
+
+.artifacts-view .pool-trend-artifact-comparison td {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .heap-artifact-inspector {
+  display: grid;
+  gap: var(--tw-space-5);
+  margin-block-end: var(--tw-space-6);
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-lg);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.artifacts-view .heap-artifact-inspector__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.artifacts-view .heap-artifact-inspector__header h2,
+.artifacts-view .heap-artifact-diff__header h3 {
+  margin-block: var(--tw-space-2);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .heap-artifact-metrics,
+.artifacts-view .heap-artifact-diff__identity,
+.artifacts-view .heap-artifact-diff__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .heap-artifact-metrics div,
+.artifacts-view .heap-artifact-diff__identity div,
+.artifacts-view .heap-artifact-diff__metrics div {
+  min-inline-size: 0;
+  padding: var(--tw-space-4);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .heap-artifact-metrics div:last-child,
+.artifacts-view .heap-artifact-diff__identity div:last-child,
+.artifacts-view .heap-artifact-diff__metrics div:last-child {
+  border-inline-end: 0;
+}
+
+.artifacts-view .heap-artifact-metrics dd,
+.artifacts-view .heap-artifact-diff__identity dd,
+.artifacts-view .heap-artifact-diff__metrics dd {
+  margin: var(--tw-space-2) 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  white-space: nowrap;
+}
+
+.artifacts-view .heap-artifact-inspector__boundary,
+.artifacts-view .heap-artifact-diff__boundary,
+.artifacts-view .heap-artifact-diff__empty {
+  margin: 0;
+  padding: var(--tw-space-4);
+  border-inline-start: var(--tw-space-1) solid var(--border);
+}
+
+.artifacts-view .heap-artifact-diff {
+  display: grid;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  background: var(--background);
+}
+
+.artifacts-view .heap-artifact-diff__header {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  align-items: end;
+  gap: var(--tw-space-5);
+}
+
+.artifacts-view .heap-artifact-diff__controls {
+  display: flex;
+  align-items: end;
+  gap: var(--tw-space-3);
+}
+
+.artifacts-view .heap-artifact-diff__controls label,
+.artifacts-view .heap-artifact-diff__filters label {
+  display: grid;
+  flex: 1;
+  gap: var(--tw-space-2);
+  min-inline-size: 0;
+}
+
+.artifacts-view .heap-artifact-diff [data-slot="select-trigger"],
+.artifacts-view .heap-artifact-diff input[type="search"] {
+  min-block-size: var(--tw-target-min);
+  min-inline-size: 0;
+}
+
+.artifacts-view .heap-artifact-diff__filters {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: var(--tw-space-3);
+}
+
+.artifacts-view .heap-artifact-diff__table-wrap {
+  overflow: auto;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+}
+
+.artifacts-view .heap-artifact-diff table {
+  inline-size: 100%;
+  border-collapse: collapse;
+}
+
+.artifacts-view .heap-artifact-diff th,
+.artifacts-view .heap-artifact-diff td {
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.artifacts-view .heap-artifact-diff th {
+  color: var(--accent-foreground);
+  background: var(--card);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .heap-artifact-diff th:first-child {
+  min-inline-size: calc(var(--tw-space-7) * 5);
+}
+
+.artifacts-view .heap-artifact-diff th:nth-child(n + 2),
+.artifacts-view .heap-artifact-diff td:nth-child(n + 2) {
+  text-align: end;
+  white-space: nowrap;
+}
+
+.artifacts-view .heap-artifact-diff code,
+.artifacts-view .heap-artifact-diff small {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.artifacts-view .heap-artifact-diff small {
+  margin-block-start: var(--tw-space-1);
+}
+
+.artifacts-view .heap-artifact-diff__delta--growth,
+.artifacts-view .heap-artifact-diff__delta--release {
+  font-family: var(--tw-font-mono);
+  font-weight: 700;
+}
+
+.artifacts-view .heap-artifact-diff__delta--stable {
+  font-family: var(--tw-font-mono);
+}
+
+.artifacts-view .thread-dump-inspector {
+  display: grid;
+  gap: var(--tw-space-5);
+  margin-block-end: var(--tw-space-6);
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-lg);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.artifacts-view .thread-dump-inspector__header,
+.artifacts-view .thread-dump-thread-list > header,
+.artifacts-view .thread-dump-detail > header,
+.artifacts-view .thread-dump-stack > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.artifacts-view .thread-dump-inspector__header h2,
+.artifacts-view .thread-dump-detail h3 {
+  margin-block: var(--tw-space-2);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .thread-dump-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .thread-dump-metrics div {
+  padding: var(--tw-space-4);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .thread-dump-metrics div:last-child {
+  border-inline-end: 0;
+}
+
+.artifacts-view .thread-dump-metrics dt {
+  text-transform: uppercase;
+}
+
+.artifacts-view .thread-dump-metrics dd {
+  margin: var(--tw-space-2) 0 0;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .thread-dump-inspector__boundary {
+  margin: 0;
+  padding: var(--tw-space-4);
+  color: var(--accent-foreground);
+  background: var(--card);
+}
+
+.artifacts-view .thread-dump-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto auto;
+  align-items: end;
+  gap: var(--tw-space-3);
+}
+
+.artifacts-view .thread-dump-filters label {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.artifacts-view .thread-dump-filters input[type="search"],
+.artifacts-view .thread-dump-filters [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.artifacts-view .thread-dump-deadlock-filter {
+  grid-template-columns: var(--tw-target-min) auto;
+  align-items: center;
+  min-block-size: var(--tw-target-min);
+}
+
+.artifacts-view .thread-dump-deadlock-filter input {
+  inline-size: var(--tw-target-min);
+  block-size: var(--tw-target-min);
+  margin: 0;
+}
+
+.artifacts-view .thread-dump-workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  align-items: start;
+  gap: var(--tw-space-4);
+}
+
+.artifacts-view .thread-dump-thread-list,
+.artifacts-view .thread-dump-detail {
+  min-inline-size: 0;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  background: var(--background);
+}
+
+.artifacts-view .thread-dump-thread-list {
+  max-block-size: calc(var(--tw-space-7) * 10);
+  overflow: auto;
+}
+
+.artifacts-view .thread-dump-thread-list > header,
+.artifacts-view .thread-dump-detail > header {
+  padding: var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .thread-dump-thread {
+  display: flex;
+  inline-size: 100%;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-3);
+  border: 0;
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  padding: var(--tw-space-3) var(--tw-space-4);
+  color: var(--foreground);
+  background: transparent;
+  text-align: start;
+  cursor: pointer;
+}
+
+.artifacts-view .thread-dump-thread > span {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.artifacts-view .thread-dump-thread strong,
+.artifacts-view .thread-dump-thread small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.artifacts-view .thread-dump-thread--selected {
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.artifacts-view
+  .thread-dump-thread--deadlocked:not(.thread-dump-thread--selected) {
+  border-inline-start: var(--tw-space-1) solid var(--border);
+}
+
+.artifacts-view .thread-dump-empty {
+  padding: var(--tw-space-5);
+}
+
+.artifacts-view .thread-dump-detail > dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .thread-dump-detail > dl div {
+  min-inline-size: 0;
+  padding: var(--tw-space-4);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .thread-dump-detail > dl div:last-child {
+  border-inline-end: 0;
+}
+
+.artifacts-view .thread-dump-detail > dl dd {
+  margin: var(--tw-space-2) 0 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+}
+
+.artifacts-view .thread-dump-stack {
+  padding: var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .thread-dump-stack ol {
+  max-block-size: calc(var(--tw-space-7) * 7);
+  margin: var(--tw-space-3) 0 0;
+  padding-inline-start: var(--tw-space-6);
+  overflow: auto;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  line-height: var(--tw-leading-mono);
+}
+
+.artifacts-view .thread-dump-stack li {
+  margin-block: var(--tw-space-2);
+  white-space: nowrap;
+}
+
+.artifacts-view .thread-dump-locks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+}
+
+.artifacts-view .thread-dump-locks section {
+  display: grid;
+  align-content: start;
+  gap: var(--tw-space-2);
+  min-inline-size: 0;
+}
+
+.artifacts-view .thread-dump-locks code {
+  padding: var(--tw-space-2);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.artifacts-view .thread-dump-comparison {
+  display: grid;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  background: var(--background);
+}
+
+.artifacts-view .thread-dump-comparison__header {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  align-items: end;
+  gap: var(--tw-space-5);
+}
+
+.artifacts-view .thread-dump-comparison__header h3,
+.artifacts-view .thread-dump-change-detail h4 {
+  margin-block: var(--tw-space-2);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .thread-dump-comparison__controls {
+  display: flex;
+  align-items: end;
+  gap: var(--tw-space-3);
+}
+
+.artifacts-view .thread-dump-comparison__controls label,
+.artifacts-view .thread-dump-comparison__filters label {
+  display: grid;
+  flex: 1;
+  gap: var(--tw-space-2);
+  min-inline-size: 0;
+}
+
+.artifacts-view .thread-dump-comparison [data-slot="select-trigger"],
+.artifacts-view .thread-dump-comparison input[type="search"] {
+  min-block-size: var(--tw-target-min);
+  min-inline-size: 0;
+}
+
+.artifacts-view .thread-dump-comparison__empty,
+.artifacts-view .thread-dump-comparison__boundary {
+  margin: 0;
+  padding: var(--tw-space-4);
+  border-inline-start: var(--tw-space-1) solid var(--border);
+}
+
+.artifacts-view .thread-dump-comparison__metrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .thread-dump-comparison__metrics div {
+  min-inline-size: 0;
+  padding: var(--tw-space-3);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .thread-dump-comparison__metrics div:last-child {
+  border-inline-end: 0;
+}
+
+.artifacts-view .thread-dump-comparison__metrics dd {
+  margin: var(--tw-space-2) 0 0;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .thread-dump-comparison__filters {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--tw-space-3);
+}
+
+.artifacts-view .thread-dump-comparison__workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  align-items: start;
+  gap: var(--tw-space-4);
+}
+
+.artifacts-view .thread-dump-change-list,
+.artifacts-view .thread-dump-change-detail {
+  min-inline-size: 0;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+}
+
+.artifacts-view .thread-dump-change-list {
+  max-block-size: calc(var(--tw-space-7) * 9);
+  overflow: auto;
+}
+
+.artifacts-view .thread-dump-change-list > header,
+.artifacts-view .thread-dump-change-detail > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .thread-dump-change {
+  display: flex;
+  inline-size: 100%;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-3);
+  border: 0;
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  padding: var(--tw-space-3) var(--tw-space-4);
+  color: var(--foreground);
+  background: transparent;
+  text-align: start;
+  cursor: pointer;
+}
+
+.artifacts-view .thread-dump-change > span {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.artifacts-view .thread-dump-change strong,
+.artifacts-view .thread-dump-change small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.artifacts-view .thread-dump-change--selected {
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.artifacts-view .thread-dump-change-detail > dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .thread-dump-change-detail > dl > div {
+  min-inline-size: 0;
+  padding: var(--tw-space-4);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .thread-dump-change-detail > dl > div:last-child {
+  border-inline-end: 0;
+}
+
+.artifacts-view .thread-dump-change-detail dd,
+.artifacts-view .thread-dump-change-evidence dd {
+  margin: var(--tw-space-2) 0 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+}
+
+.artifacts-view .thread-dump-change-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tw-space-2);
+}
+
+.artifacts-view .thread-dump-change-flags span {
+  padding: var(--tw-space-1) var(--tw-space-2);
+  border: var(--tw-focus-width) solid currentColor;
+  border-radius: var(--tw-radius-sm);
+}
+
+.artifacts-view .thread-dump-change-evidence {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.artifacts-view .thread-dump-change-evidence > section {
+  min-inline-size: 0;
+  padding: var(--tw-space-4);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .thread-dump-change-evidence > section:last-child {
+  border-inline-end: 0;
+}
+
+.artifacts-view .thread-dump-change-evidence dl {
+  display: grid;
+  gap: var(--tw-space-3);
+  margin: var(--tw-space-3) 0 0;
+}
+
+.artifacts-view .jfr-inspector {
+  display: grid;
+  gap: var(--tw-space-5);
+  margin-block-end: var(--tw-space-6);
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-lg);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.artifacts-view .jfr-inspector__header,
+.artifacts-view .jfr-panel > header,
+.artifacts-view .jfr-event-types li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.artifacts-view .jfr-inspector__header h2,
+.artifacts-view .jfr-panel h3 {
+  margin-block: var(--tw-space-2);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .jfr-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .jfr-metrics div {
+  padding: var(--tw-space-4);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .jfr-metrics div:last-child {
+  border-inline-end: 0;
+}
+
+.artifacts-view .jfr-metrics div:nth-child(4n) {
+  border-inline-end: 0;
+}
+
+.artifacts-view .jfr-metrics div:nth-child(-n + 4) {
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .jfr-metrics dt {
+  text-transform: uppercase;
+}
+
+.artifacts-view .jfr-metrics dd {
+  margin: var(--tw-space-2) 0 0;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .jfr-inspector__boundary {
+  margin: 0;
+  padding: var(--tw-space-4);
+  color: var(--accent-foreground);
+  background: var(--card);
+}
+
+.artifacts-view .jfr-inspector__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tw-space-4);
+}
+
+.artifacts-view .jfr-panel {
+  min-inline-size: 0;
+  padding: var(--tw-space-4);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+}
+
+.artifacts-view .jfr-panel--wide {
+  grid-column: 1 / -1;
+}
+
+.artifacts-view .jfr-table-wrap {
+  overflow: auto;
+  margin-block-start: var(--tw-space-4);
+}
+
+.artifacts-view .jfr-panel table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.artifacts-view .jfr-panel th,
+.artifacts-view .jfr-panel td {
+  padding: var(--tw-space-3);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.artifacts-view .jfr-panel code {
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .jfr-cell-stack {
+  display: grid;
+  gap: var(--tw-space-1);
+  white-space: nowrap;
+}
+
+.artifacts-view .jfr-cell-stack span,
+.artifacts-view .jfr-tier-list span,
+.artifacts-view .jfr-deoptimization-list p {
+  opacity: 0.68;
+}
+
+.artifacts-view .jfr-share-track {
+  display: block;
+  width: min(100%, var(--jfr-share));
+  min-width: var(--tw-space-1);
+  height: var(--tw-focus-width);
+  margin-block-start: var(--tw-space-2);
+  background: var(--chart-2);
+}
+
+.artifacts-view .jfr-event-types {
+  display: grid;
+  gap: var(--tw-space-2);
+  max-block-size: calc(var(--tw-space-7) * 5);
+  margin: var(--tw-space-4) 0 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+
+.artifacts-view .jfr-tier-list {
+  display: grid;
+  margin: var(--tw-space-4) 0 0;
+}
+
+.artifacts-view .jfr-tier-list div {
+  display: grid;
+  grid-template-columns: minmax(var(--tw-space-7), 0.4fr) 1fr;
+  gap: var(--tw-space-4);
+  padding-block: var(--tw-space-3);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .jfr-tier-list dd {
+  display: grid;
+  gap: var(--tw-space-1);
+  margin: 0;
+}
+
+.artifacts-view .jfr-tier-list strong {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.artifacts-view .jfr-deoptimization-list {
+  display: grid;
+  gap: var(--tw-space-3);
+  max-block-size: calc(var(--tw-space-7) * 6);
+  margin: var(--tw-space-4) 0 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+
+.artifacts-view .jfr-deoptimization-list li {
+  display: grid;
+  gap: var(--tw-space-2);
+  padding-block-end: var(--tw-space-3);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .jfr-deoptimization-list header {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--tw-space-3);
+}
+
+.artifacts-view .jfr-deoptimization-list p {
+  margin: 0;
+}
+
+.artifacts-view .jfr-event-types li {
+  padding-block-end: var(--tw-space-2);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.artifacts-view .jfr-panel__empty {
+  padding-block: var(--tw-space-5);
+}
+
+@media (width < 768px) {
+  .artifacts-view .artifact-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .artifacts-view .artifact-list dl {
+    grid-template-columns: 1fr;
+  }
+
+  .artifacts-view .jfr-inspector__header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .artifacts-view .thread-dump-inspector__header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .artifacts-view .heap-artifact-inspector__header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .artifacts-view .observation-export-inspector > header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .artifacts-view .pool-trend-artifact-inspector__header,
+  .artifacts-view .jit-regression-identity > header,
+  .artifacts-view .pool-trend-artifact-comparison > header,
+  .artifacts-view .pool-trend-artifact-comparison__controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .artifacts-view .pool-trend-artifact-inspector__metrics,
+  .artifacts-view .pool-trend-artifact-comparison__window,
+  .artifacts-view .jit-regression-identity dl,
+  .artifacts-view .jit-regression-comparison__identity,
+  .artifacts-view .heap-artifact-metrics,
+  .artifacts-view .heap-artifact-diff__header,
+  .artifacts-view .heap-artifact-diff__identity,
+  .artifacts-view .heap-artifact-diff__metrics,
+  .artifacts-view .heap-artifact-diff__filters,
+  .artifacts-view .thread-dump-metrics,
+  .artifacts-view .thread-dump-filters,
+  .artifacts-view .thread-dump-workbench,
+  .artifacts-view .thread-dump-detail > dl,
+  .artifacts-view .thread-dump-locks,
+  .artifacts-view .thread-dump-comparison__header,
+  .artifacts-view .thread-dump-comparison__metrics,
+  .artifacts-view .thread-dump-comparison__filters,
+  .artifacts-view .thread-dump-comparison__workbench,
+  .artifacts-view .thread-dump-change-detail > dl,
+  .artifacts-view .observation-export-inspector__identity,
+  .artifacts-view .observation-export-inspector__summary,
+  .artifacts-view .thread-dump-change-evidence {
+    grid-template-columns: 1fr;
+  }
+
+  .artifacts-view .heap-artifact-metrics div,
+  .artifacts-view .pool-trend-artifact-inspector__metrics div,
+  .artifacts-view .pool-trend-artifact-comparison__window div,
+  .artifacts-view .jit-regression-identity dl > div,
+  .artifacts-view .jit-regression-comparison__identity > div,
+  .artifacts-view .heap-artifact-diff__identity div,
+  .artifacts-view .heap-artifact-diff__metrics div,
+  .artifacts-view .thread-dump-metrics div,
+  .artifacts-view .thread-dump-detail > dl div,
+  .artifacts-view .thread-dump-comparison__metrics div,
+  .artifacts-view .thread-dump-change-detail > dl > div,
+  .artifacts-view .observation-export-inspector__identity div,
+  .artifacts-view .observation-export-inspector__summary div,
+  .artifacts-view .thread-dump-change-evidence > section {
+    border-inline-end: 0;
+    border-block-end: var(--tw-focus-width) solid var(--border);
+  }
+
+  .artifacts-view .heap-artifact-diff__controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .artifacts-view .thread-dump-comparison__controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .artifacts-view .jfr-metrics,
+  .artifacts-view .jfr-inspector__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .artifacts-view .jfr-metrics div {
+    border-inline-end: 0;
+    border-block-end: var(--tw-focus-width) solid var(--border);
+  }
+
+  .artifacts-view .jfr-panel--wide {
+    grid-column: auto;
+  }
+}

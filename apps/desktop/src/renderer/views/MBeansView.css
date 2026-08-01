@@ -1,0 +1,764 @@
+.mbeans-view .mbean-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--tw-space-4);
+  margin-block-end: var(--tw-space-5);
+}
+
+.mbeans-view .mbean-toolbar label {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.mbeans-view .mbean-toolbar input {
+  min-block-size: var(--tw-target-min);
+}
+
+.mbeans-view .mbean-notice {
+  display: flex;
+  gap: var(--tw-space-4);
+  margin-block-end: var(--tw-space-5);
+  padding: var(--tw-space-4);
+  border-radius: var(--tw-radius-sm);
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.mbeans-view .mbean-inspector {
+  display: grid;
+  grid-template-columns: minmax(calc(var(--tw-space-8) * 4), 2fr) minmax(0, 5fr);
+  gap: var(--tw-space-5);
+  align-items: start;
+}
+
+.mbeans-view .mbean-list,
+.mbeans-view .mbean-detail {
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 14%, transparent);
+  border-radius: var(--tw-radius-md);
+  background: color-mix(in srgb, var(--primary-foreground) 90%, transparent);
+}
+
+.mbeans-view .mbean-list {
+  position: sticky;
+  inset-block-start: 0;
+  overflow: hidden;
+}
+
+.mbeans-view .mbean-list > header,
+.mbeans-view .mbean-list > footer,
+.mbeans-view .mbean-detail__header,
+.mbeans-view .mbean-section > header,
+.mbeans-view .operation-list article > header,
+.mbeans-view .operation-composer > header,
+.mbeans-view .operation-preview > header,
+.mbeans-view .invocation-record > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.mbeans-view .mbean-list > header {
+  min-block-size: calc(var(--tw-space-8) + var(--tw-space-4));
+  padding: var(--tw-space-4);
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 14%, transparent);
+}
+
+.mbeans-view .mbean-list__items {
+  max-block-size: calc(100vh - var(--tw-space-8) * 6);
+  overflow: auto;
+}
+
+.mbeans-view .mbean-row {
+  display: grid;
+  inline-size: 100%;
+  min-block-size: calc(var(--tw-space-8) + var(--tw-space-4));
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--tw-space-3);
+  border: 0;
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 12%, transparent);
+  padding: var(--tw-space-4);
+  color: inherit;
+  background: transparent;
+  text-align: start;
+  cursor: pointer;
+}
+
+.mbeans-view .mbean-row:hover {
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+}
+
+.mbeans-view .mbean-row--selected {
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.mbeans-view .mbean-row strong,
+.mbeans-view .mbean-row small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mbeans-view .mbean-row small,
+.mbeans-view .mbean-row > span:last-child {
+  opacity: 0.62;
+}
+
+.mbeans-view .mbean-row > span:last-child {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.mbeans-view .mbean-list__empty,
+.mbeans-view .mbean-detail__empty {
+  padding: var(--tw-space-6);
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+}
+
+.mbeans-view .mbean-list > footer {
+  padding: var(--tw-space-3);
+  border-block-start: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 14%, transparent);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.mbeans-view .mbean-detail {
+  min-inline-size: 0;
+  padding: var(--tw-space-5);
+}
+
+.mbeans-view .mbean-detail__header {
+  align-items: flex-start;
+}
+
+.mbeans-view .mbean-detail__header h2 {
+  margin: var(--tw-space-2) 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  line-height: var(--tw-leading-mono);
+}
+
+.mbeans-view .mbean-detail__header p,
+.mbeans-view .mbean-description {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+}
+
+.mbeans-view .mbean-description {
+  margin-block-start: var(--tw-space-4);
+}
+
+.mbeans-view .mbean-section {
+  margin-block-start: var(--tw-space-6);
+  padding-block-start: var(--tw-space-5);
+  border-block-start: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 18%, transparent);
+}
+
+.mbeans-view .mbean-section > header {
+  align-items: flex-start;
+  margin-block-end: var(--tw-space-4);
+}
+
+.mbeans-view .mbean-section h3,
+.mbeans-view .mbean-section p {
+  margin: var(--tw-space-2) 0 0;
+}
+
+.mbeans-view .mbean-section > header > p {
+  max-inline-size: calc(var(--tw-space-8) * 4);
+  color: color-mix(in srgb, var(--foreground) 58%, transparent);
+  text-align: end;
+}
+
+.mbeans-view .attribute-list,
+.mbeans-view .operation-list {
+  display: grid;
+  gap: var(--tw-space-3);
+}
+
+.mbeans-view .attribute-row,
+.mbeans-view .operation-list article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-4);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 12%, transparent);
+  border-radius: var(--tw-radius-sm);
+}
+
+.mbeans-view .attribute-row__metadata {
+  min-inline-size: 0;
+}
+
+.mbeans-view .attribute-row__actions {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tw-space-3);
+}
+
+.mbeans-view .attribute-list article.attribute-row--selected {
+  border-color: var(--border);
+  background: color-mix(in srgb, var(--primary) 4%, transparent);
+}
+
+.mbeans-view .attribute-row__metadata strong,
+.mbeans-view .attribute-row__metadata code,
+.mbeans-view .attribute-row__metadata span {
+  display: block;
+}
+
+.mbeans-view .attribute-row__denied {
+  padding: var(--tw-space-3);
+  border-inline-start: var(--tw-focus-width) solid var(--border);
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+}
+
+.mbeans-view .attribute-row__metadata code,
+.mbeans-view .operation-list code,
+.mbeans-view .attribute-value pre {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.mbeans-view .attribute-row__metadata p,
+.mbeans-view .operation-list p {
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+}
+
+.mbeans-view .attribute-row__metadata span {
+  margin-block-start: var(--tw-space-2);
+  font-size: var(--tw-size-body);
+  text-transform: uppercase;
+}
+
+.mbeans-view .attribute-value {
+  grid-column: 1 / -1;
+  min-inline-size: 0;
+  padding-block-start: var(--tw-space-3);
+  border-block-start: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 12%, transparent);
+}
+
+.mbeans-view .attribute-value__class,
+.mbeans-view .attribute-value__type,
+.mbeans-view .attribute-value__node-value {
+  color: color-mix(in srgb, var(--foreground) 54%, transparent);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.mbeans-view .attribute-value__summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.mbeans-view .attribute-value__summary > div {
+  min-inline-size: 0;
+}
+
+.mbeans-view .attribute-value__summary strong,
+.mbeans-view .attribute-value__summary span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.mbeans-view .attribute-value__summary strong {
+  margin-block-start: var(--tw-space-2);
+}
+
+.mbeans-view .attribute-value__boundary {
+  margin: var(--tw-space-3) 0 0;
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-inline-start: var(--tw-focus-width) solid var(--border);
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+}
+
+.mbeans-view .attribute-value__tree {
+  display: grid;
+  max-block-size: calc(var(--tw-space-8) * 6);
+  overflow: auto;
+  margin-block-start: var(--tw-space-4);
+  padding: 0;
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 18%, transparent);
+  border-radius: var(--tw-radius-sm);
+  background: var(--background);
+  list-style: none;
+}
+
+.mbeans-view .attribute-value__node {
+  display: grid;
+  grid-template-columns: var(--tw-target-min) minmax(0, 1fr);
+  min-block-size: var(--tw-target-min);
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 10%, transparent);
+}
+
+.mbeans-view .attribute-value__node:last-child {
+  border-block-end: 0;
+}
+
+.mbeans-view .attribute-value__node--depth-1 {
+  padding-inline-start: var(--tw-space-4);
+}
+
+.mbeans-view .attribute-value__node--depth-2 {
+  padding-inline-start: calc(var(--tw-space-4) * 2);
+}
+
+.mbeans-view .attribute-value__node--depth-3 {
+  padding-inline-start: calc(var(--tw-space-4) * 3);
+}
+
+.mbeans-view .attribute-value__node--depth-4 {
+  padding-inline-start: calc(var(--tw-space-4) * 4);
+}
+
+.mbeans-view .attribute-value__node--depth-5 {
+  padding-inline-start: calc(var(--tw-space-4) * 5);
+}
+
+.mbeans-view .attribute-value__toggle {
+  display: grid;
+  inline-size: var(--tw-target-min);
+  min-block-size: var(--tw-target-min);
+  place-items: center;
+  border: 0;
+  border-inline-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 12%, transparent);
+  color: var(--foreground);
+  background: transparent;
+  font-family: var(--tw-font-mono);
+  cursor: pointer;
+}
+
+.mbeans-view .attribute-value__toggle:hover:not(:disabled) {
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.mbeans-view .attribute-value__toggle--leaf {
+  color: color-mix(in srgb, var(--foreground) 28%, transparent);
+  cursor: default;
+}
+
+.mbeans-view .attribute-value__node-body {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-2);
+  padding: var(--tw-space-3) var(--tw-space-4);
+}
+
+.mbeans-view .attribute-value__node-body > header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--tw-space-3);
+}
+
+.mbeans-view .attribute-value__node-body strong,
+.mbeans-view .attribute-value__node-body code {
+  overflow-wrap: anywhere;
+}
+
+.mbeans-view .attribute-value__kind {
+  padding: var(--tw-space-1) var(--tw-space-3);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 18%, transparent);
+  border-radius: var(--tw-radius-lg);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.mbeans-view .attribute-value__node-value {
+  color: var(--foreground);
+}
+
+.mbeans-view .attribute-value__node-body small {
+  color: color-mix(in srgb, var(--foreground) 54%, transparent);
+}
+
+.mbeans-view .attribute-value__raw {
+  margin-block-start: var(--tw-space-4);
+}
+
+.mbeans-view .attribute-value__raw [data-slot="collapsible-trigger"] {
+  min-block-size: var(--tw-target-min);
+  padding: var(--tw-space-3) 0;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mbeans-view .attribute-value__raw pre {
+  max-block-size: calc(var(--tw-space-8) * 4);
+  overflow: auto;
+  margin: var(--tw-space-2) 0 0;
+  padding: var(--tw-space-3);
+  border-radius: var(--tw-radius-sm);
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.mbeans-view .operation-list article {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.mbeans-view .operation-list article > header {
+  min-block-size: var(--tw-target-min);
+}
+
+.mbeans-view .operation-list article.operation-row--selected {
+  border-color: var(--border);
+  background: color-mix(in srgb, var(--primary) 4%, transparent);
+}
+
+.mbeans-view .operation-row__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--tw-space-3);
+}
+
+.mbeans-view .operation-row__denied {
+  padding: var(--tw-space-3);
+  border-inline-start: var(--tw-focus-width) solid var(--border);
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+}
+
+.mbeans-view .operation-composer {
+  display: grid;
+  gap: var(--tw-space-4);
+  margin-block-start: var(--tw-space-5);
+  padding: var(--tw-space-5);
+  border: var(--tw-stroke) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  background: color-mix(in srgb, var(--primary) 3%, var(--primary-foreground));
+}
+
+.mbeans-view .operation-composer h3,
+.mbeans-view .operation-composer p {
+  margin: var(--tw-space-2) 0 0;
+}
+
+.mbeans-view .operation-composer__signature,
+.mbeans-view .operation-preview strong {
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.mbeans-view .operation-arguments {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tw-space-4);
+}
+
+.mbeans-view .operation-arguments label {
+  display: grid;
+  gap: var(--tw-space-2);
+  min-inline-size: 0;
+}
+
+.mbeans-view .operation-arguments label > span {
+  overflow-wrap: anywhere;
+}
+
+.mbeans-view .operation-argument--json {
+  grid-column: 1 / -1;
+}
+
+.mbeans-view .operation-arguments input {
+  min-block-size: var(--tw-target-min);
+  inline-size: 100%;
+}
+
+.mbeans-view .operation-argument textarea {
+  min-block-size: calc(var(--tw-space-8) * 4);
+  resize: vertical;
+  font-family: var(--tw-font-mono);
+}
+
+.mbeans-view .operation-argument__schema {
+  display: grid;
+  gap: var(--tw-space-2);
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+}
+
+.mbeans-view .operation-argument__schema code {
+  overflow-wrap: anywhere;
+  color: var(--foreground);
+  font-family: var(--tw-font-mono);
+}
+
+.mbeans-view .operation-arguments__boundary {
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+}
+
+.mbeans-view .attribute-write-composer__field {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.mbeans-view .attribute-write-composer__field input {
+  min-block-size: var(--tw-target-min);
+  inline-size: 100%;
+}
+
+.mbeans-view .attribute-write-composer__schema {
+  display: grid;
+  gap: var(--tw-space-2);
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+}
+
+.mbeans-view .attribute-write-composer__schema code {
+  overflow-wrap: anywhere;
+  color: var(--foreground);
+  font-family: var(--tw-font-mono);
+}
+
+.mbeans-view .operation-composer__empty {
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+}
+
+.mbeans-view .operation-composer__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mbeans-view .operation-preview {
+  display: grid;
+  gap: var(--tw-space-4);
+  padding-block-start: var(--tw-space-5);
+  border-block-start: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 18%, transparent);
+}
+
+.mbeans-view .operation-preview > header {
+  align-items: flex-start;
+}
+
+.mbeans-view .operation-preview__arguments {
+  display: grid;
+  gap: var(--tw-space-3);
+}
+
+.mbeans-view .operation-preview__arguments article {
+  display: grid;
+  gap: var(--tw-space-3);
+  min-inline-size: 0;
+  padding: var(--tw-space-4);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 18%, transparent);
+  border-radius: var(--tw-radius-sm);
+  background: color-mix(in srgb, var(--card) 74%, transparent);
+}
+
+.mbeans-view .operation-preview__arguments article > header {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--tw-space-3);
+}
+
+.mbeans-view .operation-preview__arguments code {
+  overflow-wrap: anywhere;
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+}
+
+.mbeans-view .operation-preview__arguments pre {
+  max-block-size: calc(var(--tw-space-8) * 5);
+  overflow: auto;
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: var(--tw-font-mono);
+}
+
+.mbeans-view .operation-preview dl,
+.mbeans-view .invocation-record dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tw-space-3);
+  margin: 0;
+}
+
+.mbeans-view .operation-preview dl > div:last-child {
+  grid-column: 1 / -1;
+}
+
+.mbeans-view .attribute-write-preview dl > div:nth-last-child(-n + 2) {
+  grid-column: 1 / -1;
+}
+
+.mbeans-view .attribute-write-preview__values,
+.mbeans-view .attribute-write-record__values {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--tw-space-3);
+  margin-block-start: var(--tw-space-3);
+}
+
+.mbeans-view .attribute-write-preview__values pre,
+.mbeans-view .attribute-write-record__values pre {
+  max-block-size: calc(var(--tw-space-8) * 5);
+  overflow: auto;
+  margin: 0;
+  padding: var(--tw-space-3);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 18%, transparent);
+  border-radius: var(--tw-radius-sm);
+  background: color-mix(in srgb, var(--card) 74%, transparent);
+  white-space: pre-wrap;
+}
+
+.mbeans-view .operation-preview dt,
+.mbeans-view .invocation-record dt {
+  color: color-mix(in srgb, var(--foreground) 58%, transparent);
+  font-size: var(--tw-size-body);
+  text-transform: uppercase;
+}
+
+.mbeans-view .operation-preview dd,
+.mbeans-view .invocation-record dd {
+  margin: var(--tw-space-2) 0 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.mbeans-view .operation-confirmation {
+  display: grid;
+  grid-template-columns: var(--tw-target-min) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--tw-space-3);
+  min-block-size: var(--tw-target-min);
+}
+
+.mbeans-view .operation-confirmation input {
+  inline-size: var(--tw-space-5);
+  block-size: var(--tw-space-5);
+  justify-self: center;
+}
+
+.mbeans-view .invocation-history {
+  display: grid;
+  gap: var(--tw-space-3);
+}
+
+.mbeans-view .attribute-write-history {
+  display: grid;
+  gap: var(--tw-space-3);
+}
+
+.mbeans-view .invocation-record {
+  display: grid;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-4);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 14%, transparent);
+  border-radius: var(--tw-radius-sm);
+}
+
+.mbeans-view .invocation-record small {
+  display: block;
+  margin-block-start: var(--tw-space-2);
+  overflow-wrap: anywhere;
+  color: color-mix(in srgb, var(--foreground) 58%, transparent);
+  font-family: var(--tw-font-mono);
+}
+
+.mbeans-view .invocation-record pre {
+  max-block-size: calc(var(--tw-space-8) * 4);
+  overflow: auto;
+  margin: 0;
+  padding: var(--tw-space-3);
+  border-radius: var(--tw-radius-sm);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  white-space: pre-wrap;
+}
+
+.mbeans-view .attribute-write-record > code {
+  padding: var(--tw-space-3);
+  border-radius: var(--tw-radius-sm);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+}
+
+@media (width < 768px) {
+  .mbeans-view .mbean-toolbar,
+  .mbeans-view .attribute-row,
+  .mbeans-view .operation-arguments,
+  .mbeans-view .operation-preview dl,
+  .mbeans-view .invocation-record dl {
+    grid-template-columns: 1fr;
+  }
+
+  .mbeans-view .attribute-write-preview__values,
+  .mbeans-view .attribute-write-record__values {
+    grid-template-columns: 1fr;
+  }
+
+  .mbeans-view .mbean-inspector {
+    grid-template-columns: 1fr;
+  }
+
+  .mbeans-view .mbean-list {
+    position: static;
+  }
+
+  .mbeans-view .mbean-list__items {
+    max-block-size: calc(var(--tw-space-8) * 6);
+  }
+
+  .mbeans-view .mbean-section > header {
+    display: grid;
+  }
+
+  .mbeans-view .mbean-section > header > p {
+    max-inline-size: none;
+    text-align: start;
+  }
+
+  .mbeans-view .operation-preview dl > div:last-child {
+    grid-column: auto;
+  }
+
+  .mbeans-view .operation-argument--json {
+    grid-column: auto;
+  }
+
+  .mbeans-view .operation-preview__arguments article > header {
+    display: grid;
+  }
+
+  .mbeans-view .operation-row__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .mbeans-view .attribute-row__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .mbeans-view .attribute-write-preview dl > div:nth-last-child(-n + 2) {
+    grid-column: auto;
+  }
+}

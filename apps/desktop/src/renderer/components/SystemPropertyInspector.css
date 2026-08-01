@@ -1,0 +1,268 @@
+.property-inspector {
+  display: grid;
+  gap: var(--tw-space-4);
+  margin-block-start: 0;
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  background: var(--background);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.property-inspector > header,
+.property-inspector__list > header,
+.property-inspector__list > footer,
+.property-inspector__detail > header,
+.property-inspector__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.property-inspector h2,
+.property-inspector h3,
+.property-inspector p {
+  margin: 0;
+}
+
+.property-inspector h2,
+.property-inspector h3 {
+  margin-block-start: var(--tw-space-2);
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.property-inspector__toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--tw-space-3);
+  padding-block-start: var(--tw-space-4);
+  border-block-start: var(--tw-focus-width) solid var(--border);
+}
+
+.property-inspector__toolbar label {
+  display: grid;
+  gap: var(--tw-space-2);
+  text-transform: uppercase;
+}
+
+.property-inspector__toolbar input,
+.property-inspector__toolbar [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.property-inspector__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.property-inspector__stats div {
+  display: grid;
+  gap: var(--tw-space-1);
+  padding: var(--tw-space-3);
+}
+
+.property-inspector__stats div + div {
+  border-inline-start: var(--tw-focus-width) solid var(--border);
+}
+
+.property-inspector__stats dt,
+.property-inspector__detail dt {
+  font-size: var(--tw-size-label);
+  letter-spacing: var(--tw-tracking-label);
+  opacity: 0.62;
+  text-transform: uppercase;
+}
+
+.property-inspector__stats dd,
+.property-inspector__detail dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.property-inspector__workspace {
+  display: grid;
+  min-inline-size: 0;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: var(--tw-space-4);
+}
+
+.property-inspector__list,
+.property-inspector__detail {
+  min-inline-size: 0;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.property-inspector__list > header,
+.property-inspector__list > footer,
+.property-inspector__detail {
+  padding: var(--tw-space-3);
+}
+
+.property-inspector__list > header {
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.property-inspector__list > footer {
+  justify-content: flex-end;
+  border-block-start: var(--tw-focus-width) solid var(--border);
+}
+
+.property-inspector__rows {
+  display: grid;
+  gap: var(--tw-space-1);
+  overflow-y: auto;
+  max-block-size: calc(var(--tw-space-8) * 8);
+  padding: var(--tw-space-2);
+}
+
+.property-row {
+  display: flex;
+  inline-size: 100%;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-4);
+  text-align: start;
+}
+
+.property-row > span:first-child {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-2);
+}
+
+.property-row strong,
+.property-row small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.property-row small {
+  color: var(--muted-foreground);
+}
+
+.property-row strong {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.property-inspector__detail {
+  display: grid;
+  align-content: start;
+  gap: var(--tw-space-4);
+}
+
+.property-inspector__detail dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.property-inspector__detail dl div {
+  display: grid;
+  gap: var(--tw-space-1);
+  padding: var(--tw-space-3);
+}
+
+.property-inspector__detail dl div + div {
+  border-inline-start: var(--tw-focus-width) solid var(--border);
+}
+
+.property-inspector__detail pre {
+  overflow: auto;
+  max-block-size: calc(var(--tw-space-8) * 5);
+  margin: 0;
+  padding: var(--tw-space-4);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  color: var(--foreground);
+  background: var(--muted);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.property-inspector__detail code {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.property-inspector__actions {
+  align-items: flex-start;
+}
+
+.property-inspector__actions p {
+  max-inline-size: 62ch;
+}
+
+.property-inspector__empty {
+  padding: var(--tw-space-5);
+  opacity: 0.62;
+}
+
+@media (width >= 768px) {
+  /* 自适应高度链：检查器填满运行时页剩余高度，列表行内部滚动 */
+  .property-inspector {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-block-size: 0;
+  }
+
+  .property-inspector__workspace {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .property-inspector__list {
+    display: flex;
+    flex-direction: column;
+    min-block-size: 0;
+  }
+
+  .property-inspector__rows {
+    flex: 1 1 auto;
+    min-block-size: calc(var(--tw-target-min) * 4);
+    max-block-size: none;
+  }
+
+  .property-inspector__detail {
+    min-block-size: 0;
+    overflow-y: auto;
+  }
+}
+
+@media (width < 768px) {
+  .property-inspector__toolbar,
+  .property-inspector__stats,
+  .property-inspector__workspace,
+  .property-inspector__detail dl {
+    grid-template-columns: 1fr;
+  }
+
+  .property-inspector > header,
+  .property-inspector__detail > header,
+  .property-inspector__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .property-inspector__stats div + div,
+  .property-inspector__detail dl div + div {
+    border-block-start: var(--tw-focus-width) solid var(--border);
+    border-inline-start: 0;
+  }
+}

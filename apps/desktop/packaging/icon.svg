@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="探微">
+  <rect x="86" y="83" width="850" height="858" rx="185" fill="#141413"/>
+  <path
+    d="M480 252H454L266 382Q251 392 251 410V640Q251 661 270 673L493 807Q512 818 531 807L754 673Q773 661 773 640V410Q773 392 758 382L570 252H544"
+    fill="none"
+    stroke="#faf9f5"
+    stroke-width="58"
+    stroke-linecap="butt"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M480 350H463L364 416Q350 426 350 443V565Q350 584 367 594L494 671Q512 682 530 671L657 594Q674 584 674 565V443Q674 426 660 416L561 350H544"
+    fill="none"
+    stroke="#faf9f5"
+    stroke-width="54"
+    stroke-linecap="butt"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M480 413 438 438Q420 449 420 468V535Q420 552 436 562L494 596Q512 607 530 596L588 562Q604 552 604 535V468Q604 449 586 438L544 413V483L512 530 480 483Z"
+    fill="#faf9f5"
+  />
+  <path
+    d="M507 174H517Q524 174 524 181V482L512 499 500 482V181Q500 174 507 174Z"
+    fill="#faf9f5"
+  />
+</svg>

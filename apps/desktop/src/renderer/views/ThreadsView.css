@@ -1,0 +1,1739 @@
+.threads-view .thread-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--tw-space-4);
+  margin-block-end: var(--tw-space-5);
+}
+
+.threads-view .thread-toolbar label {
+  display: grid;
+  gap: var(--tw-space-2);
+  text-transform: uppercase;
+}
+
+.threads-view .thread-toolbar input,
+.threads-view .thread-toolbar [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.threads-view .thread-notice {
+  display: flex;
+  gap: var(--tw-space-4);
+  margin-block-end: var(--tw-space-5);
+  padding: var(--tw-space-4);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  border-radius: var(--tw-radius-sm);
+}
+
+.threads-view .thread-dump-bar {
+  display: grid;
+  gap: var(--tw-space-4);
+  margin-block-end: var(--tw-space-6);
+  padding-block: var(--tw-space-4);
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-dump-bar > header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--tw-space-5);
+}
+
+.threads-view .thread-dump-bar h2,
+.threads-view .thread-dump-bar p {
+  margin: 0;
+}
+
+.threads-view .thread-dump-bar h2 {
+  margin-block: var(--tw-space-1);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .thread-dump-controls {
+  display: flex;
+  align-items: end;
+  gap: var(--tw-space-3);
+}
+
+.threads-view .thread-dump-controls > label:first-child {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.threads-view .thread-dump-controls input[type="number"] {
+  inline-size: calc(var(--tw-space-8) * 2);
+  min-block-size: var(--tw-target-min);
+}
+
+.threads-view .thread-dump-locks {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  gap: var(--tw-space-2);
+}
+
+.threads-view .thread-dump-locks input {
+  inline-size: var(--tw-target-min);
+  block-size: var(--tw-target-min);
+  margin: 0;
+}
+
+.threads-view .thread-dump-outcome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border-radius: var(--tw-radius-sm);
+  color: var(--accent-foreground);
+  background: var(--card);
+}
+
+.threads-view .thread-dump-outcome > span {
+  display: grid;
+  gap: var(--tw-space-1);
+  min-inline-size: 0;
+}
+
+.threads-view .thread-dump-outcome strong,
+.threads-view .thread-dump-outcome small {
+  overflow-wrap: anywhere;
+}
+
+.threads-view .thread-dump-outcome [data-variant="outline"] {
+  border-color: var(--accent-foreground);
+  color: var(--accent-foreground);
+}
+
+.threads-view .thread-pool-workbench,
+.threads-view .thread-trends,
+.threads-view .snapshot-workbench {
+  display: grid;
+  gap: var(--tw-space-5);
+  margin-block-end: var(--tw-space-6);
+  padding: var(--tw-space-5);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 16%, transparent);
+  border-radius: var(--tw-radius-md);
+  background: color-mix(in srgb, var(--primary-foreground) 90%, transparent);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.threads-view .thread-pool-workbench > header,
+.threads-view .thread-trends > header,
+.threads-view .snapshot-workbench > header,
+.threads-view .thread-pool-card > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tw-space-5);
+}
+
+.threads-view .thread-pool-workbench h2,
+.threads-view .thread-trends h2,
+.threads-view .snapshot-workbench h2,
+.threads-view .thread-pool-card h3,
+.threads-view .thread-pool-workbench p,
+.threads-view .thread-trends p,
+.threads-view .snapshot-workbench p {
+  margin: 0;
+}
+
+.threads-view .thread-pool-workbench h2,
+.threads-view .thread-trends h2,
+.threads-view .snapshot-workbench h2,
+.threads-view .thread-pool-card h3 {
+  margin-block-start: var(--tw-space-1);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  line-height: var(--tw-leading-mono);
+}
+
+.threads-view .thread-pool-workbench > header > p {
+  max-inline-size: calc(var(--tw-space-8) * 9);
+}
+
+.threads-view .thread-trends > header > div > p:last-child {
+  max-inline-size: calc(var(--tw-space-8) * 10);
+  margin-block-start: var(--tw-space-3);
+}
+
+.threads-view .thread-trends__toolbar {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--tw-space-3);
+}
+
+.threads-view .thread-trends__toolbar label {
+  display: grid;
+  min-inline-size: calc(var(--tw-space-8) * 2);
+  gap: var(--tw-space-2);
+}
+
+.threads-view .thread-trends__toolbar [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.threads-view .thread-trends__notice {
+  display: flex;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-4);
+  border-radius: var(--tw-radius-sm);
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.threads-view .thread-trends__metrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-trends__metrics article {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-2);
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-inline-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 16%, transparent);
+}
+
+.threads-view .thread-trends__metrics article:last-child {
+  border-inline-end: 0;
+}
+
+.threads-view .thread-trends__metrics span {
+  color: color-mix(in srgb, var(--foreground) 58%, transparent);
+}
+
+.threads-view .thread-trends__metrics strong {
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .thread-trends__boundary {
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-inline-start: var(--tw-focus-width) solid var(--border);
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+}
+
+.threads-view .thread-hot-cpu {
+  display: grid;
+  gap: var(--tw-space-4);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  background: var(--background);
+}
+
+.threads-view .thread-hot-cpu > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tw-space-5);
+  padding: var(--tw-space-4);
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 16%, transparent);
+}
+
+.threads-view .thread-hot-cpu h3,
+.threads-view .thread-hot-cpu p {
+  margin: 0;
+}
+
+.threads-view .thread-hot-cpu h3 {
+  margin-block-start: var(--tw-space-1);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  line-height: var(--tw-leading-mono);
+}
+
+.threads-view .thread-hot-cpu > header > p {
+  max-inline-size: calc(var(--tw-space-8) * 6);
+  color: color-mix(in srgb, var(--foreground) 58%, transparent);
+  text-align: end;
+}
+
+.threads-view .thread-hot-cpu__list {
+  display: grid;
+}
+
+.threads-view .thread-hot-cpu__row {
+  display: grid;
+  min-block-size: var(--tw-target-min);
+  grid-template-columns:
+    var(--tw-space-6) minmax(0, 1fr)
+    calc(var(--tw-space-8) * 2) calc(var(--tw-space-8) * 2);
+  align-items: center;
+  gap: var(--tw-space-2) var(--tw-space-4);
+  border: 0;
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 12%, transparent);
+  padding: var(--tw-space-3) var(--tw-space-4);
+  color: var(--foreground);
+  background: transparent;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: background var(--tw-motion-fast) var(--tw-motion-easing);
+}
+
+.threads-view .thread-hot-cpu__row:last-child {
+  border-block-end: 0;
+}
+
+.threads-view .thread-hot-cpu__row:hover {
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+}
+
+.threads-view .thread-hot-cpu__rank,
+.threads-view .thread-hot-cpu__state,
+.threads-view .thread-hot-cpu__rate,
+.threads-view .thread-hot-cpu__identity small {
+  color: color-mix(in srgb, var(--foreground) 56%, transparent);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.threads-view .thread-hot-cpu__identity,
+.threads-view .thread-hot-cpu__rate {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-1);
+}
+
+.threads-view .thread-hot-cpu__identity strong,
+.threads-view .thread-hot-cpu__identity small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.threads-view .thread-hot-cpu__state {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.threads-view .thread-hot-cpu__rate {
+  text-align: end;
+}
+
+.threads-view .thread-hot-cpu__rate strong {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .thread-hot-cpu__bar {
+  display: block;
+  grid-column: 2 / -1;
+  block-size: var(--tw-space-base);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.threads-view .thread-hot-cpu__bar span {
+  display: block;
+  block-size: 100%;
+  background: var(--chart-2);
+}
+
+.threads-view .thread-hot-cpu__empty {
+  padding: var(--tw-space-5);
+  color: color-mix(in srgb, var(--foreground) 58%, transparent);
+}
+
+.threads-view .thread-trends__chart {
+  overflow: hidden;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  background: var(--background);
+}
+
+.threads-view .thread-trends__legend {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--tw-space-4);
+  padding-inline: var(--tw-space-4);
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 16%, transparent);
+}
+
+.threads-view .thread-trends__legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tw-space-2);
+}
+
+.threads-view .thread-trends__legend span::before {
+  inline-size: var(--tw-space-6);
+  border-block-start: var(--tw-focus-width) solid var(--border);
+  content: "";
+}
+
+.threads-view .thread-trends__legend-runnable::before {
+  border-block-start-style: dashed !important;
+}
+
+.threads-view .thread-trends__legend-waiting::before {
+  border-block-start-style: dotted !important;
+}
+
+.threads-view .thread-trends__legend-blocked::before {
+  border-block-start-style: double !important;
+}
+
+.threads-view .thread-trends__chart svg {
+  display: block;
+  inline-size: 100%;
+  block-size: calc(var(--tw-space-8) * 3);
+}
+
+.threads-view .thread-trends__chart path {
+  fill: none;
+  stroke: var(--border);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: var(--tw-focus-width);
+}
+
+.threads-view .thread-trends__line-runnable {
+  stroke-dasharray: 12 6;
+}
+
+.threads-view .thread-trends__line-waiting {
+  stroke-dasharray: 2 6;
+}
+
+.threads-view .thread-trends__line-blocked {
+  stroke-dasharray: 16 5 2 5;
+}
+
+.threads-view .thread-trends__grid line {
+  stroke: color-mix(in srgb, var(--border) 12%, transparent);
+  stroke-width: var(--tw-stroke);
+}
+
+.threads-view .thread-trends__chart footer {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-3);
+  padding-inline: var(--tw-space-4);
+  border-block-start: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 16%, transparent);
+}
+
+.threads-view .thread-trends__empty {
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) dashed var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.threads-view .thread-trends__empty strong {
+  display: block;
+  margin-block: var(--tw-space-2);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .thread-pool-controls {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr)
+    minmax(0, 3fr)
+    auto;
+  align-items: end;
+  gap: var(--tw-space-4);
+}
+
+.threads-view .thread-pool-controls > label:not(.thread-pool-confirmation) {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.threads-view .thread-pool-controls input[type="number"],
+.threads-view .thread-pool-controls [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.threads-view .thread-pool-confirmation {
+  display: grid;
+  min-block-size: var(--tw-target-min);
+  grid-template-columns: 1rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--tw-space-3);
+}
+
+.threads-view .thread-pool-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+  align-items: center;
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-summary p {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-3);
+  padding-inline: var(--tw-space-4);
+}
+
+.threads-view .thread-pool-summary strong,
+.threads-view .thread-pool-card dd,
+.threads-view .snapshot-timeline strong,
+.threads-view .snapshot-kpis strong,
+.threads-view .snapshot-row {
+  font-family: var(--tw-font-mono);
+}
+
+.threads-view .thread-pool-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tw-space-4);
+}
+
+.threads-view .thread-pool-card {
+  display: grid;
+  min-inline-size: 0;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  background: var(--background);
+}
+
+.threads-view .thread-pool-card--selected {
+  box-shadow: inset 0 0 0 var(--tw-stroke) var(--border);
+}
+
+.threads-view .thread-pool-card > header {
+  padding: var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-card h3 {
+  overflow-wrap: anywhere;
+}
+
+.threads-view .thread-pool-exact-identity {
+  display: block;
+  margin-block-start: var(--tw-space-1);
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+  color: color-mix(in srgb, var(--foreground) 64%, transparent);
+}
+
+.threads-view .thread-pool-card dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+}
+
+.threads-view .thread-pool-card dl div {
+  display: grid;
+  gap: var(--tw-space-1);
+  min-inline-size: 0;
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-card dl div:nth-child(3n) {
+  border-inline-end: 0;
+}
+
+.threads-view .thread-pool-card dd {
+  margin: 0;
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .thread-pool-card__evidence {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-card__evidence > span {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-1);
+  padding: var(--tw-space-3) var(--tw-space-4);
+  overflow-wrap: anywhere;
+}
+
+.threads-view .thread-pool-card__evidence > span:first-child {
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-card__evidence strong {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .thread-pool-card footer {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-3) var(--tw-space-4);
+  overflow-wrap: anywhere;
+}
+
+.threads-view .thread-pool-card__footer-copy {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-1);
+}
+
+.threads-view .thread-pool-member-inspector {
+  min-inline-size: 0;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  background: var(--background);
+}
+
+.threads-view .thread-pool-member-inspector > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-member-inspector h3 {
+  margin: var(--tw-space-1) 0 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  line-height: var(--tw-leading-mono);
+}
+
+.threads-view .thread-pool-member-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-member-facts p {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-1);
+  padding: var(--tw-space-3) var(--tw-space-4);
+  overflow-wrap: anywhere;
+}
+
+.threads-view .thread-pool-member-facts p:not(:last-child) {
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-member-facts strong {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .thread-pool-alias-editor {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--tw-space-3) var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  background: color-mix(in srgb, var(--border) 4%, transparent);
+}
+
+.threads-view .thread-pool-alias-editor label {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-2);
+}
+
+.threads-view .thread-pool-alias-editor input {
+  min-block-size: var(--tw-target-min);
+  min-inline-size: 0;
+}
+
+.threads-view .thread-pool-alias-editor__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tw-space-3);
+}
+
+.threads-view .thread-pool-alias-editor > p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: color-mix(in srgb, var(--foreground) 64%, transparent);
+}
+
+.threads-view .thread-pool-alias-editor__message {
+  font-family: var(--tw-font-mono);
+  color: var(--foreground);
+}
+
+.threads-view .thread-pool-task-evidence {
+  display: grid;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-task-evidence > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.threads-view .thread-pool-task-evidence h3,
+.threads-view .thread-pool-task-evidence h4,
+.threads-view .thread-pool-task-evidence p {
+  margin: 0;
+}
+
+.threads-view .thread-pool-task-evidence > header p:last-child {
+  max-inline-size: calc(var(--tw-space-8) * 9);
+  margin-block-start: var(--tw-space-2);
+}
+
+.threads-view .thread-pool-task-evidence__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tw-space-3);
+}
+
+.threads-view .thread-pool-task-evidence__grid article {
+  display: grid;
+  align-content: start;
+  min-inline-size: 0;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-4);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.threads-view .thread-pool-task-evidence__grid h4,
+.threads-view .thread-pool-task-evidence__grid code,
+.threads-view .thread-pool-task-evidence__grid li,
+.threads-view .thread-pool-task-evidence__rows button {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .thread-pool-task-evidence__grid code {
+  overflow-wrap: anywhere;
+}
+
+.threads-view .thread-pool-task-evidence__grid ol {
+  display: grid;
+  gap: var(--tw-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.threads-view .thread-pool-task-evidence__grid li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--tw-space-3);
+  padding-block-end: var(--tw-space-2);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-task-evidence__grid li span {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.threads-view .thread-pool-task-evidence__rows {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.threads-view .thread-pool-task-evidence__rows button {
+  inline-size: 100%;
+  min-block-size: var(--tw-target-min);
+  justify-content: space-between;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-2) 0;
+  text-align: start;
+}
+
+.threads-view .thread-pool-task-evidence__rows button span {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-1);
+}
+
+.threads-view .thread-pool-task-evidence__rows strong,
+.threads-view .thread-pool-task-evidence__rows small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.threads-view .thread-pool-task-evidence__boundary {
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-inline-start: var(--tw-space-1) solid var(--border);
+}
+
+.threads-view .thread-pool-latency-probe {
+  display: grid;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  background: color-mix(in srgb, var(--border) 3%, transparent);
+}
+
+.threads-view .thread-pool-latency-probe > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.threads-view .thread-pool-latency-probe h3,
+.threads-view .thread-pool-latency-probe p {
+  margin: 0;
+}
+
+.threads-view .thread-pool-latency-probe > header p:last-child {
+  max-inline-size: calc(var(--tw-space-8) * 9);
+  margin-block-start: var(--tw-space-2);
+}
+
+.threads-view .thread-pool-latency-probe__unsupported,
+.threads-view .thread-pool-latency-probe__boundary {
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-inline-start: var(--tw-space-1) solid var(--border);
+}
+
+.threads-view .thread-pool-latency-probe__unsupported {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.threads-view .thread-pool-latency-probe__controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+  align-items: end;
+  gap: var(--tw-space-3);
+}
+
+.threads-view
+  .thread-pool-latency-probe__controls
+  > label:not(.thread-pool-latency-probe__confirmation) {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.threads-view .thread-pool-latency-probe__controls [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.threads-view .thread-pool-latency-probe__confirmation {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: var(--tw-space-3);
+  min-block-size: var(--tw-target-min);
+}
+
+.threads-view .thread-pool-latency-probe__actions {
+  display: flex;
+  align-items: end;
+}
+
+.threads-view .thread-pool-latency-probe__kpis,
+.threads-view .thread-pool-latency-probe__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  overflow: hidden;
+}
+
+.threads-view .thread-pool-latency-probe__kpis article,
+.threads-view .thread-pool-latency-probe__facts p {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-1);
+  padding: var(--tw-space-3);
+}
+
+.threads-view .thread-pool-latency-probe__kpis article:not(:last-child),
+.threads-view .thread-pool-latency-probe__facts p:not(:last-child) {
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-latency-probe__kpis strong {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-h3);
+}
+
+.threads-view .thread-pool-latency-probe__facts strong,
+.threads-view .thread-pool-latency-probe__types {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .thread-pool-latency-probe__types {
+  overflow-x: auto;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.threads-view .thread-pool-latency-probe__type-header,
+.threads-view .thread-pool-latency-probe__type-row {
+  display: grid;
+  grid-template-columns:
+    minmax(calc(var(--tw-space-8) * 3), 2fr)
+    repeat(5, minmax(calc(var(--tw-space-8) * 1.25), 1fr));
+  min-inline-size: calc(var(--tw-space-8) * 11);
+  gap: var(--tw-space-3);
+  align-items: center;
+  padding: var(--tw-space-3);
+}
+
+.threads-view
+  .thread-pool-latency-probe__types--scheduled
+  .thread-pool-latency-probe__type-header,
+.threads-view
+  .thread-pool-latency-probe__types--scheduled
+  .thread-pool-latency-probe__type-row {
+  grid-template-columns:
+    minmax(calc(var(--tw-space-8) * 3), 2fr)
+    repeat(7, minmax(calc(var(--tw-space-8) * 1.25), 1fr));
+  min-inline-size: calc(var(--tw-space-8) * 15);
+}
+
+.threads-view .thread-pool-latency-probe__type-header {
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  color: color-mix(in srgb, var(--foreground) 64%, transparent);
+}
+
+.threads-view .thread-pool-latency-probe__type-row:not(:last-child) {
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-latency-probe__type-row strong {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.threads-view .thread-pool-latency-probe__types > p {
+  padding: var(--tw-space-4);
+}
+
+.threads-view .thread-pool-trend-recorder {
+  display: grid;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-trend-recorder > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.threads-view .thread-pool-trend-recorder h3,
+.threads-view .thread-pool-trend-recorder p {
+  margin: 0;
+}
+
+.threads-view .thread-pool-trend-recorder > header p:last-child {
+  max-inline-size: calc(var(--tw-space-8) * 9);
+  margin-block-start: var(--tw-space-2);
+}
+
+.threads-view .thread-pool-trend-recorder__controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr) auto auto;
+  align-items: end;
+  gap: var(--tw-space-3);
+}
+
+.threads-view
+  .thread-pool-trend-recorder__controls
+  > label:not(.thread-pool-trend-recorder__confirmation) {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.threads-view .thread-pool-trend-recorder__controls [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.threads-view .thread-pool-trend-recorder__confirmation {
+  display: grid;
+  min-block-size: var(--tw-target-min);
+  grid-template-columns: 1rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--tw-space-3);
+}
+
+.threads-view .thread-pool-trend-recorder__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-trend-recorder__metrics div {
+  display: grid;
+  gap: var(--tw-space-1);
+  padding: var(--tw-space-3) var(--tw-space-4);
+}
+
+.threads-view .thread-pool-trend-recorder__metrics div:not(:last-child) {
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-pool-trend-recorder__metrics dd {
+  margin: 0;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .thread-pool-trend-recorder__chart {
+  padding: var(--tw-space-3);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  background: var(--background);
+}
+
+.threads-view .thread-pool-trend-recorder__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tw-space-4);
+  margin-block-end: var(--tw-space-2);
+  font-family: var(--tw-font-mono);
+}
+
+.threads-view .thread-pool-trend-recorder__legend span::before {
+  content: "—";
+  margin-inline-end: var(--tw-space-2);
+}
+
+.threads-view .thread-pool-trend-recorder__legend span:nth-child(2)::before {
+  content: "┄";
+}
+
+.threads-view .thread-pool-trend-recorder__legend span:nth-child(3)::before {
+  content: "··";
+}
+
+.threads-view .thread-pool-trend-recorder__chart svg {
+  display: block;
+  inline-size: 100%;
+  block-size: calc(var(--tw-space-8) * 2);
+}
+
+.threads-view .thread-pool-trend-recorder__chart line {
+  stroke: color-mix(in srgb, var(--border) 16%, transparent);
+  stroke-width: var(--tw-stroke);
+}
+
+.threads-view .thread-pool-trend-recorder__chart path {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: var(--tw-focus-width);
+}
+
+.threads-view .thread-pool-trend-recorder__active {
+  stroke-dasharray: 8 4;
+}
+
+.threads-view .thread-pool-trend-recorder__size {
+  stroke-dasharray: 2 4;
+}
+
+.threads-view .thread-pool-trend-recorder__artifact {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.threads-view
+  .thread-pool-trend-recorder__artifact
+  > [data-slot="alert-description"] {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-1);
+}
+
+.threads-view .thread-pool-trend-recorder__artifact strong,
+.threads-view .thread-pool-trend-recorder__artifact small {
+  overflow-wrap: anywhere;
+}
+
+.threads-view .thread-pool-member-list {
+  max-block-size: calc(var(--tw-space-8) * 8);
+  overflow: auto;
+}
+
+.threads-view .thread-pool-member-row {
+  display: grid;
+  inline-size: 100%;
+  min-block-size: var(--tw-target-min);
+  grid-template-columns:
+    minmax(var(--tw-space-8), auto)
+    minmax(0, 1fr)
+    auto
+    auto;
+  align-items: center;
+  gap: var(--tw-space-4);
+  border: 0;
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  padding: var(--tw-space-3) var(--tw-space-4);
+  color: var(--foreground);
+  background: transparent;
+  text-align: start;
+  cursor: pointer;
+}
+
+.threads-view .thread-pool-member-row:hover {
+  background: color-mix(in srgb, var(--border) 6%, transparent);
+}
+
+.threads-view .thread-pool-member-row__id,
+.threads-view .thread-pool-member-row__identity,
+.threads-view .thread-pool-member-row > span:nth-child(3) {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .thread-pool-member-row__identity {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-1);
+}
+
+.threads-view .thread-pool-member-row__identity strong,
+.threads-view .thread-pool-member-row__identity small {
+  overflow-wrap: anywhere;
+}
+
+.threads-view .thread-pool-member-empty {
+  display: grid;
+  gap: var(--tw-space-2);
+  padding: var(--tw-space-5);
+}
+
+.threads-view .thread-pool-member-empty p {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .snapshot-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--tw-space-3);
+}
+
+.threads-view .snapshot-boundary {
+  max-inline-size: calc(var(--tw-space-8) * 12);
+}
+
+.threads-view .snapshot-timeline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--tw-space-4);
+}
+
+.threads-view .snapshot-timeline article {
+  display: grid;
+  gap: var(--tw-space-2);
+  padding: var(--tw-space-4);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  background: var(--background);
+}
+
+.threads-view .snapshot-timeline__pending {
+  border-style: dashed !important;
+}
+
+.threads-view .snapshot-timeline__line {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .snapshot-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--tw-space-3);
+}
+
+.threads-view .snapshot-kpis article {
+  display: grid;
+  gap: var(--tw-space-2);
+  min-block-size: calc(var(--tw-space-8) * 2);
+  padding: var(--tw-space-4);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  background: var(--background);
+}
+
+.threads-view .snapshot-inspector {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tw-space-4);
+}
+
+.threads-view .snapshot-inspector > section {
+  min-inline-size: 0;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  background: var(--background);
+}
+
+.threads-view .snapshot-inspector > section > header,
+.threads-view .snapshot-row {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .snapshot-inspector > section > header p {
+  margin: 0;
+}
+
+.threads-view .snapshot-row > span {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.threads-view .snapshot-row strong,
+.threads-view .snapshot-row small {
+  overflow-wrap: anywhere;
+}
+
+.threads-view .snapshot-empty {
+  padding: var(--tw-space-5);
+}
+
+.threads-view .lock-workbench {
+  display: grid;
+  gap: var(--tw-space-5);
+  margin-block-end: var(--tw-space-6);
+  padding: var(--tw-space-5);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 16%, transparent);
+  border-radius: var(--tw-radius-md);
+  background: color-mix(in srgb, var(--primary-foreground) 90%, transparent);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.threads-view .lock-workbench > header,
+.threads-view .lock-node-list > header,
+.threads-view .lock-detail > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tw-space-5);
+}
+
+.threads-view .lock-workbench h2,
+.threads-view .lock-detail h2,
+.threads-view .lock-workbench p {
+  margin: 0;
+}
+
+.threads-view .lock-workbench h2,
+.threads-view .lock-detail h2 {
+  margin-block-start: var(--tw-space-1);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  line-height: var(--tw-leading-mono);
+}
+
+.threads-view .lock-workbench > header > p {
+  max-inline-size: calc(var(--tw-space-8) * 9);
+}
+
+.threads-view .lock-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) auto;
+  align-items: end;
+  gap: var(--tw-space-4);
+}
+
+.threads-view .lock-controls label {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.threads-view .lock-controls input[type="number"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.threads-view .lock-controls__checkbox {
+  grid-template-columns: var(--tw-target-min) minmax(0, 1fr);
+  align-items: center;
+  min-block-size: var(--tw-target-min);
+}
+
+.threads-view .lock-controls__checkbox input {
+  inline-size: var(--tw-target-min);
+  block-size: var(--tw-target-min);
+  margin: 0;
+}
+
+.threads-view .lock-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--tw-space-3);
+}
+
+.threads-view .lock-kpis article {
+  display: grid;
+  gap: var(--tw-space-2);
+  min-block-size: calc(var(--tw-space-8) * 3);
+  padding: var(--tw-space-4);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.threads-view .lock-kpis strong {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .lock-inspector {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: var(--tw-space-4);
+}
+
+.threads-view .lock-node-list,
+.threads-view .lock-detail {
+  min-inline-size: 0;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  background: var(--background);
+}
+
+.threads-view .lock-node-list > header,
+.threads-view .lock-detail > header {
+  padding: var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .lock-node {
+  display: flex;
+  inline-size: 100%;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-3);
+  border: 0;
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  padding: var(--tw-space-3) var(--tw-space-4);
+  color: var(--foreground);
+  background: transparent;
+  text-align: start;
+  cursor: pointer;
+}
+
+.threads-view .lock-node > span {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.threads-view .lock-node strong,
+.threads-view .lock-node small {
+  overflow-wrap: anywhere;
+}
+
+.threads-view .lock-node--selected {
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.threads-view .lock-node--deadlocked:not(.lock-node--selected) {
+  font-weight: var(--tw-weight-heading);
+  border-inline-start: var(--tw-space-1) solid var(--border);
+}
+
+.threads-view .lock-detail__facts {
+  display: grid;
+  gap: var(--tw-space-3);
+  margin: 0;
+  padding: var(--tw-space-4);
+}
+
+.threads-view .lock-detail__facts div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: var(--tw-space-3);
+}
+
+.threads-view .lock-detail__facts dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tw-space-3);
+  min-inline-size: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+}
+
+.threads-view .held-locks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tw-space-4);
+  padding: 0 var(--tw-space-4) var(--tw-space-4);
+}
+
+.threads-view .held-locks section {
+  display: grid;
+  align-content: start;
+  gap: var(--tw-space-3);
+  min-inline-size: 0;
+}
+
+.threads-view .held-locks article {
+  display: grid;
+  gap: var(--tw-space-1);
+  padding: var(--tw-space-3);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+}
+
+.threads-view .lock-empty {
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) dashed var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.threads-view .thread-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-block-end: var(--tw-space-5);
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.threads-view .thread-summary p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-block-size: var(--tw-target-min);
+  margin: 0;
+  padding-inline: var(--tw-space-4);
+}
+
+.threads-view .thread-summary strong,
+.threads-view .thread-row__id,
+.threads-view .thread-row__cpu,
+.threads-view .thread-detail {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.threads-view .thread-list {
+  display: grid;
+  gap: var(--tw-space-3);
+}
+
+.threads-view .interrupt-outcome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+  margin-block-end: var(--tw-space-5);
+  padding: var(--tw-space-4);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 14%, transparent);
+  border-radius: var(--tw-radius-md);
+  background: color-mix(in srgb, var(--primary-foreground) 90%, transparent);
+}
+
+.threads-view .thread-row {
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  background: var(--background);
+}
+
+.threads-view .thread-row--deadlocked {
+  color: var(--accent-foreground);
+  background: var(--destructive);
+}
+
+.threads-view .thread-row [data-slot="collapsible-trigger"] {
+  display: grid;
+  min-block-size: var(--tw-target-min);
+  grid-template-columns: var(--tw-space-8) minmax(0, 1fr) auto minmax(
+      var(--tw-space-8),
+      auto
+    );
+  align-items: center;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-4);
+  cursor: pointer;
+}
+
+.threads-view .thread-row__name strong,
+.threads-view .thread-row__name small {
+  display: block;
+}
+
+.threads-view .thread-row__name small {
+  margin-block-start: var(--tw-space-2);
+  opacity: 0.62;
+}
+
+.threads-view .thread-detail {
+  overflow: auto;
+  max-block-size: calc(var(--tw-space-8) * 6);
+  padding: var(--tw-space-5);
+  border-block-start: var(--tw-focus-width) solid currentColor;
+  line-height: var(--tw-leading-mono);
+}
+
+.threads-view .thread-detail ol {
+  margin: 0;
+  padding-inline-start: var(--tw-space-6);
+}
+
+.threads-view .thread-detail li {
+  margin-block: var(--tw-space-2);
+  white-space: nowrap;
+}
+
+.threads-view .thread-control {
+  display: grid;
+  gap: var(--tw-space-3);
+  margin-block-start: var(--tw-space-5);
+  padding-block-start: var(--tw-space-4);
+  border-block-start: var(--tw-stroke) solid currentColor;
+  font-family: var(--tw-font-body);
+  font-size: var(--tw-size-body);
+}
+
+.threads-view .thread-control > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.threads-view .thread-control p {
+  margin: 0;
+}
+
+.threads-view .interrupt-preview {
+  display: grid;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-4);
+  border: var(--tw-stroke) solid currentColor;
+  border-radius: var(--tw-radius-sm);
+}
+
+.threads-view .interrupt-preview dl {
+  display: grid;
+  gap: var(--tw-space-2);
+  margin: 0;
+}
+
+.threads-view .interrupt-preview dl div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: var(--tw-space-3);
+}
+
+.threads-view .interrupt-preview dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+}
+
+.threads-view .interrupt-preview label {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  gap: var(--tw-space-3);
+}
+
+.threads-view .interrupt-preview input {
+  inline-size: var(--tw-target-min);
+  block-size: var(--tw-target-min);
+  margin: 0;
+}
+
+.threads-view .pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--tw-space-4);
+  margin-block-start: var(--tw-space-5);
+}
+
+.threads-view .empty-panel {
+  padding: var(--tw-space-6);
+  border: var(--tw-focus-width) dashed var(--border);
+  border-radius: var(--tw-radius-md);
+}
+
+.threads-view .empty-panel__title {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+@media (width < 768px) {
+  .threads-view .thread-toolbar,
+  .threads-view .thread-summary,
+  .threads-view .thread-dump-bar > header,
+  .threads-view .thread-pool-controls,
+  .threads-view .thread-pool-summary,
+  .threads-view .thread-pool-grid,
+  .threads-view .thread-pool-card dl,
+  .threads-view .thread-pool-card__evidence,
+  .threads-view .thread-pool-member-facts,
+  .threads-view .thread-pool-alias-editor,
+  .threads-view .thread-pool-task-evidence__grid,
+  .threads-view .thread-pool-latency-probe__controls,
+  .threads-view .thread-pool-latency-probe__kpis,
+  .threads-view .thread-pool-latency-probe__facts,
+  .threads-view .thread-pool-trend-recorder__controls,
+  .threads-view .thread-pool-trend-recorder__metrics,
+  .threads-view .thread-pool-member-row,
+  .threads-view .thread-trends__metrics,
+  .threads-view .snapshot-timeline,
+  .threads-view .snapshot-kpis,
+  .threads-view .snapshot-inspector,
+  .threads-view .lock-controls,
+  .threads-view .lock-kpis,
+  .threads-view .lock-inspector,
+  .threads-view .held-locks,
+  .threads-view .thread-row [data-slot="collapsible-trigger"],
+  .threads-view .interrupt-preview dl div,
+  .threads-view .lock-detail__facts div {
+    grid-template-columns: 1fr;
+  }
+
+  .threads-view .pagination,
+  .threads-view .thread-control > header,
+  .threads-view .thread-dump-outcome,
+  .threads-view .thread-pool-workbench > header,
+  .threads-view .thread-pool-member-inspector > header,
+  .threads-view .thread-pool-task-evidence > header,
+  .threads-view .thread-pool-latency-probe > header,
+  .threads-view .thread-pool-trend-recorder > header,
+  .threads-view .thread-trends > header,
+  .threads-view .snapshot-workbench > header,
+  .threads-view .lock-workbench > header {
+    justify-content: space-between;
+  }
+
+  .threads-view .thread-pool-card dl div,
+  .threads-view .thread-pool-card dl div:nth-child(3n) {
+    border-inline-end: 0;
+  }
+
+  .threads-view .thread-pool-card__evidence > span:first-child,
+  .threads-view .thread-pool-member-facts p:not(:last-child),
+  .threads-view .thread-pool-trend-recorder__metrics div:not(:last-child) {
+    border-inline-end: 0;
+    border-block-end: var(--tw-focus-width) solid var(--border);
+  }
+
+  .threads-view .thread-pool-trend-recorder__artifact {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .threads-view .thread-pool-task-evidence > header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .threads-view .thread-pool-latency-probe > header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .threads-view .thread-pool-latency-probe__kpis article:not(:last-child),
+  .threads-view .thread-pool-latency-probe__facts p:not(:last-child) {
+    border-inline-end: 0;
+    border-block-end: var(--tw-focus-width) solid var(--border);
+  }
+
+  .threads-view .thread-pool-latency-probe__confirmation,
+  .threads-view .thread-pool-latency-probe__actions {
+    grid-column: 1;
+  }
+
+  .threads-view .snapshot-timeline__line {
+    transform: rotate(90deg);
+    justify-self: center;
+  }
+
+  .threads-view .thread-dump-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .threads-view .thread-trends__toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .threads-view .thread-hot-cpu > header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .threads-view .thread-hot-cpu > header > p {
+    max-inline-size: none;
+    text-align: start;
+  }
+
+  .threads-view .thread-hot-cpu__row {
+    grid-template-columns: var(--tw-space-6) minmax(0, 1fr) auto;
+  }
+
+  .threads-view .thread-hot-cpu__state {
+    display: none;
+  }
+
+  .threads-view .thread-hot-cpu__bar {
+    grid-column: 2 / -1;
+  }
+
+  .threads-view .thread-trends__chart footer {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: var(--tw-space-3);
+  }
+}

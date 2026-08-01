@@ -1,0 +1,99 @@
+.settings-view .settings-notice {
+  display: flex;
+  gap: var(--tw-space-4);
+  margin-block-end: var(--tw-space-5);
+  padding: var(--tw-space-4);
+  border-radius: var(--tw-radius-sm);
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.settings-view .settings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tw-space-5);
+}
+
+.settings-view .settings-grid article {
+  display: grid;
+  align-content: start;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.settings-view .settings-grid label {
+  display: grid;
+  gap: var(--tw-space-2);
+  text-transform: uppercase;
+}
+
+.settings-view .settings-grid .settings-field {
+  display: grid;
+  gap: var(--tw-space-2);
+  text-transform: uppercase;
+}
+
+.settings-view .settings-grid .settings-field [data-slot="select-trigger"] {
+  inline-size: 100%;
+}
+
+.settings-view .settings-font-preview {
+  display: grid;
+  gap: var(--tw-space-2);
+  padding: var(--tw-space-4);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  background: var(--muted);
+}
+
+.settings-view .settings-font-preview strong {
+  font-size: 18px;
+}
+
+.settings-view .settings-font-preview span {
+  color: var(--muted-foreground);
+  font-size: 13px;
+}
+
+.settings-view .settings-grid dl {
+  display: grid;
+  gap: var(--tw-space-3);
+  margin: 0;
+}
+
+.settings-view .update-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tw-space-3);
+}
+
+.settings-view .settings-grid dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.settings-view .settings-grid dd {
+  margin: 0;
+  font-family: var(--tw-font-mono);
+}
+
+.settings-view .settings-actions {
+  display: flex;
+  min-block-size: var(--tw-space-8);
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--tw-space-4);
+  margin-block-start: var(--tw-space-5);
+  border-block-start: var(--tw-focus-width) solid var(--border);
+}
+
+@media (width < 768px) {
+  .settings-view .settings-grid {
+    grid-template-columns: 1fr;
+  }
+}

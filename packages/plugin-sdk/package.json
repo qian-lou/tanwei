@@ -1,0 +1,26 @@
+{
+  "name": "@tanwei/plugin-sdk",
+  "version": "0.1.0",
+  "description": "Declarative and signed extension SDK for Tanwei",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "engines": {
+    "node": ">=22.12.0 <23 || >=24.0.0"
+  },
+  "license": "PolyForm-Noncommercial-1.0.0"
+}

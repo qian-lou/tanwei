@@ -1,0 +1,409 @@
+.monitor-view .monitor-notice,
+.monitor-view .monitor-target,
+.monitor-view .monitor-setup,
+.monitor-view .monitor-preview,
+.monitor-view .monitor-threshold,
+.monitor-view .monitor-chart,
+.monitor-view .monitor-window-list,
+.monitor-view .monitor-stop,
+.monitor-view .monitor-finished,
+.monitor-view .monitor-onboarding {
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 18%, transparent);
+  border-radius: var(--tw-radius-md);
+  background: color-mix(in srgb, var(--primary-foreground) 90%, transparent);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.monitor-view .monitor-notice {
+  display: flex;
+  gap: var(--tw-space-4);
+  margin-block-end: var(--tw-space-5);
+  padding: var(--tw-space-4);
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.monitor-view .monitor-onboarding,
+.monitor-view .monitor-target,
+.monitor-view .monitor-setup__heading,
+.monitor-view .monitor-preview,
+.monitor-view .monitor-stop,
+.monitor-view .monitor-chart > header,
+.monitor-view .monitor-chart > footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-5);
+}
+
+.monitor-view .monitor-onboarding {
+  min-block-size: calc(var(--tw-space-8) * 3);
+  padding: var(--tw-space-6);
+}
+
+.monitor-view .monitor-onboarding h2,
+.monitor-view .monitor-target h2,
+.monitor-view .monitor-setup h2,
+.monitor-view .monitor-chart h2,
+.monitor-view .monitor-threshold h2,
+.monitor-view .monitor-stop h2 {
+  margin: var(--tw-space-2) 0;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  overflow-wrap: anywhere;
+}
+
+.monitor-view .monitor-target {
+  padding: var(--tw-space-5);
+}
+
+.monitor-view .monitor-target__signature,
+.monitor-view .monitor-target small,
+.monitor-view .monitor-preview strong,
+.monitor-view .monitor-window-list > header strong {
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+}
+
+.monitor-view .monitor-target small {
+  color: color-mix(in srgb, var(--foreground) 58%, transparent);
+}
+
+.monitor-view .monitor-setup {
+  display: grid;
+  gap: var(--tw-space-5);
+  margin-block-start: var(--tw-space-5);
+  padding: var(--tw-space-5);
+}
+
+.monitor-view .monitor-setup__heading > p {
+  max-inline-size: calc(var(--tw-space-8) * 6);
+}
+
+.monitor-view .monitor-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  align-items: end;
+  gap: var(--tw-space-4);
+}
+
+.monitor-view .monitor-fields label {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.monitor-view .monitor-fields input,
+.monitor-view .monitor-fields [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+  inline-size: 100%;
+}
+
+.monitor-view .monitor-preview {
+  padding: var(--tw-space-4);
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.monitor-view .monitor-preview > div {
+  min-inline-size: 0;
+}
+
+.monitor-view .monitor-preview label,
+.monitor-view .monitor-stop label {
+  display: flex;
+  max-inline-size: calc(var(--tw-space-8) * 7);
+  align-items: center;
+  gap: var(--tw-space-3);
+}
+
+.monitor-view .monitor-preview input,
+.monitor-view .monitor-stop input {
+  flex: 0 0 auto;
+  inline-size: var(--tw-target-min);
+  block-size: var(--tw-target-min);
+}
+
+.monitor-view .monitor-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tw-space-4);
+  margin-block-start: var(--tw-space-5);
+}
+
+.monitor-view .monitor-kpis article {
+  display: grid;
+  min-block-size: calc(var(--tw-space-8) * 2);
+  align-content: space-between;
+  padding: var(--tw-space-4);
+  border: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 16%, transparent);
+  border-radius: var(--tw-radius-md);
+  background: var(--primary-foreground);
+}
+
+.monitor-view .monitor-kpis strong {
+  font-family: var(--tw-font-mono);
+  font-size: calc(var(--tw-size-mono) * 1.5);
+  font-weight: var(--tw-weight-body);
+}
+
+.monitor-view .monitor-kpis span {
+  color: color-mix(in srgb, var(--foreground) 58%, transparent);
+}
+
+.monitor-view .monitor-threshold {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+  align-items: end;
+  gap: var(--tw-space-5);
+  margin-block-start: var(--tw-space-5);
+  padding: var(--tw-space-5);
+}
+
+.monitor-view .monitor-threshold__copy p:last-child {
+  max-inline-size: 68ch;
+  margin: var(--tw-space-2) 0 0;
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+}
+
+.monitor-view .monitor-threshold__control {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--tw-space-3);
+}
+
+.monitor-view .monitor-threshold__control > span,
+.monitor-view .monitor-threshold__control > small {
+  grid-column: 1 / -1;
+  color: color-mix(in srgb, var(--foreground) 64%, transparent);
+}
+
+.monitor-view .monitor-threshold__control label {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.monitor-view .monitor-threshold__control input {
+  min-block-size: var(--tw-target-min);
+  inline-size: 100%;
+}
+
+.monitor-view .monitor-inspector {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(calc(var(--tw-space-8) * 4), 3fr);
+  gap: var(--tw-space-5);
+  align-items: start;
+  margin-block-start: var(--tw-space-5);
+}
+
+.monitor-view .monitor-chart,
+.monitor-view .monitor-window-list {
+  overflow: hidden;
+}
+
+.monitor-view .monitor-chart > header,
+.monitor-view .monitor-chart > footer,
+.monitor-view .monitor-window-list > header {
+  padding: var(--tw-space-4);
+}
+
+.monitor-view .monitor-chart > header,
+.monitor-view .monitor-window-list > header {
+  min-block-size: calc(var(--tw-space-8) + var(--tw-space-4));
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 14%, transparent);
+}
+
+.monitor-view .monitor-chart__actions,
+.monitor-view .monitor-chart__export {
+  display: flex;
+  align-items: center;
+  gap: var(--tw-space-3);
+}
+
+.monitor-view .monitor-chart__export {
+  justify-content: space-between;
+}
+
+.monitor-view .monitor-chart__export [data-slot="alert-description"] {
+  overflow-wrap: anywhere;
+}
+
+.monitor-view .monitor-plot {
+  position: relative;
+  block-size: calc(var(--tw-space-8) * 3);
+  margin: var(--tw-space-5);
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 24%, transparent);
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--border) 7%, transparent) var(--tw-stroke),
+    transparent var(--tw-stroke)
+  );
+  background-size: 100% 25%;
+}
+
+.monitor-view .monitor-bars {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: end;
+  gap: var(--tw-space-base);
+}
+
+.monitor-view .monitor-bars span {
+  min-inline-size: var(--tw-space-base);
+  flex: 1;
+  background: color-mix(in srgb, var(--primary) 14%, transparent);
+}
+
+.monitor-view .monitor-plot svg {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+}
+
+.monitor-view .monitor-plot polyline {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: var(--tw-space-1);
+  vector-effect: non-scaling-stroke;
+}
+
+.monitor-view .monitor-latency-line--average {
+  opacity: 0.36;
+  stroke-dasharray: var(--tw-space-3) var(--tw-space-2);
+}
+
+.monitor-view .monitor-chart__empty,
+.monitor-view .monitor-window-list__empty {
+  display: grid;
+  min-block-size: calc(var(--tw-space-8) * 3);
+  place-content: center;
+  padding: var(--tw-space-5);
+  text-align: center;
+}
+
+.monitor-view .monitor-chart > footer {
+  border-block-start: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 14%, transparent);
+  color: color-mix(in srgb, var(--foreground) 58%, transparent);
+}
+
+.monitor-view .monitor-window-list > header {
+  display: grid;
+  gap: var(--tw-space-2);
+}
+
+.monitor-view .monitor-window-list > header strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.monitor-view .monitor-window-list__rows {
+  max-block-size: calc(var(--tw-space-8) * 5);
+  overflow: auto;
+}
+
+.monitor-view .monitor-window-list__rows article {
+  display: grid;
+  min-block-size: var(--tw-target-min);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--tw-space-2);
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 10%, transparent);
+}
+
+.monitor-view .monitor-window-list__rows article > span:last-child {
+  grid-column: span 2;
+}
+
+.monitor-view .monitor-window-list__rows span,
+.monitor-view .monitor-window-list__rows strong,
+.monitor-view .monitor-window-list__rows small {
+  display: block;
+  min-inline-size: 0;
+}
+
+.monitor-view .monitor-window-list__rows strong {
+  overflow: hidden;
+  font-family: var(--tw-font-mono);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.monitor-view .monitor-window-list__rows small {
+  color: color-mix(in srgb, var(--foreground) 58%, transparent);
+}
+
+.monitor-view .monitor-stop {
+  margin-block-start: var(--tw-space-5);
+  padding: var(--tw-space-5);
+}
+
+.monitor-view .monitor-finished {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-5);
+  margin-block-start: var(--tw-space-5);
+  padding: var(--tw-space-5);
+}
+
+.monitor-view .monitor-finished h2 {
+  margin: var(--tw-space-2) 0 0;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+@media (width < 768px) {
+  .monitor-view .monitor-onboarding,
+  .monitor-view .monitor-target,
+  .monitor-view .monitor-setup__heading,
+  .monitor-view .monitor-preview,
+  .monitor-view .monitor-stop,
+  .monitor-view .monitor-finished,
+  .monitor-view .monitor-chart > header,
+  .monitor-view .monitor-chart > footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .monitor-view .monitor-fields,
+  .monitor-view .monitor-kpis,
+  .monitor-view .monitor-threshold,
+  .monitor-view .monitor-inspector {
+    grid-template-columns: 1fr;
+  }
+
+  .monitor-view .monitor-window-list__rows article {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .monitor-view .monitor-window-list__rows article > span:first-child {
+    grid-column: span 2;
+  }
+
+  .monitor-view .monitor-chart__actions,
+  .monitor-view .monitor-chart__export {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .monitor-view .monitor-threshold__control {
+    grid-template-columns: 1fr;
+  }
+
+  .monitor-view .monitor-threshold__control > span,
+  .monitor-view .monitor-threshold__control > small {
+    grid-column: 1;
+  }
+}

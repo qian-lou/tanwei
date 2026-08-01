@@ -1,0 +1,17 @@
+.module-preview {
+  max-inline-size: calc(var(--tw-space-8) * 10);
+  padding: var(--tw-space-6);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-lg);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.module-preview__title {
+  margin-block: var(--tw-space-4);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.module-preview [data-slot="button"] {
+  margin-block-start: var(--tw-space-5);
+}

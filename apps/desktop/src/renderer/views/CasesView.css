@@ -1,0 +1,183 @@
+.cases-view .case-create {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--tw-space-6);
+  margin-block-end: var(--tw-space-6);
+  padding: var(--tw-space-5);
+  border-radius: var(--tw-radius-lg);
+  color: var(--accent-foreground);
+  background: var(--card);
+  box-shadow: var(--tw-shadow-elevated);
+}
+
+.cases-view .case-global-actions,
+.cases-view .case-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--tw-space-3);
+}
+
+.cases-view .case-global-actions {
+  justify-content: space-between;
+  margin-block-end: var(--tw-space-5);
+}
+
+.cases-view .case-evidence {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tw-space-4);
+  margin-block-start: var(--tw-space-4);
+  padding-block-start: var(--tw-space-4);
+  border-block-start: var(--tw-focus-width) dashed var(--border);
+}
+
+.cases-view .case-evidence label {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  gap: var(--tw-space-3);
+}
+
+.cases-view .case-evidence input {
+  inline-size: var(--tw-target-min);
+  block-size: var(--tw-target-min);
+}
+
+.cases-view .case-evidence > .case-actions,
+.cases-view .export-preview {
+  grid-column: 1 / -1;
+}
+
+.cases-view .export-preview {
+  padding: var(--tw-space-4);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  border-radius: var(--tw-radius-sm);
+}
+
+.cases-view .export-preview pre {
+  max-block-size: var(--tw-space-9);
+  overflow: auto;
+  white-space: pre-wrap;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.cases-view .case-create__title,
+.cases-view .case-list h2,
+.cases-view .empty-panel__title {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.cases-view .case-create form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--tw-space-4);
+}
+
+.cases-view .case-create label,
+.cases-view .case-search {
+  display: grid;
+  gap: var(--tw-space-2);
+  text-transform: uppercase;
+}
+
+.cases-view .case-create input,
+.cases-view .case-create textarea,
+.cases-view .case-search input {
+  min-block-size: var(--tw-target-min);
+
+  resize: vertical;
+}
+
+.cases-view .case-create__notes {
+  grid-column: 1 / -1;
+}
+
+.cases-view .case-notice {
+  margin-block-end: var(--tw-space-5);
+}
+
+.cases-view .case-search {
+  margin-block-end: var(--tw-space-5);
+}
+
+.cases-view .case-search input {
+}
+
+.cases-view .case-list {
+  display: grid;
+  gap: var(--tw-space-4);
+}
+
+.cases-view .case-list article {
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.cases-view .case-list header,
+.cases-view .case-list footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.cases-view .case-list h2 {
+  margin-block: var(--tw-space-3);
+}
+
+.cases-view .case-list ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tw-space-3);
+  padding: 0;
+  list-style: none;
+}
+
+.cases-view .case-list li {
+  min-block-size: var(--tw-target-min);
+  align-content: center;
+  border-block-end: var(--tw-focus-width) solid var(--border);
+}
+
+.cases-view .case-list time {
+  font-family: var(--tw-font-mono);
+  opacity: 0.62;
+}
+
+.cases-view .empty-panel {
+  padding: var(--tw-space-6);
+  border: var(--tw-focus-width) dashed var(--border);
+  border-radius: var(--tw-radius-md);
+}
+
+@media (width < 768px) {
+  .cases-view .case-create,
+  .cases-view .case-create form {
+    grid-template-columns: 1fr;
+  }
+
+  .cases-view .case-create__notes {
+    grid-column: auto;
+  }
+
+  .cases-view .case-list header,
+  .cases-view .case-list footer,
+  .cases-view .case-global-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .cases-view .case-evidence {
+    grid-template-columns: 1fr;
+  }
+
+  .cases-view .case-evidence > .case-actions,
+  .cases-view .export-preview {
+    grid-column: auto;
+  }
+}

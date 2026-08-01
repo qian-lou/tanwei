@@ -1,0 +1,201 @@
+/* 共享组件样式（StatusPill / MetricCard / CapabilityPalette / ExitGuardDialog）。
+ * 从原 Vue scoped 样式迁移，类名与结构保持不变。 */
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 34px;
+  gap: 8px;
+  padding-inline: 11px;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  background: var(--secondary);
+  white-space: nowrap;
+}
+
+.status-pill [data-slot="status-pill-icon"] {
+  flex: none;
+}
+
+.status-pill--error {
+  color: white;
+  background: var(--destructive);
+}
+
+.exit-guard__header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--tw-space-3) var(--tw-space-5);
+  padding: var(--tw-space-6);
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 12%, transparent);
+}
+
+.exit-guard__eyebrow,
+.exit-guard__sequence,
+.exit-guard__description,
+.exit-guard__loading p,
+.exit-guard__target p,
+.exit-guard__more {
+  margin: 0;
+}
+
+.exit-guard__eyebrow,
+.exit-guard__sequence {
+  color: color-mix(in srgb, var(--foreground) 54%, transparent);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.exit-guard__sequence {
+  text-align: end;
+}
+
+.exit-guard__header h2 {
+  grid-column: 1 / -1;
+  max-inline-size: calc(var(--tw-space-8) * 9);
+  margin: var(--tw-space-4) 0 0;
+  font-family: var(--tw-font-heading);
+  font-size: calc((var(--tw-size-heading) + var(--tw-size-mono)) / 2);
+  line-height: var(--tw-leading-heading);
+}
+
+.exit-guard__description {
+  grid-column: 1 / -1;
+  max-inline-size: calc(var(--tw-space-8) * 8);
+  color: color-mix(in srgb, var(--foreground) 64%, transparent);
+}
+
+.exit-guard__loading {
+  display: flex;
+  min-block-size: calc(var(--tw-space-8) * 3);
+  align-items: center;
+  justify-content: center;
+  gap: var(--tw-space-4);
+  color: color-mix(in srgb, var(--foreground) 58%, transparent);
+  font-family: var(--tw-font-mono);
+}
+
+.exit-guard__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 12%, transparent);
+}
+
+.exit-guard__metrics article {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-5);
+  border-inline-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 10%, transparent);
+}
+
+.exit-guard__metrics article:last-child {
+  border-inline-end: 0;
+}
+
+.exit-guard__metrics span,
+.exit-guard__metrics small {
+  color: color-mix(in srgb, var(--foreground) 54%, transparent);
+  font-size: var(--tw-size-body);
+}
+
+.exit-guard__metrics span {
+  overflow: hidden;
+  font-family: var(--tw-font-mono);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.exit-guard__metrics strong {
+  font-family: var(--tw-font-heading);
+  font-size: var(--tw-space-6);
+}
+
+.exit-guard__warning {
+  margin: var(--tw-space-5) var(--tw-space-6) 0;
+}
+
+.exit-guard__targets {
+  display: grid;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-5) var(--tw-space-6);
+}
+
+.exit-guard__target {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-5);
+  padding-block: var(--tw-space-3);
+  border-block-end: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 9%, transparent);
+}
+
+.exit-guard__target div {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--tw-space-base);
+}
+
+.exit-guard__target strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.exit-guard__target span,
+.exit-guard__target p,
+.exit-guard__more {
+  color: color-mix(in srgb, var(--foreground) 56%, transparent);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-body);
+}
+
+.exit-guard__target p {
+  text-align: end;
+}
+
+.exit-guard__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+  padding: var(--tw-space-5) var(--tw-space-6);
+  border-block-start: var(--tw-stroke) solid
+    color-mix(in srgb, var(--border) 12%, transparent);
+}
+
+.exit-guard__actions > div {
+  display: flex;
+  gap: var(--tw-space-3);
+}
+
+@media (width < 768px) {
+  .exit-guard__metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .exit-guard__metrics article:nth-child(2) {
+    border-inline-end: 0;
+  }
+
+  .exit-guard__metrics article:nth-child(-n + 2) {
+    border-block-end: var(--tw-stroke) solid
+      color-mix(in srgb, var(--border) 10%, transparent);
+  }
+
+  .exit-guard__target,
+  .exit-guard__actions,
+  .exit-guard__actions > div {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .exit-guard__target p {
+    text-align: start;
+  }
+}

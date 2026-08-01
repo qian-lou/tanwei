@@ -1,0 +1,9 @@
+# clientVersion\tagentVersion\tcompatible\terrorCode
+1.0	1.0	true	-
+1.0	1.9	true	-
+1.0	2.0	false	PROTOCOL_INCOMPATIBLE
+1.0	1	false	PROTOCOL_VERSION_INVALID
+1.0	1.0-beta	false	PROTOCOL_VERSION_INVALID
+1.0	<missing>	false	PROTOCOL_VERSION_MISSING
+<missing>	1.0	false	PROTOCOL_VERSION_MISSING
+999999999999999999999999.0	1.0	false	PROTOCOL_VERSION_INVALID

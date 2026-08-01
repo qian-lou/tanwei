@@ -1,0 +1,959 @@
+.profile-view .profile-notice {
+  display: flex;
+  gap: var(--tw-space-4);
+  margin-block-end: var(--tw-space-5);
+  padding: var(--tw-space-4);
+  border-radius: var(--tw-radius-sm);
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+
+.profile-view .profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tw-space-5);
+}
+
+.profile-view .profile-card,
+.profile-view .artifact-result {
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.profile-view .profile-card--risk {
+  border-style: dashed;
+}
+
+.profile-view .profile-card header,
+.profile-view .profile-card__actions,
+.profile-view .artifact-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.profile-view .profile-card h2 {
+  margin-block: var(--tw-space-3) 0;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.profile-view .profile-card > p {
+  min-block-size: calc(var(--tw-space-7) * 2);
+}
+
+.profile-view .profile-config {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tw-space-3);
+  margin-block: var(--tw-space-4);
+}
+
+.profile-view .profile-config label {
+  display: grid;
+  gap: var(--tw-space-2);
+  text-transform: uppercase;
+}
+
+.profile-view .profile-config .profile-config__checkbox {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  align-self: end;
+  grid-column: span 2;
+  grid-template-columns: auto 1fr;
+}
+
+.profile-view .profile-config .profile-config__rules {
+  grid-column: span 3;
+}
+
+.profile-view .profile-config .profile-config__wide {
+  grid-column: 1 / -1;
+}
+
+.profile-view .profile-config textarea {
+  min-block-size: calc(var(--tw-target-min) * 2);
+  font-family: var(--tw-font-mono);
+  text-transform: none;
+}
+
+.profile-view .profile-config input,
+.profile-view .profile-config [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.profile-view .profile-card__actions {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.profile-view .artifact-result__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tw-space-3);
+}
+
+.profile-view .risk-confirmation {
+  display: grid;
+  gap: var(--tw-space-4);
+  margin-block-start: var(--tw-space-5);
+  padding-block-start: var(--tw-space-5);
+  border-block-start: var(--tw-focus-width) solid var(--border);
+}
+
+.profile-view .risk-confirmation label {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  gap: var(--tw-space-3);
+}
+
+.profile-view .heap-histogram {
+  display: grid;
+  gap: var(--tw-space-5);
+  margin-block-start: var(--tw-space-6);
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.profile-view .heap-histogram__header,
+.profile-view .heap-histogram__controls,
+.profile-view .heap-histogram__toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.profile-view .heap-histogram__header {
+  align-items: flex-start;
+}
+
+.profile-view .heap-histogram__header h2 {
+  margin-block: var(--tw-space-3) 0;
+  font-family: var(--tw-font-heading);
+  font-size: var(--tw-size-mono);
+}
+
+.profile-view .heap-histogram__header p:last-child {
+  max-inline-size: 72ch;
+  margin-block-end: 0;
+}
+
+.profile-view .heap-histogram__controls {
+  display: grid;
+  grid-template-columns:
+    minmax(calc(var(--tw-space-7) * 4), 1.5fr)
+    minmax(calc(var(--tw-space-7) * 2), 0.5fr) minmax(
+      calc(var(--tw-space-7) * 3),
+      0.7fr
+    );
+}
+
+.profile-view .heap-histogram__controls label,
+.profile-view .heap-histogram__toolbar label {
+  display: grid;
+  gap: var(--tw-space-2);
+  text-transform: uppercase;
+}
+
+.profile-view .heap-histogram__controls input[type="number"],
+.profile-view .heap-histogram__controls input[type="search"],
+.profile-view .heap-histogram__controls [data-slot="select-trigger"],
+.profile-view .heap-histogram__toolbar input,
+.profile-view .heap-histogram__toolbar [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.profile-view .heap-histogram__controls .heap-histogram__confirmation {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  gap: var(--tw-space-3);
+  padding-inline: var(--tw-space-3);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  text-transform: none;
+  grid-column: span 2;
+}
+
+.profile-view .heap-histogram__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.profile-view .heap-histogram__metrics div {
+  display: grid;
+  gap: var(--tw-space-2);
+  padding: var(--tw-space-4);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.profile-view .heap-histogram__metrics div:last-child {
+  border-inline-end: 0;
+}
+
+.profile-view .heap-histogram__metrics span {
+  text-transform: uppercase;
+}
+
+.profile-view .heap-histogram__metrics strong {
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  font-weight: var(--tw-weight-body);
+}
+
+.profile-view .heap-histogram__toolbar {
+  align-items: end;
+}
+
+.profile-view .heap-histogram__toolbar label:first-child {
+  flex: 1;
+}
+
+.profile-view .heap-histogram__toolbar label:last-child {
+  min-inline-size: calc(var(--tw-space-7) * 3);
+}
+
+.profile-view .heap-histogram__table-wrap {
+  max-block-size: calc(var(--tw-space-7) * 8);
+  overflow: auto;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.profile-view .heap-histogram table {
+  inline-size: 100%;
+  min-inline-size: calc(var(--tw-space-7) * 14);
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.profile-view .heap-histogram th,
+.profile-view .heap-histogram td {
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.profile-view .heap-histogram th {
+  position: sticky;
+  z-index: 1;
+  inset-block-start: 0;
+  color: var(--accent-foreground);
+  background: var(--accent);
+  text-transform: uppercase;
+}
+
+.profile-view .heap-histogram th:nth-child(1) {
+  inline-size: 34%;
+}
+
+.profile-view .heap-histogram th:nth-child(2) {
+  inline-size: 28%;
+}
+
+.profile-view .heap-histogram th:nth-child(n + 3) {
+  inline-size: 12.66%;
+}
+
+.profile-view .heap-histogram td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-view .heap-histogram td:nth-child(n + 3) {
+  font-family: var(--tw-font-mono);
+  white-space: nowrap;
+}
+
+.profile-view .heap-histogram code {
+  overflow-wrap: anywhere;
+  color: inherit;
+  font-family: var(--tw-font-mono);
+}
+
+.profile-view .heap-histogram__boundary {
+  margin: 0;
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-inline-start: var(--tw-space-1) solid var(--border);
+}
+
+.profile-view .heap-histogram__empty {
+  margin: 0;
+  padding: var(--tw-space-5);
+}
+
+.profile-view .heap-histogram-diff {
+  display: grid;
+  gap: var(--tw-space-4);
+  padding-block-start: var(--tw-space-5);
+  border-block-start: var(--tw-focus-width) solid var(--border);
+}
+
+.profile-view .heap-histogram-diff__header,
+.profile-view .heap-histogram-diff__toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.profile-view .heap-histogram-diff__header {
+  align-items: flex-start;
+}
+
+.profile-view .heap-histogram-diff__header h3 {
+  margin-block: var(--tw-space-3) 0;
+  font-family: var(--tw-font-heading);
+  font-size: var(--tw-size-mono);
+}
+
+.profile-view .heap-histogram-diff__header p:last-child {
+  max-inline-size: 72ch;
+  margin-block-end: 0;
+}
+
+.profile-view .heap-histogram-diff__actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--tw-space-3);
+}
+
+.profile-view .heap-histogram-diff__identity,
+.profile-view .heap-histogram-diff__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.profile-view .heap-histogram-diff__identity p,
+.profile-view .heap-histogram-diff__metrics div {
+  display: grid;
+  gap: var(--tw-space-2);
+  margin: 0;
+  padding: var(--tw-space-4);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.profile-view .heap-histogram-diff__identity p:last-child,
+.profile-view .heap-histogram-diff__metrics div:last-child {
+  border-inline-end: 0;
+}
+
+.profile-view .heap-histogram-diff__identity span,
+.profile-view .heap-histogram-diff__metrics span {
+  text-transform: uppercase;
+}
+
+.profile-view .heap-histogram-diff__identity strong,
+.profile-view .heap-histogram-diff__metrics strong {
+  overflow: hidden;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  font-weight: var(--tw-weight-body);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-view .heap-histogram-diff__toolbar label {
+  display: grid;
+  gap: var(--tw-space-2);
+  text-transform: uppercase;
+}
+
+.profile-view .heap-histogram-diff__toolbar label:first-child {
+  flex: 1;
+}
+
+.profile-view .heap-histogram-diff__toolbar label:last-child {
+  min-inline-size: calc(var(--tw-space-7) * 3);
+}
+
+.profile-view .heap-histogram-diff__toolbar input,
+.profile-view .heap-histogram-diff__toolbar [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.profile-view .heap-histogram-diff__table-wrap {
+  max-block-size: calc(var(--tw-space-7) * 8);
+  overflow: auto;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.profile-view .heap-histogram-diff table {
+  inline-size: 100%;
+  min-inline-size: calc(var(--tw-space-7) * 14);
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.profile-view .heap-histogram-diff th,
+.profile-view .heap-histogram-diff td {
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.profile-view .heap-histogram-diff th {
+  position: sticky;
+  z-index: 1;
+  inset-block-start: 0;
+  color: var(--accent-foreground);
+  background: var(--accent);
+  text-transform: uppercase;
+}
+
+.profile-view .heap-histogram-diff th:first-child {
+  inline-size: 44%;
+}
+
+.profile-view .heap-histogram-diff th:nth-child(n + 2) {
+  inline-size: 14%;
+}
+
+.profile-view .heap-histogram-diff td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-view .heap-histogram-diff td:nth-child(n + 2) {
+  font-family: var(--tw-font-mono);
+  white-space: nowrap;
+}
+
+.profile-view .heap-histogram-diff code,
+.profile-view .heap-histogram-diff small {
+  display: block;
+  overflow: hidden;
+  color: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-view .heap-histogram-diff small {
+  margin-block-start: var(--tw-space-2);
+  opacity: 0.62;
+}
+
+.profile-view .heap-histogram-diff__delta--growth,
+.profile-view .heap-histogram-diff__delta--release {
+  font-weight: var(--tw-weight-heading);
+}
+
+.profile-view .heap-histogram-diff__delta--stable {
+  opacity: 0.62;
+}
+
+.profile-view .heap-histogram-diff__boundary {
+  margin: 0;
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-inline-start: var(--tw-space-1) solid var(--border);
+}
+
+.profile-view .heap-histogram-diff__empty {
+  margin: 0;
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) dashed var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.profile-view .class-retained {
+  display: grid;
+  gap: var(--tw-space-5);
+  margin-block-start: var(--tw-space-6);
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.profile-view .class-retained__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.profile-view .class-retained__header h2 {
+  margin-block: var(--tw-space-3) 0;
+  font-family: var(--tw-font-heading);
+  font-size: var(--tw-size-mono);
+}
+
+.profile-view .class-retained__header p:last-child {
+  max-inline-size: 72ch;
+  margin-block-end: 0;
+}
+
+.profile-view .class-retained__controls {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--tw-space-4);
+}
+
+.profile-view .class-retained__controls label {
+  display: grid;
+  gap: var(--tw-space-2);
+  text-transform: uppercase;
+}
+
+.profile-view .class-retained__controls input,
+.profile-view .class-retained__controls [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.profile-view .class-retained__confirmation {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-3);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.profile-view .class-retained__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.profile-view .class-retained__metrics div {
+  display: grid;
+  gap: var(--tw-space-2);
+  padding: var(--tw-space-4);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.profile-view .class-retained__metrics div:last-child {
+  border-inline-end: 0;
+}
+
+.profile-view .class-retained__metrics span {
+  text-transform: uppercase;
+}
+
+.profile-view .class-retained__metrics strong {
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  font-weight: var(--tw-weight-body);
+}
+
+.profile-view .class-retained__table-wrap {
+  max-block-size: calc(var(--tw-space-7) * 9);
+  overflow: auto;
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.profile-view .class-retained table {
+  inline-size: 100%;
+  min-inline-size: calc(var(--tw-space-7) * 18);
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.profile-view .class-retained th,
+.profile-view .class-retained td {
+  padding: var(--tw-space-3);
+  border-block-end: var(--tw-focus-width) solid var(--border);
+  text-align: start;
+  vertical-align: middle;
+}
+
+.profile-view .class-retained th {
+  position: sticky;
+  z-index: 1;
+  inset-block-start: 0;
+  color: var(--accent-foreground);
+  background: var(--accent);
+  text-transform: uppercase;
+}
+
+.profile-view .class-retained th:nth-child(2) {
+  inline-size: 32%;
+}
+
+.profile-view .class-retained td:nth-child(2) {
+  overflow: hidden;
+}
+
+.profile-view .class-retained td:nth-child(n + 3):not(:last-child) {
+  font-family: var(--tw-font-mono);
+  white-space: nowrap;
+}
+
+.profile-view .class-retained code,
+.profile-view .class-retained small {
+  display: block;
+  overflow: hidden;
+  color: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-view .class-retained small {
+  margin-block-start: var(--tw-space-2);
+}
+
+.profile-view .class-retained__boundary {
+  margin: 0;
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-inline-start: var(--tw-space-1) solid var(--border);
+}
+
+.profile-view .class-retained__empty {
+  margin: 0;
+  padding: var(--tw-space-5);
+}
+
+.profile-view .dominator-tree {
+  display: grid;
+  gap: var(--tw-space-5);
+  margin-block-start: var(--tw-space-6);
+  padding: var(--tw-space-5);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-md);
+  box-shadow: var(--tw-shadow-card);
+}
+
+.profile-view .dominator-tree__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.profile-view .dominator-tree__header h2 {
+  margin-block: var(--tw-space-3) 0;
+  font-family: var(--tw-font-heading);
+  font-size: var(--tw-size-mono);
+}
+
+.profile-view .dominator-tree__header p:last-child {
+  max-inline-size: 72ch;
+  margin-block-end: 0;
+}
+
+.profile-view .dominator-tree__controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tw-space-4);
+}
+
+.profile-view .dominator-tree__controls label {
+  display: grid;
+  gap: var(--tw-space-2);
+  text-transform: uppercase;
+}
+
+.profile-view .dominator-tree__controls [data-slot="select-trigger"] {
+  min-block-size: var(--tw-target-min);
+}
+
+.profile-view .dominator-tree__confirmation {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-3);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+}
+
+.profile-view .dominator-tree__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-block: var(--tw-focus-width) solid var(--border);
+}
+
+.profile-view .dominator-tree__metrics div {
+  display: grid;
+  gap: var(--tw-space-2);
+  padding: var(--tw-space-4);
+  border-inline-end: var(--tw-focus-width) solid var(--border);
+}
+
+.profile-view .dominator-tree__metrics div:last-child {
+  border-inline-end: 0;
+}
+
+.profile-view .dominator-tree__metrics span {
+  text-transform: uppercase;
+}
+
+.profile-view .dominator-tree__metrics strong {
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+  font-weight: var(--tw-weight-body);
+}
+
+.profile-view .dominator-tree__boundary {
+  margin: 0;
+  padding: var(--tw-space-3) var(--tw-space-4);
+  border-inline-start: var(--tw-space-1) solid var(--border);
+}
+
+.profile-view .dominator-tree__canvas {
+  display: grid;
+  gap: var(--tw-space-3);
+  max-block-size: calc(var(--tw-space-7) * 12);
+  overflow: auto;
+  padding: var(--tw-space-3);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  background: var(--card);
+}
+
+.profile-view .dominator-tree__virtual-root {
+  display: flex;
+  min-block-size: var(--tw-target-min);
+  align-items: center;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-3) var(--tw-space-4);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  border-radius: var(--tw-radius-sm);
+}
+
+.profile-view .dominator-tree__virtual-root span:last-child {
+  margin-inline-start: auto;
+}
+
+.profile-view .dominator-tree__node {
+  display: grid;
+  grid-template-columns:
+    var(--tw-target-min)
+    minmax(calc(var(--tw-space-7) * 4), 1.4fr)
+    minmax(calc(var(--tw-space-7) * 4), 1fr)
+    auto;
+  align-items: center;
+  gap: var(--tw-space-3);
+  min-block-size: var(--tw-target-min);
+  padding: var(--tw-space-3);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  background: var(--background);
+}
+
+.profile-view .dominator-tree__node--depth-2 {
+  margin-inline-start: var(--tw-space-4);
+}
+
+.profile-view .dominator-tree__node--depth-3 {
+  margin-inline-start: var(--tw-space-6);
+}
+
+.profile-view .dominator-tree__node--depth-4 {
+  margin-inline-start: calc(var(--tw-space-6) + var(--tw-space-4));
+}
+
+.profile-view .dominator-tree__node--depth-5 {
+  margin-inline-start: calc(var(--tw-space-6) * 2);
+}
+
+.profile-view .dominator-tree__node--depth-6 {
+  margin-inline-start: calc(var(--tw-space-6) * 2 + var(--tw-space-4));
+}
+
+.profile-view .dominator-tree__node--depth-7 {
+  margin-inline-start: calc(var(--tw-space-6) * 3);
+}
+
+.profile-view .dominator-tree__node--depth-8 {
+  margin-inline-start: calc(var(--tw-space-6) * 3 + var(--tw-space-4));
+}
+
+.profile-view .dominator-tree__toggle {
+  inline-size: var(--tw-target-min);
+  block-size: var(--tw-target-min);
+  border: var(--tw-focus-width) solid var(--border);
+  border-radius: var(--tw-radius-sm);
+  color: var(--foreground);
+  background: var(--background);
+  font: inherit;
+}
+
+.profile-view .dominator-tree__toggle:disabled {
+  border-color: transparent;
+}
+
+.profile-view .dominator-tree__identity {
+  min-inline-size: 0;
+}
+
+.profile-view .dominator-tree__identity strong,
+.profile-view .dominator-tree__identity span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-view .dominator-tree__identity strong {
+  font-family: var(--tw-font-mono);
+}
+
+.profile-view .dominator-tree__identity span {
+  margin-block-start: var(--tw-space-2);
+}
+
+.profile-view .dominator-tree__node dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tw-space-3);
+  margin: 0;
+}
+
+.profile-view .dominator-tree__node dl div {
+  min-inline-size: 0;
+}
+
+.profile-view .dominator-tree__node dt {
+  text-transform: uppercase;
+}
+
+.profile-view .dominator-tree__node dd {
+  margin: var(--tw-space-2) 0 0;
+  overflow: hidden;
+  font-family: var(--tw-font-mono);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-view .dominator-tree__empty {
+  margin: 0;
+  padding: var(--tw-space-5);
+}
+
+.profile-view .artifact-result {
+  margin-block-start: var(--tw-space-6);
+}
+
+.profile-view .artifact-result p {
+  margin-block: var(--tw-space-2);
+}
+
+.profile-view .artifact-result__name {
+  overflow-wrap: anywhere;
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.profile-view .empty-panel {
+  padding: var(--tw-space-6);
+  border: var(--tw-focus-width) dashed var(--border);
+  border-radius: var(--tw-radius-md);
+}
+
+.profile-view .empty-panel__title {
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+@media (width < 768px) {
+  .profile-view .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-view .profile-config {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-view .profile-config .profile-config__checkbox,
+  .profile-view .profile-config .profile-config__rules,
+  .profile-view .profile-config .profile-config__wide {
+    grid-column: auto;
+  }
+
+  .profile-view .heap-histogram__header,
+  .profile-view .heap-histogram__toolbar,
+  .profile-view .heap-histogram-diff__header,
+  .profile-view .heap-histogram-diff__toolbar,
+  .profile-view .class-retained__header,
+  .profile-view .dominator-tree__header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .profile-view .heap-histogram__controls,
+  .profile-view .heap-histogram__metrics,
+  .profile-view .heap-histogram-diff__identity,
+  .profile-view .heap-histogram-diff__metrics,
+  .profile-view .class-retained__controls,
+  .profile-view .class-retained__metrics,
+  .profile-view .dominator-tree__controls,
+  .profile-view .dominator-tree__metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-view .heap-histogram__metrics div,
+  .profile-view .heap-histogram-diff__identity p,
+  .profile-view .heap-histogram-diff__metrics div,
+  .profile-view .class-retained__metrics div,
+  .profile-view .dominator-tree__metrics div {
+    border-inline-end: 0;
+    border-block-end: var(--tw-focus-width) solid var(--border);
+  }
+
+  .profile-view .heap-histogram__metrics div:last-child,
+  .profile-view .heap-histogram-diff__identity p:last-child,
+  .profile-view .heap-histogram-diff__metrics div:last-child,
+  .profile-view .class-retained__metrics div:last-child,
+  .profile-view .dominator-tree__metrics div:last-child {
+    border-block-end: 0;
+  }
+
+  .profile-view .heap-histogram__toolbar label:last-child {
+    min-inline-size: 0;
+  }
+
+  .profile-view .heap-histogram-diff__actions {
+    justify-content: flex-start;
+  }
+
+  .profile-view .heap-histogram-diff__toolbar label:last-child {
+    min-inline-size: 0;
+  }
+
+  .profile-view .dominator-tree__node {
+    grid-template-columns: var(--tw-target-min) minmax(0, 1fr);
+  }
+
+  .profile-view .dominator-tree__node dl,
+  .profile-view .dominator-tree__node > [data-slot="button"] {
+    grid-column: 2;
+  }
+
+  .profile-view .dominator-tree__node--depth-2,
+  .profile-view .dominator-tree__node--depth-3,
+  .profile-view .dominator-tree__node--depth-4,
+  .profile-view .dominator-tree__node--depth-5,
+  .profile-view .dominator-tree__node--depth-6,
+  .profile-view .dominator-tree__node--depth-7,
+  .profile-view .dominator-tree__node--depth-8 {
+    margin-inline-start: 0;
+  }
+
+  .profile-view .profile-card header,
+  .profile-view .artifact-result {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,134 @@
+.diagnostic-alert-trigger {
+  position: relative;
+  flex: none;
+}
+
+.diagnostic-alert-trigger__count {
+  position: absolute;
+  inset-block-start: -5px;
+  inset-inline-end: -6px;
+  display: grid;
+  min-inline-size: 18px;
+  block-size: 18px;
+  padding-inline: 4px;
+  border: 2px solid var(--background);
+  border-radius: 999px;
+  color: white;
+  background: var(--destructive);
+  font-family: var(--tw-font-mono);
+  font-size: 10px;
+  line-height: 1;
+  place-items: center;
+}
+
+.diagnostic-alert-center {
+  inline-size: min(680px, calc(100vw - 32px));
+  max-inline-size: 680px;
+  max-block-size: min(760px, calc(100vh - 32px));
+  grid-template-rows: auto auto minmax(0, 1fr);
+  overflow: hidden;
+  padding: var(--tw-space-5);
+}
+
+.diagnostic-alert-center__title-row {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+  padding-inline-end: var(--tw-space-7);
+}
+
+.diagnostic-alert-center__title-row .eyebrow {
+  margin: 0 0 var(--tw-space-2);
+}
+
+.diagnostic-alert-center__state {
+  min-block-size: 240px;
+}
+
+.diagnostic-alert-center__list {
+  display: grid;
+  overflow-y: auto;
+  gap: var(--tw-space-3);
+  margin: 0;
+  padding: 0 var(--tw-space-2) 0 0;
+  list-style: none;
+}
+
+.diagnostic-alert-card {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--tw-space-3);
+  padding: var(--tw-space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--card);
+}
+
+.diagnostic-alert-card[data-read="true"] {
+  opacity: 0.68;
+}
+
+.diagnostic-alert-card [data-slot="diagnostic-alert-severity-icon"] {
+  inline-size: 16px;
+  block-size: 16px;
+  margin-block-start: 2px;
+  color: var(--muted-foreground);
+}
+
+.diagnostic-alert-card--warning
+  [data-slot="diagnostic-alert-severity-icon"] {
+  color: var(--foreground);
+}
+
+.diagnostic-alert-card--critical
+  [data-slot="diagnostic-alert-severity-icon"] {
+  color: var(--destructive);
+}
+
+.diagnostic-alert-card__body {
+  min-inline-size: 0;
+}
+
+.diagnostic-alert-card__body header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--tw-space-4);
+}
+
+.diagnostic-alert-card__body time,
+.diagnostic-alert-card__body code {
+  color: var(--muted-foreground);
+  font-family: var(--tw-font-mono);
+  font-size: var(--tw-size-mono);
+}
+
+.diagnostic-alert-card__body p {
+  margin-block: var(--tw-space-2);
+  color: var(--muted-foreground);
+}
+
+.diagnostic-alert-card__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--tw-space-2);
+}
+
+@media (max-width: 760px) {
+  .diagnostic-alert-center__title-row,
+  .diagnostic-alert-card__body header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .diagnostic-alert-card {
+    grid-template-columns: 16px minmax(0, 1fr);
+  }
+
+  .diagnostic-alert-card__actions {
+    grid-column: 2;
+    justify-content: flex-end;
+  }
+}
