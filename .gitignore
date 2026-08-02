@@ -4,6 +4,7 @@ node_modules/
 /.playwright-cli/
 /design/
 /design-demos/
+/docs/
 /upgrade-08-01.md
 /scripts/verify-reference-clean.mjs
 dist/

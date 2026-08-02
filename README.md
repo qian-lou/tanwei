@@ -34,9 +34,7 @@
 - MBean、JUL、Logback、Log4j 1.x/2 检查与受控修改
 - 活动任务、诊断审计、不可变制品、案例和签名诊断模板
 
-具体能力、限制和测试证据见
-[`docs/implementation-status.md`](docs/implementation-status.md)。实际可用能力取决于目标 JDK、
-连接方式、Agent 能力声明和本机/团队策略。
+实际可用能力取决于目标 JDK、连接方式、Agent 能力声明和本机/团队策略。
 
 ## 快速开始
 
@@ -85,8 +83,7 @@ npm run dev
 npm run verify
 ```
 
-`verify` 会依次运行完整测试、当前平台目录包和真实 Attach E2E。正式发布资格和长时测试要求见
-[`docs/release-qualification.md`](docs/release-qualification.md)。
+`verify` 会依次运行完整测试、当前平台目录包和真实 Attach E2E。
 
 ### 发布
 
@@ -115,8 +112,7 @@ flowchart LR
 ```
 
 Renderer 负责交互；Electron 主进程负责连接生命周期、授权、持久化和制品校验；Agent 在目标
-JVM 内再次校验 Action、能力与输入预算。领域模型见 [`CONTEXT.md`](CONTEXT.md)，架构决策见
-[`docs/adr/`](docs/adr/)。
+JVM 内再次校验 Action、能力与输入预算。领域模型见 [`CONTEXT.md`](CONTEXT.md)。
 
 ## 项目结构
 
@@ -127,8 +123,7 @@ JVM 内再次校验 Action、能力与输入预算。领域模型见 [`CONTEXT.m
 ├── jvm/                   # Agent、Protocol、Relay 与集成测试
 ├── contracts/             # 协议兼容契约
 ├── scripts/               # 构建、打包、发布与验证脚本
-├── tests/e2e/             # 打包应用 E2E
-└── docs/                  # PRD、实施状态、接口与 ADR
+└── tests/e2e/             # 打包应用 E2E
 ```
 
 ## 安全边界
@@ -155,14 +150,6 @@ JVM 内再次校验 Action、能力与输入预算。领域模型见 [`CONTEXT.m
 
 项目优先接受边界明确、可取消、可审计且不会绕过 Action Policy 的诊断能力。
 提交的贡献将按本项目相同的非商业许可证提供。
-
-## 文档
-
-- [产品需求](docs/prd/tanwei-prd.md)
-- [实施状态与测试证据](docs/implementation-status.md)
-- [领域模型](CONTEXT.md)
-- [发布资格](docs/release-qualification.md)
-- [架构决策](docs/adr/)
 
 ## 许可证
 
