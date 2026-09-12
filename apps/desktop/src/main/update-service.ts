@@ -1,4 +1,5 @@
 import { access } from "node:fs/promises";
+import { createRequire } from "node:module";
 import path from "node:path";
 import { app } from "electron";
 import type {
@@ -18,6 +19,7 @@ function failure<T>(
 }
 
 type AutoUpdater = typeof import("electron-updater")["autoUpdater"];
+const require = createRequire(import.meta.url);
 
 export class UpdateService {
   #updater: AutoUpdater | null = null;
@@ -42,7 +44,7 @@ export class UpdateService {
     if (!(await access(configuration).then(() => true).catch(() => false))) {
       return;
     }
-    const module = await import("electron-updater");
+    const module = require("electron-updater") as typeof import("electron-updater");
     const updater = module.autoUpdater;
     updater.autoDownload = false;
     updater.autoInstallOnAppQuit = false;

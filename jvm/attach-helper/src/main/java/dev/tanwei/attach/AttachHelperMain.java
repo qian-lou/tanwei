@@ -1,7 +1,7 @@
 package dev.tanwei.attach;
 
-import com.sun.tools.attach.VirtualMachine;
-import com.sun.tools.attach.VirtualMachineDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -49,29 +49,39 @@ public final class AttachHelperMain {
   }
 
   private static int listProcesses() {
-    String currentPid = currentPid();
-    List<TargetProcess> targets = new ArrayList<TargetProcess>();
-    for (VirtualMachineDescriptor descriptor : VirtualMachine.list()) {
-      long pid;
-      try {
-        pid = Long.parseLong(descriptor.id());
-      } catch (NumberFormatException ignored) {
-        continue;
+    try {
+      String currentPid = currentPid();
+      List<TargetProcess> targets = new ArrayList<TargetProcess>();
+      for (Object descriptor : AttachApi.listVirtualMachines()) {
+        String descriptorId = AttachApi.descriptorId(descriptor);
+        long pid;
+        try {
+          pid = Long.parseLong(descriptorId);
+        } catch (NumberFormatException ignored) {
+          continue;
+        }
+        boolean self = descriptorId.equals(currentPid);
+        targets.add(
+            new TargetProcess(
+                pid,
+                AttachApi.descriptorDisplayName(descriptor),
+                !self,
+                self ? "Attach Helper 不能 Attach 自身" : null));
       }
-      boolean self = descriptor.id().equals(currentPid);
-      targets.add(
-          new TargetProcess(
-              pid,
-              descriptor.displayName(),
-              !self,
-              self ? "Attach Helper 不能 Attach 自身" : null));
+      targets.sort(Comparator.comparingLong(TargetProcess::getPid));
+      System.out.println(JsonWriter.targets(targets));
+      return 0;
+    } catch (Exception exception) {
+      System.out.println(JsonWriter.error("DISCOVERY_FAILED", safeMessage(exception)));
+      return EXIT_OPERATION_FAILED;
     }
-    targets.sort(Comparator.comparingLong(TargetProcess::getPid));
-    System.out.println(JsonWriter.targets(targets));
-    return 0;
   }
 
-  private static int attach(Map<String, String> options) {
+  static int attach(Map<String, String> options) {
+    return attach(options, AttachHelperMain::loadAgent);
+  }
+
+  static int attach(Map<String, String> options, AgentLoader agentLoader) {
     String pidValue = options.get("pid");
     String bootstrapValue = options.get("bootstrap");
     String agentValue = options.get("agent");
@@ -114,30 +124,42 @@ public final class AttachHelperMain {
       return EXIT_INVALID_INPUT;
     }
 
-    VirtualMachine virtualMachine = null;
     try {
-      virtualMachine = VirtualMachine.attach(Long.toString(pid));
       String encodedCorePath =
           Base64.getUrlEncoder()
               .withoutPadding()
               .encodeToString(agentPath.toString().getBytes(StandardCharsets.UTF_8));
       String agentArguments =
           "core=" + encodedCorePath + ";port=" + port + ";secret=" + secret;
-      virtualMachine.loadAgent(bootstrapPath.toString(), agentArguments);
-      System.out.println(JsonWriter.success(pid));
-      return 0;
+      agentLoader.load(pid, bootstrapPath, agentArguments);
     } catch (Exception exception) {
       System.out.println(JsonWriter.error("ATTACH_FAILED", safeMessage(exception)));
       return EXIT_OPERATION_FAILED;
+    }
+    System.out.println(JsonWriter.success(pid));
+    return 0;
+  }
+
+  private static void loadAgent(long pid, Path bootstrapPath, String agentArguments)
+      throws Exception {
+    Object virtualMachine = null;
+    try {
+      virtualMachine = AttachApi.attach(Long.toString(pid));
+      AttachApi.loadAgent(virtualMachine, bootstrapPath.toString(), agentArguments);
     } finally {
       if (virtualMachine != null) {
         try {
-          virtualMachine.detach();
+          AttachApi.detach(virtualMachine);
         } catch (Exception ignored) {
           // Target may have exited; the primary result is already reported.
         }
       }
     }
+  }
+
+  @FunctionalInterface
+  interface AgentLoader {
+    void load(long pid, Path bootstrapPath, String agentArguments) throws Exception;
   }
 
   private static Map<String, String> parseOptions(String[] args) {
@@ -163,5 +185,84 @@ public final class AttachHelperMain {
     return message == null || message.trim().isEmpty()
         ? exception.getClass().getSimpleName()
         : message;
+  }
+
+  private static final class AttachApi {
+    private static final String VIRTUAL_MACHINE_CLASS_NAME =
+        "com.sun.tools.attach.VirtualMachine";
+    private static final String DESCRIPTOR_CLASS_NAME =
+        "com.sun.tools.attach.VirtualMachineDescriptor";
+
+    private AttachApi() {}
+
+    static List<?> listVirtualMachines() throws Exception {
+      Method list = virtualMachineClass().getMethod("list");
+      Object value = invoke(list, null);
+      if (!(value instanceof List<?>)) {
+        throw new IllegalStateException("Attach API returned an invalid process list");
+      }
+      return (List<?>) value;
+    }
+
+    static String descriptorId(Object descriptor) throws Exception {
+      return descriptorValue(descriptor, "id");
+    }
+
+    static String descriptorDisplayName(Object descriptor) throws Exception {
+      return descriptorValue(descriptor, "displayName");
+    }
+
+    static Object attach(String pid) throws Exception {
+      Method attach = virtualMachineClass().getMethod("attach", String.class);
+      return invoke(attach, null, pid);
+    }
+
+    static void loadAgent(Object virtualMachine, String agentPath, String arguments)
+        throws Exception {
+      Method loadAgent =
+          virtualMachineClass().getMethod("loadAgent", String.class, String.class);
+      invoke(loadAgent, virtualMachine, agentPath, arguments);
+    }
+
+    static void detach(Object virtualMachine) throws Exception {
+      Method detach = virtualMachineClass().getMethod("detach");
+      invoke(detach, virtualMachine);
+    }
+
+    private static String descriptorValue(Object descriptor, String methodName)
+        throws Exception {
+      if (descriptor == null) {
+        throw new IllegalArgumentException("Attach descriptor is required");
+      }
+      Class<?> descriptorClass = Class.forName(DESCRIPTOR_CLASS_NAME);
+      if (!descriptorClass.isInstance(descriptor)) {
+        throw new IllegalStateException("Attach API returned an invalid descriptor");
+      }
+      Object value = invoke(descriptorClass.getMethod(methodName), descriptor);
+      if (!(value instanceof String)) {
+        throw new IllegalStateException("Attach descriptor returned an invalid " + methodName);
+      }
+      return (String) value;
+    }
+
+    private static Class<?> virtualMachineClass() throws ClassNotFoundException {
+      return Class.forName(VIRTUAL_MACHINE_CLASS_NAME);
+    }
+
+    private static Object invoke(Method method, Object target, Object... arguments)
+        throws Exception {
+      try {
+        return method.invoke(target, arguments);
+      } catch (InvocationTargetException exception) {
+        Throwable cause = exception.getCause();
+        if (cause instanceof Exception) {
+          throw (Exception) cause;
+        }
+        if (cause instanceof Error) {
+          throw (Error) cause;
+        }
+        throw new IllegalStateException("Attach API invocation failed", cause);
+      }
+    }
   }
 }

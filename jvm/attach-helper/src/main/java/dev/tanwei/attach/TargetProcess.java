@@ -25,19 +25,14 @@ final class TargetProcess {
     this.displayName = Objects.requireNonNull(displayName, "displayName");
     List<String> tokens = tokenize(displayName);
     this.mainClass = tokens.isEmpty() ? "" : tokens.get(0);
-    Optional<ProcessHandle> processHandle = ProcessHandle.of(pid);
-    ProcessHandle.Info processInfo =
-        processHandle.map(ProcessHandle::info).orElse(null);
-    String[] processArguments =
-        processInfo == null ? null : processInfo.arguments().orElse(null);
-    this.arguments = immutableArguments(processArguments, tokens);
-    this.javaPath =
-        processInfo == null ? null : processInfo.command().orElse(null);
-    this.user = processInfo == null ? null : processInfo.user().orElse(null);
-    this.startTime =
-        processInfo == null
-            ? null
-            : processInfo.startInstant().map(Object::toString).orElse(null);
+    ProcessMetadata processMetadata = ProcessMetadata.read(pid);
+    this.arguments =
+        immutableArguments(
+            processMetadata == null ? null : processMetadata.arguments,
+            tokens);
+    this.javaPath = processMetadata == null ? null : processMetadata.command;
+    this.user = processMetadata == null ? null : processMetadata.user;
+    this.startTime = processMetadata == null ? null : processMetadata.startTime;
     this.attachable = attachable;
     this.attachReason = attachReason;
   }
@@ -123,6 +118,68 @@ final class TargetProcess {
     if (current.length() > 0) {
       result.add(current.toString());
       current.setLength(0);
+    }
+  }
+
+  private static final class ProcessMetadata {
+    private static final String PROCESS_HANDLE_CLASS_NAME = "java.lang.ProcessHandle";
+    private static final String PROCESS_INFO_CLASS_NAME = "java.lang.ProcessHandle$Info";
+
+    private final String[] arguments;
+    private final String command;
+    private final String user;
+    private final String startTime;
+
+    private ProcessMetadata(
+        String[] arguments,
+        String command,
+        String user,
+        String startTime) {
+      this.arguments = arguments;
+      this.command = command;
+      this.user = user;
+      this.startTime = startTime;
+    }
+
+    static ProcessMetadata read(long pid) {
+      try {
+        Class<?> processHandleClass = Class.forName(PROCESS_HANDLE_CLASS_NAME);
+        Object handle =
+            optionalValue(
+                processHandleClass
+                    .getMethod("of", long.class)
+                    .invoke(null, Long.valueOf(pid)));
+        if (handle == null) {
+          return null;
+        }
+        Object info = processHandleClass.getMethod("info").invoke(handle);
+        Class<?> processInfoClass = Class.forName(PROCESS_INFO_CLASS_NAME);
+        if (!processInfoClass.isInstance(info)) {
+          return null;
+        }
+        Object arguments =
+            optionalValue(processInfoClass.getMethod("arguments").invoke(info));
+        Object command =
+            optionalValue(processInfoClass.getMethod("command").invoke(info));
+        Object user = optionalValue(processInfoClass.getMethod("user").invoke(info));
+        Object startTime =
+            optionalValue(processInfoClass.getMethod("startInstant").invoke(info));
+        return new ProcessMetadata(
+            arguments instanceof String[] ? (String[]) arguments : null,
+            command instanceof String ? (String) command : null,
+            user instanceof String ? (String) user : null,
+            startTime == null ? null : startTime.toString());
+      } catch (ReflectiveOperationException exception) {
+        return null;
+      } catch (LinkageError error) {
+        return null;
+      } catch (RuntimeException exception) {
+        return null;
+      }
+    }
+
+    private static Object optionalValue(Object value) {
+      return value instanceof Optional<?> ? ((Optional<?>) value).orElse(null) : null;
     }
   }
 }

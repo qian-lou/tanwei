@@ -14,6 +14,7 @@ export interface TargetsState {
   readonly connecting: boolean;
   readonly errorMessage: string | null;
   readonly refresh: () => Promise<void>;
+  readonly refreshConnections: (signal: AbortSignal) => Promise<void>;
   readonly select: (targetId: string) => void;
   readonly connect: (
     targetId: string,
@@ -31,13 +32,22 @@ export const useTargetsStore = create<TargetsState>()((set, get) => ({
   errorMessage: null,
 
   async refresh(): Promise<void> {
+    const previousConnections = get().connections;
     set({ loading: true, errorMessage: null });
     try {
       const [targetResult, connectionResult] = await Promise.all([
         window.tanwei.listTargets(),
         window.tanwei.listConnections(),
       ]);
-      const activeConnections = connectionResult.value ?? [];
+      const current = get();
+      const connections =
+        connectionResult.ok &&
+        connectionResult.value &&
+        current.connections === previousConnections &&
+        !current.connecting
+          ? reconcileConnections(current.connections, connectionResult.value)
+          : current.connections;
+      const activeConnections = Object.values(connections);
       const targetById = new Map(
         (targetResult.value ?? []).map((target) => [target.id, target]),
       );
@@ -58,12 +68,7 @@ export const useTargetsStore = create<TargetsState>()((set, get) => ({
 
       set({
         targets: [...targetById.values()],
-        connections: Object.fromEntries(
-          activeConnections.map((activeConnection) => [
-            activeConnection.target.id,
-            activeConnection,
-          ]),
-        ),
+        connections,
         selectedTargetId: selectedTargetStillExists
           ? selectedTargetId
           : (activeConnections.find(
@@ -79,6 +84,29 @@ export const useTargetsStore = create<TargetsState>()((set, get) => ({
     } finally {
       set({ loading: false });
     }
+  },
+
+  async refreshConnections(signal: AbortSignal): Promise<void> {
+    const previous = get();
+    if (signal.aborted || previous.loading || previous.connecting) {
+      return;
+    }
+    const result = await window.tanwei.listConnections();
+    if (signal.aborted || !result.ok || !result.value) {
+      return;
+    }
+    const snapshot = result.value;
+    set((state) => {
+      if (
+        state.connections !== previous.connections ||
+        state.loading ||
+        state.connecting
+      ) {
+        return state;
+      }
+      const connections = reconcileConnections(state.connections, snapshot);
+      return connections === state.connections ? state : { connections };
+    });
   },
 
   select(targetId: string): void {
@@ -157,6 +185,26 @@ export const useTargetsStore = create<TargetsState>()((set, get) => ({
     }));
   },
 }));
+
+// 按快照总大小线性比较；时间与空间均为 O(S + N)。
+// Time/Space: O(S + N), where S is snapshot size and N is session count.
+function reconcileConnections(
+  previous: TargetsState["connections"],
+  snapshot: readonly TargetConnection[],
+): TargetsState["connections"] {
+  let changed = Object.keys(previous).length !== snapshot.length;
+  const entries = snapshot.map((connection) => {
+    const current = previous[connection.target.id];
+    // 保留未变化的 IPC 快照引用，避免重启诊断页面副作用。
+    // Preserve unchanged IPC snapshots to avoid restarting diagnostic effects.
+    if (current && JSON.stringify(current) === JSON.stringify(connection)) {
+      return [connection.target.id, current] as const;
+    }
+    changed = true;
+    return [connection.target.id, connection] as const;
+  });
+  return changed ? Object.fromEntries(entries) : previous;
+}
 
 export function selectSelectedTarget(
   state: TargetsState,

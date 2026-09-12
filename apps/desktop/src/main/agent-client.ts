@@ -18,6 +18,7 @@ import type {
   ThreadPage,
   ThreadQuery,
 } from "../shared/contracts.js";
+import { resolveAttachHelperInvocation } from "./attach-helper-invocation.js";
 import {
   resolveJavaExecutable,
   resolveJvmComponent,
@@ -642,13 +643,17 @@ export class AgentClientManager {
     ]);
     throwIfAborted(signal);
     const secret = randomBytes(32).toString("hex");
+    const helperInvocation = await resolveAttachHelperInvocation(
+      resolveJavaExecutable(),
+      target.javaPath,
+      helperJar,
+    );
 
     try {
       await execFileAsync(
-        resolveJavaExecutable(),
+        helperInvocation.executable,
         [
-          "-jar",
-          helperJar,
+          ...helperInvocation.prefixArguments,
           "attach",
           "--pid",
           String(target.pid),

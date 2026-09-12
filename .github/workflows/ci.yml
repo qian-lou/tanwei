@@ -36,7 +36,7 @@ jobs:
         if: matrix.java == 8
         run: >-
           mvn -f jvm/pom.xml
-          -pl protocol,agent,bootstrap,decompiler,relay
+          -pl protocol,agent,bootstrap,attach-helper,decompiler,relay
           -am verify
       - name: Verify Java 11+ production modules
         if: matrix.java != 8 && matrix.java != 21

@@ -54,6 +54,9 @@ import {
   selectSelectedTarget,
   useTargetsStore,
 } from "./stores/targets";
+import { DiagnosticTaskPoller } from "./utils/diagnostic-task-poller";
+
+const CONNECTION_REFRESH_INTERVAL_MILLIS = 1_000;
 
 const NAVIGATION_GROUPS = [
   {
@@ -114,6 +117,7 @@ export default function App() {
   const connection = useTargetsStore(selectConnection);
   const errorMessage = useTargetsStore((state) => state.errorMessage);
   const refreshTargets = useTargetsStore((state) => state.refresh);
+  const refreshConnections = useTargetsStore((state) => state.refreshConnections);
   const selectTarget = useTargetsStore((state) => state.select);
 
   const [runtimeInfo, setRuntimeInfo] = useState<RuntimeInfo | null>(null);
@@ -246,6 +250,18 @@ export default function App() {
 
   const handleExitRequestRef = useRef(handleExitRequest);
   handleExitRequestRef.current = handleExitRequest;
+
+  useEffect(() => {
+    const poller = new DiagnosticTaskPoller({
+      intervalMillis: CONNECTION_REFRESH_INTERVAL_MILLIS,
+      poll: async (signal) => {
+        await refreshConnections(signal);
+        return "continue";
+      },
+    });
+    poller.start();
+    return () => poller.stop();
+  }, [refreshConnections]);
 
   async function reviewExitTasks(): Promise<void> {
     const target = exitGuardImpact?.targets.find(

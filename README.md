@@ -64,7 +64,8 @@ npm run dev
 开发模式会同时启动 Vite 和 Electron，请不要单独打开生成的 HTML。
 
 启动后，在“目标”页刷新本机进程，选择可 Attach 的 JVM 并连接。目标进程通常需要与探微
-属于同一系统用户，且未启用 `-XX:+DisableAttachMechanism`；否则可使用远程接入方式。
+属于同一系统用户，且未启用 `-XX:+DisableAttachMechanism`；JDK 8 目标还需要其所属完整
+JDK 的 `lib/tools.jar` 可读。否则可使用远程接入方式。
 
 ## 构建与验证
 
