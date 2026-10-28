@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main",
+  "description": "The trusted workbench receives desktop events. All privileged actions go through validated Rust Host commands.",
+  "windows": ["main"],
+  "permissions": ["core:event:default", "core:window:allow-show"]
+}

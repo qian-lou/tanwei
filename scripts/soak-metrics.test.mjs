@@ -73,8 +73,8 @@ test("window and lazy-process budgets are enforced independently", () => {
 
   assert.equal(result.passed, false);
   assert.match(result.violations.join("\n"), /进程数峰值 7/u);
-  assert.match(result.violations.join("\n"), /BrowserWindow 峰值 2/u);
-  assert.match(result.violations.join("\n"), /可见 BrowserWindow 最低 0/u);
+  assert.match(result.violations.join("\n"), /桌面窗口 峰值 2/u);
+  assert.match(result.violations.join("\n"), /可见 桌面窗口 最低 0/u);
 });
 
 test("invalid and empty samples fail closed", () => {

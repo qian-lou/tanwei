@@ -1,0 +1,6170 @@
+{
+  "jvm.info": {
+    "actionId": "jvm.info",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "overview",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "jvm.arguments": {
+    "actionId": "jvm.arguments",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "runtime",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "system.properties": {
+    "actionId": "system.properties",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "runtime",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "system.property.list": {
+    "actionId": "system.property.list",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "runtime",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "query": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 128
+            },
+            {
+              "kind": "noControl"
+            }
+          ]
+        },
+        "category": {
+          "type": "string",
+          "values": [
+            "ALL",
+            "JAVA",
+            "VM",
+            "OS",
+            "USER",
+            "PATH",
+            "APPLICATION"
+          ]
+        },
+        "offset": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 200
+            }
+          ]
+        }
+      }
+    }
+  },
+  "environment.summary": {
+    "actionId": "environment.summary",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "runtime",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "environment.list": {
+    "actionId": "environment.list",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "runtime",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "query": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 128
+            },
+            {
+              "kind": "noControl"
+            }
+          ]
+        },
+        "category": {
+          "type": "string",
+          "values": [
+            "ALL",
+            "JAVA",
+            "PATH",
+            "LOCALE",
+            "PROCESS",
+            "OTHER"
+          ]
+        },
+        "offset": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 200
+            }
+          ]
+        }
+      }
+    }
+  },
+  "memory.pools": {
+    "actionId": "memory.pools",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "runtime",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "gc.collectors": {
+    "actionId": "gc.collectors",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "runtime",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "jit.compiler.summary": {
+    "actionId": "jit.compiler.summary",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "runtime",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "perfcounter.list": {
+    "actionId": "perfcounter.list",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "perfcounters",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "query": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 256
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "namespace": {
+          "type": "string",
+          "values": [
+            "ALL",
+            "JAVA",
+            "SUN",
+            "JDK",
+            "OTHER"
+          ]
+        },
+        "offset": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 20000
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 200
+            }
+          ]
+        }
+      }
+    }
+  },
+  "perfcounter.snapshot": {
+    "actionId": "perfcounter.snapshot",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "perfcounters",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "names": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 2055
+            },
+            {
+              "kind": "counterNames"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "mbeans.summary": {
+    "actionId": "mbeans.summary",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "runtime",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "mbean.list": {
+    "actionId": "mbean.list",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "mbeans",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "query": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 256
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "offset": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d{0,5})$"
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:[1-9]|[1-9]\\d|100)$"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "mbean.describe": {
+    "actionId": "mbean.describe",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "mbeans",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "objectName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 2048
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "mbean.attribute.read": {
+    "actionId": "mbean.attribute.read",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "mbeans",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "objectName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 2048
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "attribute": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "mbean.operation.preview": {
+    "actionId": "mbean.operation.preview",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "mbeans",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "mbean.operation.preview"
+        }
+      ],
+      "properties": {
+        "objectName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 2048
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "operation": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z_$][A-Za-z0-9_$]*$"
+            }
+          ]
+        },
+        "parameterTypes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            },
+            {
+              "kind": "pattern",
+              "value": "^(?:|[A-Za-z_$][A-Za-z0-9_$.]*(?:,[A-Za-z_$][A-Za-z0-9_$.]*)*)$"
+            }
+          ]
+        },
+        "argumentCount": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[0-8]$"
+            }
+          ]
+        },
+        "argument0": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument1": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument2": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument3": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument4": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument5": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument6": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument7": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argumentFormat0": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat1": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat2": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat3": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat4": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat5": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat6": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat7": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        }
+      }
+    }
+  },
+  "mbean.attribute.write.preview": {
+    "actionId": "mbean.attribute.write.preview",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "mbeans",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "mbean.attribute.write.preview"
+        }
+      ],
+      "properties": {
+        "objectName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 2048
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "attribute": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "valueFormat": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "proposedValue": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            }
+          ]
+        }
+      }
+    }
+  },
+  "mbean.attribute.write": {
+    "actionId": "mbean.attribute.write",
+    "contractVersion": "1.0",
+    "riskLevel": "R4",
+    "requiredCapability": "mbeans",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "mbean.attribute.write"
+        }
+      ],
+      "properties": {
+        "objectName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 2048
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "attribute": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "valueFormat": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "proposedValue": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            }
+          ]
+        },
+        "expectedFingerprint": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        },
+        "confirmedSecondary": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "mbean.operation.invoke": {
+    "actionId": "mbean.operation.invoke",
+    "contractVersion": "1.0",
+    "riskLevel": "R4",
+    "requiredCapability": "mbeans",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "mbean.operation.invoke"
+        }
+      ],
+      "properties": {
+        "objectName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 2048
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "operation": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z_$][A-Za-z0-9_$]*$"
+            }
+          ]
+        },
+        "parameterTypes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            },
+            {
+              "kind": "pattern",
+              "value": "^(?:|[A-Za-z_$][A-Za-z0-9_$.]*(?:,[A-Za-z_$][A-Za-z0-9_$.]*)*)$"
+            }
+          ]
+        },
+        "argumentCount": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[0-8]$"
+            }
+          ]
+        },
+        "argument0": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument1": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument2": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument3": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument4": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument5": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument6": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argument7": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 32768
+            },
+            {
+              "kind": "noNul"
+            }
+          ]
+        },
+        "argumentFormat0": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat1": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat2": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat3": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat4": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat5": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat6": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "argumentFormat7": {
+          "type": "string",
+          "values": [
+            "SCALAR",
+            "OPEN_TYPE_JSON"
+          ],
+          "optional": true
+        },
+        "expectedFingerprint": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        },
+        "confirmedSecondary": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "logger.list": {
+    "actionId": "logger.list",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "loggers",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "query": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 256
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "framework": {
+          "type": "string",
+          "values": [
+            "ALL",
+            "JUL",
+            "LOGBACK",
+            "LOG4J",
+            "LOG4J2"
+          ]
+        },
+        "offset": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d{0,5})$"
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:[1-9]|[1-9]\\d|100)$"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "logger.describe": {
+    "actionId": "logger.describe",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "loggers",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "framework": {
+          "type": "string",
+          "values": [
+            "JUL",
+            "LOGBACK",
+            "LOG4J",
+            "LOG4J2"
+          ]
+        },
+        "contextId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "singleLine"
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "logger.level.preview": {
+    "actionId": "logger.level.preview",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "loggers",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "logger.level.preview"
+        }
+      ],
+      "properties": {
+        "framework": {
+          "type": "string",
+          "values": [
+            "JUL",
+            "LOGBACK",
+            "LOG4J",
+            "LOG4J2"
+          ]
+        },
+        "contextId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "singleLine"
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "newLevel": {
+          "type": "string",
+          "values": [
+            "<inherited>",
+            "OFF",
+            "FATAL",
+            "SEVERE",
+            "ERROR",
+            "WARNING",
+            "WARN",
+            "INFO",
+            "CONFIG",
+            "FINE",
+            "FINER",
+            "FINEST",
+            "DEBUG",
+            "TRACE",
+            "ALL"
+          ]
+        }
+      }
+    }
+  },
+  "logger.level.set": {
+    "actionId": "logger.level.set",
+    "contractVersion": "1.0",
+    "riskLevel": "R3",
+    "requiredCapability": "loggers",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "logger.level.set"
+        }
+      ],
+      "properties": {
+        "framework": {
+          "type": "string",
+          "values": [
+            "JUL",
+            "LOGBACK",
+            "LOG4J",
+            "LOG4J2"
+          ]
+        },
+        "contextId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "singleLine"
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "newLevel": {
+          "type": "string",
+          "values": [
+            "<inherited>",
+            "OFF",
+            "FATAL",
+            "SEVERE",
+            "ERROR",
+            "WARNING",
+            "WARN",
+            "INFO",
+            "CONFIG",
+            "FINE",
+            "FINER",
+            "FINEST",
+            "DEBUG",
+            "TRACE",
+            "ALL"
+          ]
+        },
+        "expectedFingerprint": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "thread.locks": {
+    "actionId": "thread.locks",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "thread-locks",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "includeUncontended": {
+          "type": "string",
+          "values": [
+            "true",
+            "false"
+          ]
+        },
+        "maximumNodes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 500
+            }
+          ]
+        }
+      }
+    }
+  },
+  "thread.pools": {
+    "actionId": "thread.pools",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "thread-pools",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 3,
+              "maximum": 20
+            }
+          ]
+        },
+        "memberLimit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 10,
+              "maximum": 200
+            }
+          ]
+        },
+        "includeEvidence": {
+          "type": "string",
+          "values": [
+            "true",
+            "false"
+          ]
+        },
+        "queueTaskLimit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 10,
+              "maximum": 200
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "thread.pool.latency.start": {
+    "actionId": "thread.pool.latency.start",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "thread-pool-latency",
+    "parameters": {
+      "type": "union",
+      "options": [
+        {
+          "type": "object",
+          "checks": [],
+          "properties": {
+            "poolIdentity": {
+              "type": "string",
+              "checks": [
+                {
+                  "kind": "pattern",
+                  "value": "^ThreadPoolExecutor@[0-9a-f]+$"
+                }
+              ]
+            },
+            "poolClassName": {
+              "type": "string",
+              "values": [
+                "java.util.concurrent.ThreadPoolExecutor"
+              ]
+            },
+            "durationMillis": {
+              "type": "string",
+              "checks": [
+                {
+                  "kind": "pattern",
+                  "value": "^(?:0|[1-9]\\d*)$"
+                },
+                {
+                  "kind": "integer",
+                  "minimum": 10000,
+                  "maximum": 300000
+                }
+              ]
+            },
+            "maximumTrackedTasks": {
+              "type": "string",
+              "checks": [
+                {
+                  "kind": "pattern",
+                  "value": "^(?:0|[1-9]\\d*)$"
+                },
+                {
+                  "kind": "integer",
+                  "minimum": 128,
+                  "maximum": 4096
+                }
+              ]
+            },
+            "confirmed": {
+              "type": "string",
+              "values": [
+                "true"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "checks": [],
+          "properties": {
+            "poolIdentity": {
+              "type": "string",
+              "checks": [
+                {
+                  "kind": "pattern",
+                  "value": "^ScheduledThreadPoolExecutor@[0-9a-f]+$"
+                }
+              ]
+            },
+            "poolClassName": {
+              "type": "string",
+              "values": [
+                "java.util.concurrent.ScheduledThreadPoolExecutor"
+              ]
+            },
+            "durationMillis": {
+              "type": "string",
+              "checks": [
+                {
+                  "kind": "pattern",
+                  "value": "^(?:0|[1-9]\\d*)$"
+                },
+                {
+                  "kind": "integer",
+                  "minimum": 10000,
+                  "maximum": 300000
+                }
+              ]
+            },
+            "maximumTrackedTasks": {
+              "type": "string",
+              "checks": [
+                {
+                  "kind": "pattern",
+                  "value": "^(?:0|[1-9]\\d*)$"
+                },
+                {
+                  "kind": "integer",
+                  "minimum": 128,
+                  "maximum": 4096
+                }
+              ]
+            },
+            "confirmed": {
+              "type": "string",
+              "values": [
+                "true"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "checks": [],
+          "properties": {
+            "poolIdentity": {
+              "type": "string",
+              "checks": [
+                {
+                  "kind": "pattern",
+                  "value": "^ForkJoinPool@[0-9a-f]+$"
+                }
+              ]
+            },
+            "poolClassName": {
+              "type": "string",
+              "values": [
+                "java.util.concurrent.ForkJoinPool"
+              ]
+            },
+            "durationMillis": {
+              "type": "string",
+              "checks": [
+                {
+                  "kind": "pattern",
+                  "value": "^(?:0|[1-9]\\d*)$"
+                },
+                {
+                  "kind": "integer",
+                  "minimum": 10000,
+                  "maximum": 300000
+                }
+              ]
+            },
+            "maximumTrackedTasks": {
+              "type": "string",
+              "checks": [
+                {
+                  "kind": "pattern",
+                  "value": "^(?:0|[1-9]\\d*)$"
+                },
+                {
+                  "kind": "integer",
+                  "minimum": 128,
+                  "maximum": 4096
+                }
+              ]
+            },
+            "confirmed": {
+              "type": "string",
+              "values": [
+                "true"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "thread.pool.latency.snapshot": {
+    "actionId": "thread.pool.latency.snapshot",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "thread-pool-latency",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "thread.pool.latency.stop": {
+    "actionId": "thread.pool.latency.stop",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "thread-pool-latency",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "thread.dump": {
+    "actionId": "thread.dump",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "thread-dump",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "maximumThreads": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 10000
+            }
+          ]
+        },
+        "maximumStackDepth": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 512
+            }
+          ]
+        },
+        "includeLocks": {
+          "type": "string",
+          "values": [
+            "true",
+            "false"
+          ]
+        }
+      }
+    }
+  },
+  "thread.interrupt.preview": {
+    "actionId": "thread.interrupt.preview",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "thread-control",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "threadId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[1-9]\\d{0,18}$"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "thread.interrupt": {
+    "actionId": "thread.interrupt",
+    "contractVersion": "1.0",
+    "riskLevel": "R4",
+    "requiredCapability": "thread-control",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "threadId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[1-9]\\d{0,18}$"
+            }
+          ]
+        },
+        "expectedName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        },
+        "confirmedSecondary": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "vm.options": {
+    "actionId": "vm.options",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "runtime",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "vm.option.list": {
+    "actionId": "vm.option.list",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "runtime",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "query": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 128
+            },
+            {
+              "kind": "noControl"
+            }
+          ]
+        },
+        "category": {
+          "type": "string",
+          "values": [
+            "ALL",
+            "MEMORY",
+            "GC",
+            "COMPILER",
+            "DIAGNOSTIC",
+            "LOGGING",
+            "OTHER"
+          ]
+        },
+        "mutability": {
+          "type": "string",
+          "values": [
+            "ALL",
+            "WRITEABLE",
+            "READ_ONLY"
+          ]
+        },
+        "offset": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 200
+            }
+          ]
+        }
+      }
+    }
+  },
+  "logging.summary": {
+    "actionId": "logging.summary",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "runtime",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "system.property.set": {
+    "actionId": "system.property.set",
+    "contractVersion": "1.0",
+    "riskLevel": "R3",
+    "requiredCapability": "runtime-mutation",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "singleLine"
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9_.-]+$"
+            }
+          ]
+        },
+        "expectedOldValue": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "newValue": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "logging.set": {
+    "actionId": "logging.set",
+    "contractVersion": "1.0",
+    "riskLevel": "R3",
+    "requiredCapability": "runtime-mutation",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "expectedOldValue": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "newValue": {
+          "type": "string",
+          "values": [
+            "<inherited>",
+            "OFF",
+            "SEVERE",
+            "WARNING",
+            "INFO",
+            "CONFIG",
+            "FINE",
+            "FINER",
+            "FINEST",
+            "ALL"
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "vm.option.set": {
+    "actionId": "vm.option.set",
+    "contractVersion": "1.0",
+    "riskLevel": "R3",
+    "requiredCapability": "runtime-mutation",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z][A-Za-z0-9_]{0,127}$"
+            }
+          ]
+        },
+        "expectedOldValue": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "newValue": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 1024
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "gc.run": {
+    "actionId": "gc.run",
+    "contractVersion": "1.0",
+    "riskLevel": "R4",
+    "requiredCapability": "runtime-mutation",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        },
+        "confirmedSecondary": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "classloaders.summary": {
+    "actionId": "classloaders.summary",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "classloaders",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "classloader.metaspace": {
+    "actionId": "classloader.metaspace",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "classloader-metaspace",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "classloader.metaspace"
+        }
+      ],
+      "properties": {
+        "durationMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 250,
+              "maximum": 3000
+            }
+          ]
+        },
+        "periodMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 50,
+              "maximum": 1000
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          ]
+        }
+      }
+    }
+  },
+  "tasks.list": {
+    "actionId": "tasks.list",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "tasks",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "tasks.cancel": {
+    "actionId": "tasks.cancel",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "tasks",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "values": [
+            "OBSERVATION",
+            "LINE",
+            "MONITOR",
+            "TRACE",
+            "THREAD_POOL_LATENCY",
+            "PROFILE",
+            "JFR"
+          ]
+        },
+        "taskId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "session.reset.preview": {
+    "actionId": "session.reset.preview",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "tasks",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "session.reset": {
+    "actionId": "session.reset",
+    "contractVersion": "1.0",
+    "riskLevel": "R4",
+    "requiredCapability": "tasks",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "expectedFingerprint": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        },
+        "confirmedSecondary": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "retransform.status": {
+    "actionId": "retransform.status",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "retransform",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "retransform.retry": {
+    "actionId": "retransform.retry",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "retransform",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 3
+            },
+            {
+              "kind": "max",
+              "value": 128
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Z_]+:[0-9a-f-]{36}$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "arthas.compatibility": {
+    "actionId": "arthas.compatibility",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "arthas-ecosystem",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "arthas.resolve": {
+    "actionId": "arthas.resolve",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "arthas-ecosystem",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "command": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 32
+            },
+            {
+              "kind": "pattern",
+              "value": "^[a-z][a-z0-9/-]*$"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "trace.preview": {
+    "actionId": "trace.preview",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "trace",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "trace.preview"
+        }
+      ],
+      "properties": {
+        "className": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "methodName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "parameterTypes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "scopePrefix": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 3
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z_$][A-Za-z0-9_$]*(?:\\.[A-Za-z_$][A-Za-z0-9_$]*)+$"
+            },
+            {
+              "kind": "nonJdkScope"
+            }
+          ]
+        },
+        "includeRules": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 8192
+            },
+            {
+              "kind": "traceRules"
+            }
+          ]
+        },
+        "excludeRules": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 8192
+            },
+            {
+              "kind": "traceRules"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "trace.start": {
+    "actionId": "trace.start",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "trace",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "trace.start"
+        }
+      ],
+      "properties": {
+        "className": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "methodName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "parameterTypes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "scopePrefix": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 3
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z_$][A-Za-z0-9_$]*(?:\\.[A-Za-z_$][A-Za-z0-9_$]*)+$"
+            },
+            {
+              "kind": "nonJdkScope"
+            }
+          ]
+        },
+        "includeRules": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 8192
+            },
+            {
+              "kind": "traceRules"
+            }
+          ]
+        },
+        "excludeRules": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 8192
+            },
+            {
+              "kind": "traceRules"
+            }
+          ]
+        },
+        "maximumTraces": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 20
+            }
+          ]
+        },
+        "maximumDepth": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 32
+            }
+          ]
+        },
+        "maximumSpans": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 16,
+              "maximum": 512
+            }
+          ]
+        },
+        "minimumDurationMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 60000
+            }
+          ]
+        },
+        "timeoutMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1000,
+              "maximum": 60000
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "trace.events": {
+    "actionId": "trace.events",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "trace",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 5
+            }
+          ]
+        }
+      }
+    }
+  },
+  "trace.threshold.update": {
+    "actionId": "trace.threshold.update",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "trace",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "minimumDurationMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 60000
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "monitor.preview": {
+    "actionId": "monitor.preview",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "monitor",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "className": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "methodName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "parameterTypes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        }
+      }
+    }
+  },
+  "monitor.start": {
+    "actionId": "monitor.start",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "monitor",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "className": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "methodName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "parameterTypes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "intervalMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1000,
+              "maximum": 60000
+            }
+          ]
+        },
+        "durationMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 10000,
+              "maximum": 28800000
+            }
+          ]
+        },
+        "minimumDurationMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 60000
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "monitor.threshold.update": {
+    "actionId": "monitor.threshold.update",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "monitor",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "minimumDurationMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 60000
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "monitor.windows": {
+    "actionId": "monitor.windows",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "monitor",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "afterSequence": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 1000000000
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          ]
+        }
+      }
+    }
+  },
+  "profile.start": {
+    "actionId": "profile.start",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "profiler",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "event": {
+          "type": "string",
+          "values": [
+            "CPU",
+            "WALL",
+            "ALLOCATION",
+            "LOCK"
+          ]
+        },
+        "intervalMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:1\\d|[2-9]\\d|[1-9]\\d{2}|1000)$"
+            }
+          ]
+        },
+        "durationMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:[1-9]\\d{3}|[1-5]\\d{4}|60000)$"
+            }
+          ]
+        },
+        "stackDepth": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 16,
+              "maximum": 2048
+            }
+          ]
+        },
+        "threads": {
+          "type": "string",
+          "values": [
+            "true",
+            "false"
+          ]
+        },
+        "includeRules": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 1032
+            },
+            {
+              "kind": "profilerRules"
+            }
+          ]
+        },
+        "excludeRules": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 1032
+            },
+            {
+              "kind": "profilerRules"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "profile.status": {
+    "actionId": "profile.status",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "profiler",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "profile.stop": {
+    "actionId": "profile.stop",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "profiler",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "profile.dump": {
+    "actionId": "profile.dump",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "profiler",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "jfr.status": {
+    "actionId": "jfr.status",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "jfr",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "jfr.start": {
+    "actionId": "jfr.start",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "jfr",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "configuration": {
+          "type": "string",
+          "values": [
+            "PROFILE",
+            "DEFAULT"
+          ]
+        },
+        "maxAgeMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 86400000
+            }
+          ]
+        },
+        "maxSizeBytes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 10737418240
+            }
+          ]
+        },
+        "recordingName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "trim"
+            },
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 128
+            },
+            {
+              "kind": "noControl"
+            }
+          ],
+          "optional": true
+        }
+      }
+    }
+  },
+  "jfr.dump": {
+    "actionId": "jfr.dump",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "jfr",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "jfr.stop": {
+    "actionId": "jfr.stop",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "jfr",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {}
+    }
+  },
+  "heap.dump": {
+    "actionId": "heap.dump",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "heap-dump",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        },
+        "live": {
+          "type": "string",
+          "values": [
+            "true",
+            "false"
+          ]
+        }
+      }
+    }
+  },
+  "heap.instances": {
+    "actionId": "heap.instances",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "heap-instances",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:[1-9]|1\\d|20)$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "heap.histogram": {
+    "actionId": "heap.histogram",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "heap-instances",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "query": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 256
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 200
+            }
+          ]
+        },
+        "scanLimit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 10000,
+              "maximum": 5000000
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "heap.retained.classes": {
+    "actionId": "heap.retained.classes",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "heap-instances",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "query": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 256
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 200
+            }
+          ]
+        },
+        "maximumNodes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 10000,
+              "maximum": 500000
+            }
+          ]
+        },
+        "maximumEdges": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 10000,
+              "maximum": 2000000
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "heap.dominator.tree": {
+    "actionId": "heap.dominator.tree",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "heap-instances",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "maximumDepth": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 8
+            }
+          ]
+        },
+        "maximumViewNodes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 10,
+              "maximum": 200
+            }
+          ]
+        },
+        "rootLimit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 20
+            }
+          ]
+        },
+        "branchLimit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 20
+            }
+          ]
+        },
+        "maximumNodes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 10000,
+              "maximum": 500000
+            }
+          ]
+        },
+        "maximumEdges": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 10000,
+              "maximum": 2000000
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "heap.relations": {
+    "actionId": "heap.relations",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "heap-instances",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "objectHandle": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "direction": {
+          "type": "string",
+          "values": [
+            "OUTGOING",
+            "INCOMING"
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:[1-9]|[1-4]\\d|50)$"
+            }
+          ]
+        },
+        "scanLimit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:[1-9]\\d{3,5}|1000000)$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "heap.object.graph": {
+    "actionId": "heap.object.graph",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "heap-instances",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "objectHandle": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "direction": {
+          "type": "string",
+          "values": [
+            "OUTGOING",
+            "INCOMING"
+          ]
+        },
+        "maximumDepth": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 5
+            }
+          ]
+        },
+        "maximumNodes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 2,
+              "maximum": 80
+            }
+          ]
+        },
+        "maximumEdgesPerNode": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 8
+            }
+          ]
+        },
+        "scanLimit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1000,
+              "maximum": 1000000
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "heap.root.path": {
+    "actionId": "heap.root.path",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "heap-instances",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "objectHandle": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "maximumDepth": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:[1-9]|[12]\\d|3[0-2])$"
+            }
+          ]
+        },
+        "maximumNodes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:[1-9]\\d{3,4}|100000)$"
+            }
+          ]
+        },
+        "maximumEdges": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:[1-9]\\d{3,5}|1000000)$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "heap.root.paths": {
+    "actionId": "heap.root.paths",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "heap-instances",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "objectHandle": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "maximumPaths": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 8
+            }
+          ]
+        },
+        "maximumDepth": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 32
+            }
+          ]
+        },
+        "maximumNodes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1000,
+              "maximum": 100000
+            }
+          ]
+        },
+        "maximumEdges": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1000,
+              "maximum": 1000000
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "heap.retained": {
+    "actionId": "heap.retained",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "heap-instances",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "objectHandle": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "maximumNodes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1000,
+              "maximum": 100000
+            }
+          ]
+        },
+        "maximumEdges": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1000,
+              "maximum": 1000000
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "heap.retained.ranking": {
+    "actionId": "heap.retained.ranking",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "heap-instances",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "instanceLimit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 20
+            }
+          ]
+        },
+        "maximumNodes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 10000,
+              "maximum": 500000
+            }
+          ]
+        },
+        "maximumEdges": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 10000,
+              "maximum": 2000000
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "class.static.fields": {
+    "actionId": "class.static.fields",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "static-fields",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        }
+      }
+    }
+  },
+  "classloader.resources": {
+    "actionId": "classloader.resources",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "classloaders",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "resourceName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            },
+            {
+              "kind": "resourceName"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "class.static.read.preview": {
+    "actionId": "class.static.read.preview",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "static-fields",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "declaringClass": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "fieldName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z_$][A-Za-z0-9_$]*$"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "class.static.read": {
+    "actionId": "class.static.read",
+    "contractVersion": "1.0",
+    "riskLevel": "R3",
+    "requiredCapability": "static-fields",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "declaringClass": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "fieldName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z_$][A-Za-z0-9_$]*$"
+            }
+          ]
+        },
+        "expectedFingerprint": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "class.dump": {
+    "actionId": "class.dump",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "class-dump",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "class.redefine.preview": {
+    "actionId": "class.redefine.preview",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "class-redefine",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "bytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "class.redefine": {
+    "actionId": "class.redefine",
+    "contractVersion": "1.0",
+    "riskLevel": "R3",
+    "requiredCapability": "class-redefine",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "bytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ]
+        },
+        "expectedCurrentSha256": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "class.redefine.restore": {
+    "actionId": "class.redefine.restore",
+    "contractVersion": "1.0",
+    "riskLevel": "R3",
+    "requiredCapability": "class-redefine",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "rollbackToken": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "expectedCurrentSha256": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "class.change-set.preview": {
+    "actionId": "class.change-set.preview",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "class-redefine",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "class.change-set.preview"
+        }
+      ],
+      "properties": {
+        "count": {
+          "type": "string",
+          "values": [
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        "item0Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item0ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item0BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item1Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item1ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item1BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item2Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item2ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item2BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item3Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item3ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item3BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item4Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item4ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item4BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item5Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item5ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item5BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item6Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item6ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item6BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item7Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item7ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item7BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        }
+      }
+    }
+  },
+  "class.change-set.apply": {
+    "actionId": "class.change-set.apply",
+    "contractVersion": "1.0",
+    "riskLevel": "R3",
+    "requiredCapability": "class-redefine",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "class.change-set.apply"
+        }
+      ],
+      "properties": {
+        "count": {
+          "type": "string",
+          "values": [
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        "item0Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item0ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item0BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item1Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item1ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item1BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item2Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item2ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item2BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item3Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item3ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item3BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item4Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item4ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item4BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item5Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item5ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item5BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item6Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item6ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item6BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "item7Name": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ],
+          "optional": true
+        },
+        "item7ClassLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ],
+          "optional": true
+        },
+        "item7BytecodeBase64": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 12
+            },
+            {
+              "kind": "max",
+              "value": 2800000
+            },
+            {
+              "kind": "pattern",
+              "value": "^[A-Za-z0-9+/]+={0,2}$"
+            }
+          ],
+          "optional": true
+        },
+        "expectedFingerprint": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "class.change-set.restore": {
+    "actionId": "class.change-set.restore",
+    "contractVersion": "1.0",
+    "riskLevel": "R3",
+    "requiredCapability": "class-redefine",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "rollbackToken": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "expectedCurrentFingerprint": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "observe.preview": {
+    "actionId": "observe.preview",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "observe",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "className": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "methodName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "parameterTypes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        }
+      }
+    }
+  },
+  "line.preview": {
+    "actionId": "line.preview",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "line-probe",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "className": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "methodName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "parameterTypes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "lineNumber": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            }
+          ]
+        }
+      }
+    }
+  },
+  "line.start": {
+    "actionId": "line.start",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "line-probe",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "className": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "methodName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "parameterTypes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "lineNumber": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            }
+          ]
+        },
+        "maximumEvents": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          ]
+        },
+        "timeoutMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1000,
+              "maximum": 60000
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "line.events": {
+    "actionId": "line.events",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "line-probe",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          ]
+        }
+      }
+    }
+  },
+  "snapshot.list": {
+    "actionId": "snapshot.list",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "snapshots",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "snapshot.list"
+        }
+      ],
+      "properties": {
+        "query": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 256
+            },
+            {
+              "kind": "singleLine"
+            }
+          ]
+        },
+        "outcome": {
+          "type": "string",
+          "values": [
+            "ALL",
+            "RETURNED",
+            "THREW"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "values": [
+            "ROOT",
+            "ALL"
+          ]
+        },
+        "taskId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 128
+            },
+            {
+              "kind": "singleLine"
+            }
+          ],
+          "optional": true
+        },
+        "threadQuery": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 128
+            },
+            {
+              "kind": "singleLine"
+            }
+          ],
+          "optional": true
+        },
+        "replay": {
+          "type": "string",
+          "values": [
+            "ALL",
+            "REPLAYABLE",
+            "STATIC",
+            "INSTANCE",
+            "UNAVAILABLE"
+          ],
+          "optional": true
+        },
+        "minimumDurationMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 3600000
+            }
+          ],
+          "optional": true
+        },
+        "maximumDurationMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 3600000
+            }
+          ],
+          "optional": true
+        },
+        "offset": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 0,
+              "maximum": 1000
+            }
+          ]
+        },
+        "limit": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          ]
+        }
+      }
+    }
+  },
+  "snapshot.describe": {
+    "actionId": "snapshot.describe",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "snapshots",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "snapshotId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 1000000000
+            }
+          ]
+        }
+      }
+    }
+  },
+  "snapshot.delete": {
+    "actionId": "snapshot.delete",
+    "contractVersion": "1.0",
+    "riskLevel": "R1",
+    "requiredCapability": "snapshots",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "snapshotId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 1000000000
+            }
+          ]
+        }
+      }
+    }
+  },
+  "observe.start": {
+    "actionId": "observe.start",
+    "contractVersion": "1.0",
+    "riskLevel": "R2",
+    "requiredCapability": "observe",
+    "parameters": {
+      "type": "object",
+      "checks": [],
+      "properties": {
+        "className": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "methodName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "parameterTypes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "maximumEvents": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:[1-9]|[1-9]\\d|100)$"
+            }
+          ]
+        },
+        "timeoutMillis": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:[1-9]\\d{3}|[1-5]\\d{4}|60000)$"
+            }
+          ]
+        },
+        "includeInternal": {
+          "type": "string",
+          "values": [
+            "true",
+            "false"
+          ]
+        },
+        "condition": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            },
+            {
+              "kind": "observationCondition"
+            }
+          ]
+        },
+        "phases": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 64
+            },
+            {
+              "kind": "phases"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  },
+  "invoke.replay.preview": {
+    "actionId": "invoke.replay.preview",
+    "contractVersion": "1.0",
+    "riskLevel": "R0",
+    "requiredCapability": "invoke-replay",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "invoke.replay.preview"
+        }
+      ],
+      "properties": {
+        "className": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "methodName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "parameterTypes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "argumentCount": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[0-8]$"
+            }
+          ]
+        },
+        "snapshotId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 1000000000
+            }
+          ],
+          "optional": true
+        },
+        "replayMode": {
+          "type": "string",
+          "values": [
+            "STATIC",
+            "INSTANCE"
+          ],
+          "optional": true
+        },
+        "argument0": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument1": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument2": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument3": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument4": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument5": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument6": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument7": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        }
+      }
+    }
+  },
+  "invoke.replay": {
+    "actionId": "invoke.replay",
+    "contractVersion": "1.0",
+    "riskLevel": "R4",
+    "requiredCapability": "invoke-replay",
+    "parameters": {
+      "type": "object",
+      "checks": [
+        {
+          "kind": "action",
+          "value": "invoke.replay"
+        }
+      ],
+      "properties": {
+        "className": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 1024
+            }
+          ]
+        },
+        "classLoader": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "methodName": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "min",
+              "value": 1
+            },
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "parameterTypes": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 4096
+            }
+          ]
+        },
+        "argumentCount": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[0-8]$"
+            }
+          ]
+        },
+        "snapshotId": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^(?:0|[1-9]\\d*)$"
+            },
+            {
+              "kind": "integer",
+              "minimum": 1,
+              "maximum": 1000000000
+            }
+          ],
+          "optional": true
+        },
+        "replayMode": {
+          "type": "string",
+          "values": [
+            "STATIC",
+            "INSTANCE"
+          ],
+          "optional": true
+        },
+        "argument0": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument1": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument2": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument3": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument4": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument5": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument6": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "argument7": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "max",
+              "value": 512
+            }
+          ]
+        },
+        "expectedFingerprint": {
+          "type": "string",
+          "checks": [
+            {
+              "kind": "pattern",
+              "value": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        "confirmed": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        },
+        "confirmedSecondary": {
+          "type": "string",
+          "values": [
+            "true"
+          ]
+        }
+      }
+    }
+  }
+}

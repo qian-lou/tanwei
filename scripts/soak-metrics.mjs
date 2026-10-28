@@ -3,7 +3,7 @@ const DEFAULT_ANALYSIS_WINDOW_SAMPLES = 20;
 export const MEBIBYTE = 1_048_576;
 
 /**
- * Evaluate bounded Electron process samples in one linear pass.
+ * Evaluate bounded desktop process samples in one linear pass.
  *
  * The first warm-up samples are excluded from memory-growth and slope checks,
  * but all samples remain subject to the window/process-count budgets.
@@ -110,17 +110,17 @@ export function evaluateSoakSamples(samples, options) {
   }
   if (maximumProcessCount > allowedProcessCount) {
     violations.push(
-      `Electron 进程数峰值 ${maximumProcessCount}，初始 ${normalized[0].processCount}，最多允许新增 ${config.maxAdditionalProcesses}`,
+      `桌面应用进程数峰值 ${maximumProcessCount}，初始 ${normalized[0].processCount}，最多允许新增 ${config.maxAdditionalProcesses}`,
     );
   }
   if (maximumWindowCount > config.maxWindowCount) {
     violations.push(
-      `BrowserWindow 峰值 ${maximumWindowCount}，预算 ${config.maxWindowCount}`,
+      `桌面窗口 峰值 ${maximumWindowCount}，预算 ${config.maxWindowCount}`,
     );
   }
   if (minimumVisibleWindowCount < config.minimumVisibleWindowCount) {
     violations.push(
-      `可见 BrowserWindow 最低 ${minimumVisibleWindowCount}，要求至少 ${config.minimumVisibleWindowCount}`,
+      `可见 桌面窗口 最低 ${minimumVisibleWindowCount}，要求至少 ${config.minimumVisibleWindowCount}`,
     );
   }
 

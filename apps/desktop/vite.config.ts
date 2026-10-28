@@ -14,6 +14,7 @@ export default defineConfig({
   },
   base: "./",
   build: {
+    target: ["chrome111", "edge111", "firefox114", "safari16.4"],
     outDir: "dist/renderer",
     emptyOutDir: false,
     sourcemap: true,

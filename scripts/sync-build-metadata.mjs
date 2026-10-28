@@ -46,6 +46,10 @@ const packagePaths = [
   path.join(projectRoot, "apps", "desktop", "package.json"),
   path.join(projectRoot, "packages", "plugin-sdk", "package.json"),
 ];
+const tauriConfigPath = path.join(projectRoot, "apps/desktop/src-tauri/tauri.conf.json");
+const cargoManifestPath = path.join(projectRoot, "apps/desktop/src-tauri/Cargo.toml");
+const cargoLockPath = path.join(projectRoot, "apps/desktop/src-tauri/Cargo.lock");
+const rustVersionPattern = /(name = "tanwei-desktop"\r?\nversion = ")[^"]+("\r?\n)/u;
 const pomPaths = [
   path.join(projectRoot, "jvm", "pom.xml"),
   path.join(projectRoot, "jvm", "protocol", "pom.xml"),
@@ -58,6 +62,14 @@ const pomPaths = [
 ];
 
 if (write) {
+  const tauriConfig = await readJson(tauriConfigPath);
+  tauriConfig.version = metadata.productVersion;
+  await writeJson(tauriConfigPath, tauriConfig);
+  for (const rustPath of [cargoManifestPath, cargoLockPath]) {
+    const content = await readFile(rustPath, "utf8");
+    if (!rustVersionPattern.test(content)) throw new Error("无法定位 Rust 应用版本：" + rustPath);
+    await writeFile(rustPath, content.replace(rustVersionPattern, "$1" + metadata.productVersion + "$2"));
+  }
   for (const [filePath, content] of generatedFiles) {
     await writeFile(filePath, content, "utf8");
   }
@@ -87,6 +99,12 @@ if (write) {
 }
 
 const errors = [];
+if ((await readJson(tauriConfigPath)).version !== metadata.productVersion) errors.push("tauri.conf.json 版本不一致");
+for (const rustPath of [cargoManifestPath, cargoLockPath]) {
+  const content = await readFile(rustPath, "utf8");
+  const expected = content.replace(rustVersionPattern, "$1" + metadata.productVersion + "$2");
+  if (!rustVersionPattern.test(content) || content !== expected) errors.push(path.relative(projectRoot, rustPath) + " 版本不一致");
+}
 for (const [filePath, expected] of generatedFiles) {
   const actual = await readFile(filePath, "utf8").catch(() => "");
   if (actual !== expected) {

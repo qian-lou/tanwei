@@ -30,9 +30,8 @@ export interface RuntimeInfo {
   readonly appVersion: string;
   readonly platform: DesktopPlatform;
   readonly architecture: string;
-  readonly electronVersion: string;
-  readonly chromeVersion: string;
-  readonly nodeVersion: string;
+  readonly tauriVersion: string;
+  readonly webviewEngine: string;
   readonly components: Readonly<Record<string, string>>;
 }
 

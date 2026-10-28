@@ -75,7 +75,7 @@ export default function CapabilityPalette({
           </DialogDescription>
         </DialogHeader>
 
-        <Command shouldFilter={false}>
+        <Command shouldFilter={false} label={t("按能力、问题或参考术语搜索")}>
           <CommandInput
             autoFocus
             value={query}

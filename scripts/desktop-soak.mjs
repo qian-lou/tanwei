@@ -11,7 +11,8 @@ import os from "node:os";
 import path from "node:path";
 import process from "node:process";
 import { performance } from "node:perf_hooks";
-import { _electron as electron } from "@playwright/test";
+import { desktopPaths, launchTauri } from "./tauri-driver.mjs";
+import { applicationProcesses, readProcessSnapshot } from "./desktop-process-metrics.mjs";
 import { evaluateSoakSamples, MEBIBYTE } from "./soak-metrics.mjs";
 
 const TARGET_MAIN_CLASS = "dev.tanwei.integration.TestTargetMain";
@@ -19,29 +20,7 @@ const MAX_RECORDED_FAILURES = 100;
 const MAX_RECORDED_RENDERER_ERRORS = 100;
 
 const projectRoot = process.cwd();
-const packagedRoot = path.join(
-  projectRoot,
-  "apps",
-  "desktop",
-  "release",
-  process.platform === "darwin"
-    ? process.arch === "arm64"
-      ? "mac-arm64"
-      : "mac"
-    : process.platform === "win32"
-      ? "win-unpacked"
-      : "linux-unpacked",
-);
-const defaultExecutablePath =
-  process.platform === "darwin"
-    ? path.join(packagedRoot, "探微.app", "Contents", "MacOS", "探微")
-    : process.platform === "win32"
-      ? path.join(packagedRoot, "探微.exe")
-      : path.join(packagedRoot, "tanwei");
-const resourcesPath =
-  process.platform === "darwin"
-    ? path.join(packagedRoot, "探微.app", "Contents", "Resources")
-    : path.join(packagedRoot, "resources");
+const { executablePath: defaultExecutablePath, resourcesPath } = desktopPaths(projectRoot);
 
 const config = readConfig();
 const startedAt = new Date();
@@ -49,6 +28,10 @@ const report = {
   schemaVersion: 1,
   product: "tanwei",
   kind: "desktop-soak",
+  engine: "tauri",
+  resourceAccounting: process.platform === "darwin"
+    ? "Host descendants plus all post-launch WebKit XPC helpers; conservative when other WebKit apps launch concurrently"
+    : "Host process and operating-system descendants",
   mode: config.durationSeconds <= 300 ? "smoke" : "soak",
   platform: process.platform,
   architecture: process.arch,
@@ -101,6 +84,7 @@ try {
   report.passed = Boolean(
     !report.fatalError &&
       report.cleanupErrors.length === 0 &&
+      report.rendererErrors.length === 0 &&
       report.cycles.failed <= config.maxOperationFailures &&
       report.cycles.succeeded >= config.minimumSamples &&
       report.metrics?.passed,
@@ -148,13 +132,13 @@ async function runSoak(runConfig, runReport) {
   );
 
   let targetProcess = null;
-  let electronApplication = null;
+  let desktopApplication = null;
   let userDataDirectory = null;
   let closingApplication = false;
   let applicationClosed = false;
-  let rendererCrashed = false;
   let targetExited = false;
   let targetOutput = null;
+  let processBaseline = new Set();
 
   try {
     targetProcess = spawn(
@@ -185,38 +169,41 @@ async function runSoak(runConfig, runReport) {
     userDataDirectory = await mkdtemp(
       path.join(os.tmpdir(), "tanwei-desktop-soak-"),
     );
-    electronApplication = await electron.launch({
+    processBaseline = new Set((await readProcessSnapshot()).map((row) => row.pid));
+    desktopApplication = await launchTauri({
       executablePath: runConfig.executablePath,
       env: {
         ...process.env,
         TANWEI_E2E: "1",
         TANWEI_USER_DATA_DIR: userDataDirectory,
+        TANWEI_RESOURCES_DIR: resourcesPath,
       },
     });
-    electronApplication.on("close", () => {
-      if (!closingApplication) {
-        applicationClosed = true;
-      }
+    desktopApplication.process.on("exit", () => {
+      if (!closingApplication) applicationClosed = true;
     });
-    const page = await electronApplication.firstWindow({ timeout: 30_000 });
-    page.setDefaultTimeout(30_000);
-    page.on("pageerror", (error) => {
-      appendBounded(
-        runReport.rendererErrors,
-        errorMessage(error),
-        MAX_RECORDED_RENDERER_ERRORS,
-      );
-    });
-    page.on("crash", () => {
-      rendererCrashed = true;
-      appendBounded(
-        runReport.rendererErrors,
-        "Renderer process crashed",
-        MAX_RECORDED_RENDERER_ERRORS,
-      );
-    });
-    await page.waitForLoadState("domcontentloaded");
+    const browser = desktopApplication.browser;
+    const page = {
+      evaluate: (fn, arg) => browser.execute(fn, arg),
+      reload: () => browser.refresh(),
+      async waitForFunction(fn, _arg, { timeout = 30_000 } = {}) {
+        const deadline = Date.now() + timeout;
+        let lastError = "条件尚未满足";
+        while (Date.now() < deadline) {
+          try {
+            if (await browser.execute(fn)) return;
+          } catch (error) {
+            // A refresh can replace WKWebView's JavaScript context before the
+            // first condition probe runs; keep the original bounded wait.
+            lastError = errorMessage(error);
+          }
+          await delay(100);
+        }
+        throw new Error(`等待 Tauri 前端条件超时：${lastError}`);
+      },
+    };
     await waitForDesktopApi(page);
+    await installRendererErrorCapture(page);
 
     const target = await waitForTarget(page, targetProcess.pid, 30_000);
     const connection = await withTimeout(
@@ -248,7 +235,6 @@ async function runSoak(runConfig, runReport) {
     for (let cycle = 1; cycle <= runConfig.maximumCycles; cycle += 1) {
       if (
         applicationClosed ||
-        rendererCrashed ||
         targetExited ||
         performance.now() - runStartedAt >= runConfig.durationMillis
       ) {
@@ -278,11 +264,14 @@ async function runSoak(runConfig, runReport) {
         );
       }
 
+      const errors = await page.evaluate(() => window.__tanweiSoakErrors?.splice(0) ?? []);
+      for (const error of errors) appendBounded(runReport.rendererErrors, error, MAX_RECORDED_RENDERER_ERRORS);
+
       if (
         runConfig.windowLifecycleEvery > 0 &&
         cycle % runConfig.windowLifecycleEvery === 0
       ) {
-        await cycleWindowVisibility(electronApplication, page);
+        await cycleWindowVisibility(desktopApplication);
         runReport.cycles.windowLifecycleCycles += 1;
       }
       if (
@@ -291,13 +280,12 @@ async function runSoak(runConfig, runReport) {
       ) {
         await page.reload({ waitUntil: "domcontentloaded", timeout: 30_000 });
         await waitForDesktopApi(page);
+        await installRendererErrorCapture(page);
         await assertReadyConnection(page, target.id);
         runReport.cycles.rendererReloads += 1;
       }
 
-      const applicationSample = await collectApplicationSample(
-        electronApplication,
-      );
+      const applicationSample = await collectApplicationSample(desktopApplication, processBaseline);
       runReport.samples.push({
         cycle,
         capturedAt: new Date().toISOString(),
@@ -321,10 +309,7 @@ async function runSoak(runConfig, runReport) {
     }
 
     if (applicationClosed) {
-      throw new Error("Electron 应用在 Soak 期间意外退出");
-    }
-    if (rendererCrashed) {
-      throw new Error("Renderer 在 Soak 期间崩溃");
+      throw new Error("Tauri 应用在 Soak 期间意外退出");
     }
     if (targetExited) {
       throw new Error(
@@ -333,18 +318,20 @@ async function runSoak(runConfig, runReport) {
     }
   } finally {
     closingApplication = true;
-    if (electronApplication) {
+    if (desktopApplication) {
       try {
-        await electronApplication
-          .evaluate(({ app }) => {
-            setImmediate(() => app.exit(0));
-          })
-          .catch(() => undefined);
-        await electronApplication.close().catch(() => undefined);
+        if (runReport.target?.id) {
+          const result = await desktopApplication.browser.execute((id) => window.tanwei.disconnectTarget(id), runReport.target.id);
+          if (!result.ok) throw new Error(result.errorMessage ?? "断开 Soak JVM 失败");
+        }
       } catch (error) {
         runReport.cleanupErrors.push(
-          `关闭 Electron 失败：${errorMessage(error)}`,
+          `关闭 Tauri 失败：${errorMessage(error)}`,
         );
+      } finally {
+        try { await desktopApplication.close(); } catch (error) {
+          runReport.cleanupErrors.push(`关闭 Tauri WebDriver 会话失败：${errorMessage(error)}`);
+        }
       }
     }
     if (targetProcess) {
@@ -520,57 +507,40 @@ async function assertReadyConnection(page, targetId) {
   );
 }
 
-async function cycleWindowVisibility(electronApplication, page) {
-  await electronApplication.evaluate(({ BrowserWindow }) => {
-    const window = BrowserWindow.getAllWindows().find(
-      (candidate) => !candidate.isDestroyed(),
-    );
-    if (!window) {
-      throw new Error("No live BrowserWindow is available");
-    }
-    window.hide();
+async function cycleWindowVisibility(application) {
+  await application.browser.execute(async () => {
+    const result = await window.__TAURI_INTERNALS__.invoke("host_call", { method: "__testWindowLifecycle", args: [] });
+    if (result?.ok === false) throw new Error(result.errorMessage ?? "窗口生命周期检查失败");
   });
-  await delay(150);
-  await electronApplication.evaluate(({ BrowserWindow }) => {
-    const window = BrowserWindow.getAllWindows().find(
-      (candidate) => !candidate.isDestroyed(),
-    );
-    if (!window) {
-      throw new Error("No live BrowserWindow is available");
-    }
-    window.show();
-    window.focus();
-  });
-  await page.bringToFront();
 }
 
-async function collectApplicationSample(electronApplication) {
-  return electronApplication.evaluate(({ app, BrowserWindow }) => {
-    const windows = BrowserWindow.getAllWindows().filter(
-      (window) => !window.isDestroyed(),
-    );
-    const processes = app.getAppMetrics().map((metric) => ({
-      pid: metric.pid,
-      type: metric.type,
-      workingSetBytes: Math.max(
-        0,
-        Math.round((metric.memory?.workingSetSize ?? 0) * 1_024),
-      ),
-      cpuPercent: Number.isFinite(metric.cpu?.percentCPUUsage)
-        ? metric.cpu.percentCPUUsage
-        : 0,
-    }));
-    return {
-      windowCount: windows.length,
-      visibleWindowCount: windows.filter((window) => window.isVisible()).length,
-      processCount: processes.length,
-      totalWorkingSetBytes: processes.reduce(
-        (total, metric) => total + metric.workingSetBytes,
-        0,
-      ),
-      processes,
+async function installRendererErrorCapture(page) {
+  await page.evaluate(() => {
+    if (window.__tanweiSoakErrors) return;
+    window.__tanweiSoakErrors = [];
+    const record = (value) => {
+      if (window.__tanweiSoakErrors.length < 100) window.__tanweiSoakErrors.push(String(value));
     };
+    window.addEventListener("error", (event) => record(event.error?.stack ?? event.message));
+    window.addEventListener("unhandledrejection", (event) => record(event.reason?.stack ?? event.reason));
   });
+}
+
+async function collectApplicationSample(application, baselinePids) {
+  const rows = await readProcessSnapshot();
+  const processes = applicationProcesses(rows, application.process.pid, baselinePids);
+  const windows = await application.browser.execute(async () => {
+    const result = await window.__TAURI_INTERNALS__.invoke("host_call", { method: "__testWindows", args: [] });
+    if (!result?.ok || !result.value) throw new Error(result?.errorMessage ?? "无法采样 Tauri 窗口状态");
+    return result.value;
+  });
+  return {
+    windowCount: windows.windowCount,
+    visibleWindowCount: windows.visibleWindowCount,
+    processCount: processes.length,
+    totalWorkingSetBytes: processes.reduce((sum, item) => sum + item.workingSetBytes, 0),
+    processes,
+  };
 }
 
 async function verifyInputs(runConfig) {

@@ -46,11 +46,18 @@ jobs:
       - name: Use repository npm version
         run: npm install --global npm@11.6.2
       - run: npm ci
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: arduino/setup-protoc@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Linux Tauri dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libssl-dev
       - name: Validate workflow duration
         run: |
           node -e "const value = Number(process.env.TANWEI_SOAK_DURATION_SECONDS); if (!Number.isInteger(value) || value < 30 || value > 18000) throw new Error('duration_seconds must be an integer from 30 to 18000')"
       - run: npm run test:soak:unit
-      - name: Build unpacked application
+      - name: Build packaged Tauri test application
         env:
           MAVEN_ARGS: -ntp -DskipTests
         run: npm run package:test

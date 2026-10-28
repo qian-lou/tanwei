@@ -480,8 +480,8 @@ export default function SettingsView() {
                 <dd>v{runtime.appVersion}</dd>
               </div>
               <div>
-                <dt>Electron</dt>
-                <dd>{runtime.electronVersion}</dd>
+                <dt>Tauri</dt>
+                <dd>{runtime.tauriVersion}</dd>
               </div>
               <div>
                 <dt>Platform</dt>

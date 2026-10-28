@@ -1,0 +1,41 @@
+{
+  "plugin": {
+    "apiVersion": "tanwei.dev/plugin/v1",
+    "id": "sdk-fixture",
+    "name": "SDK 跨语言验证",
+    "version": "1.2.3",
+    "description": "来自真实 plugin-sdk 签名实现",
+    "publisher": "Tanwei test",
+    "templates": [
+      {
+        "id": "runtime-info",
+        "name": "Runtime",
+        "description": "",
+        "actionId": "jvm.info",
+        "parameters": {
+          "2": "二",
+          "10": "十",
+          "😀": "中文"
+        }
+      }
+    ],
+    "publicKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAulE3GnMtkN3QOxcXbuZ4r5H3K+L7WiLw7mQiNmdTKJ0=\n-----END PUBLIC KEY-----\n",
+    "signature": "ztJuFAtKnMGXPhHYOfmOWG7k0Gzx8bGOKCiX9lD0ZnnR6H/gt7N+U+yR1/7DiuK2t5GTh4P+YfFX+TerdknCAg=="
+  },
+  "policy": {
+    "apiVersion": "tanwei.dev/team-policy/v1",
+    "id": "sdk-policy",
+    "name": "SDK Policy",
+    "version": "1.0.0",
+    "issuedAt": "2026-01-01T00:00:00.000Z",
+    "expiresAt": null,
+    "maximumRiskLevel": "R1",
+    "deniedActions": [
+      "class.dump",
+      "jvm.info"
+    ],
+    "signer": "Tanwei test",
+    "publicKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAulE3GnMtkN3QOxcXbuZ4r5H3K+L7WiLw7mQiNmdTKJ0=\n-----END PUBLIC KEY-----\n",
+    "signature": "Zj41PSYzzG9SdgX5Ll5b3jQ7TS0aAfXGMGarA/GBeThdDNe3ZBKK6/mA98/mZgDT6G91VD0VV98s8XHMsHdUBg=="
+  }
+}

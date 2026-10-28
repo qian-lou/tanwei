@@ -1,0 +1,4041 @@
+{
+  "schemaVersion": 1,
+  "provenance": "Original policy-engine.test.ts executed against the Zod policy oracle with its assertions enabled",
+  "sourceSha256": "a6294f684180751f0fcacaa64b187d6c12bf06f37803e90149dd03c978e9df6f",
+  "oracleSha256": "3c57dea37d4191d8637322ff98c30ccabde5f91b2125580e84f8adf6376e8842",
+  "testsRun": 47,
+  "connections": [
+    {
+      "target": {
+        "id": "local:42",
+        "pid": 42,
+        "displayName": "Test JVM",
+        "mainClass": "example.Main",
+        "arguments": [],
+        "javaPath": null,
+        "javaVersion": "21",
+        "user": null,
+        "startTime": null,
+        "attachable": true,
+        "attachReason": null
+      },
+      "state": "READY",
+      "protocolVersion": "1.0",
+      "agentVersion": "0.1.0",
+      "javaVersion": "21",
+      "capabilities": [
+        {
+          "id": "runtime",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "runtime-mutation",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "invoke-replay",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "heap-instances",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "static-fields",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "classloaders",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "classloader-metaspace",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "class-redefine",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "mbeans",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "thread-control",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "thread-locks",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "thread-pools",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "thread-pool-latency",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "thread-dump",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "tasks",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "loggers",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "perfcounters",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "snapshots",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "monitor",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "trace",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "observe",
+          "state": "AVAILABLE",
+          "reason": null
+        },
+        {
+          "id": "line-probe",
+          "state": "AVAILABLE",
+          "reason": null
+        }
+      ],
+      "connectedAt": "1970-01-01T00:00:00.000Z",
+      "errorCode": null,
+      "errorMessage": null
+    }
+  ],
+  "cases": [
+    {
+      "api": "authorizeAction",
+      "suite": "observation condition policy",
+      "test": "authorizes the shared bounded AND grammar as R2",
+      "connection": 0,
+      "actionId": "observe.start",
+      "parameters": {
+        "className": "example.Probe",
+        "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+        "methodName": "echo",
+        "parameterTypes": "java.lang.String",
+        "maximumEvents": "20",
+        "timeoutMillis": "30000",
+        "includeInternal": "true",
+        "condition": "durationMs >= 0 && arg0 contains \"order-\" && outcome == \"RETURNED\"",
+        "phases": "BEFORE,RETURN,THROW,FINISH",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "observe.start",
+          "parameters": {
+            "className": "example.Probe",
+            "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+            "methodName": "echo",
+            "parameterTypes": "java.lang.String",
+            "maximumEvents": "20",
+            "timeoutMillis": "30000",
+            "includeInternal": "true",
+            "condition": "durationMs >= 0 && arg0 contains \"order-\" && outcome == \"RETURNED\"",
+            "phases": "BEFORE,RETURN,THROW,FINISH",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "observation condition policy",
+      "test": "rejects script-like and excessive condition expressions",
+      "connection": 0,
+      "actionId": "observe.start",
+      "parameters": {
+        "className": "example.Probe",
+        "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+        "methodName": "echo",
+        "parameterTypes": "java.lang.String",
+        "maximumEvents": "20",
+        "timeoutMillis": "30000",
+        "includeInternal": "true",
+        "condition": "arg0 == \"x\" || java.lang.Runtime.getRuntime()",
+        "phases": "BEFORE,RETURN,THROW,FINISH",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "observation condition policy",
+      "test": "rejects script-like and excessive condition expressions",
+      "connection": 0,
+      "actionId": "observe.start",
+      "parameters": {
+        "className": "example.Probe",
+        "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+        "methodName": "echo",
+        "parameterTypes": "java.lang.String",
+        "maximumEvents": "20",
+        "timeoutMillis": "30000",
+        "includeInternal": "true",
+        "condition": "durationMs >= 0 && durationMs < 1 && thread contains \"main\" && outcome == \"RETURNED\" && exception",
+        "phases": "BEFORE,RETURN,THROW,FINISH",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "observation condition policy",
+      "test": "rejects script-like and excessive condition expressions",
+      "connection": 0,
+      "actionId": "observe.start",
+      "parameters": {
+        "className": "example.Probe",
+        "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+        "methodName": "echo",
+        "parameterTypes": "java.lang.String",
+        "maximumEvents": "20",
+        "timeoutMillis": "30000",
+        "includeInternal": "true",
+        "condition": "durationMs >= 0 && arg0 contains \"order-\" && outcome == \"RETURNED\"",
+        "phases": "BEFORE,BEFORE",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "Action Contract version policy",
+      "test": "fails closed with a structured error for an unknown version",
+      "connection": 0,
+      "actionId": "jvm.info",
+      "parameters": {},
+      "maximumRiskLevel": "R4",
+      "contractVersion": "2.0",
+      "result": {
+        "ok": false,
+        "errorCode": "ACTION_CONTRACT_VERSION_UNSUPPORTED"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "source-line probe policy",
+      "test": "previews as R0 and starts only inside bounded budgets",
+      "connection": 0,
+      "actionId": "line.preview",
+      "parameters": {
+        "className": "example.Probe",
+        "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+        "methodName": "run",
+        "parameterTypes": "java.lang.String",
+        "lineNumber": "42"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "line.preview",
+          "parameters": {
+            "className": "example.Probe",
+            "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+            "methodName": "run",
+            "parameterTypes": "java.lang.String",
+            "lineNumber": "42"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "source-line probe policy",
+      "test": "previews as R0 and starts only inside bounded budgets",
+      "connection": 0,
+      "actionId": "line.start",
+      "parameters": {
+        "className": "example.Probe",
+        "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+        "methodName": "run",
+        "parameterTypes": "java.lang.String",
+        "lineNumber": "42",
+        "maximumEvents": "20",
+        "timeoutMillis": "30000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "line.start",
+          "parameters": {
+            "className": "example.Probe",
+            "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+            "methodName": "run",
+            "parameterTypes": "java.lang.String",
+            "lineNumber": "42",
+            "maximumEvents": "20",
+            "timeoutMillis": "30000",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "source-line probe policy",
+      "test": "previews as R0 and starts only inside bounded budgets",
+      "connection": 0,
+      "actionId": "line.start",
+      "parameters": {
+        "className": "example.Probe",
+        "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+        "methodName": "run",
+        "parameterTypes": "java.lang.String",
+        "lineNumber": "42",
+        "maximumEvents": "101",
+        "timeoutMillis": "30000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "source-line probe policy",
+      "test": "reads events only by an exact task identity",
+      "connection": 0,
+      "actionId": "line.events",
+      "parameters": {
+        "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+        "limit": "20"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "line.events",
+          "parameters": {
+            "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+            "limit": "20"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "source-line probe policy",
+      "test": "reads events only by an exact task identity",
+      "connection": 0,
+      "actionId": "line.events",
+      "parameters": {
+        "taskId": "not-a-task",
+        "limit": "20"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded VM option inventory queries as R0",
+      "connection": 0,
+      "actionId": "vm.option.list",
+      "parameters": {
+        "query": "Heap",
+        "category": "MEMORY",
+        "mutability": "WRITEABLE",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "vm.option.list",
+          "parameters": {
+            "query": "Heap",
+            "category": "MEMORY",
+            "mutability": "WRITEABLE",
+            "offset": "0",
+            "limit": "50"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded VM option inventory queries as R0",
+      "connection": 0,
+      "actionId": "vm.option.list",
+      "parameters": {
+        "query": "Heap\n",
+        "category": "ALL",
+        "mutability": "ALL",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded VM option inventory queries as R0",
+      "connection": 0,
+      "actionId": "vm.option.list",
+      "parameters": {
+        "query": "",
+        "category": "ALL",
+        "mutability": "ALL",
+        "offset": "0",
+        "limit": "201"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded system property inventory queries as R0",
+      "connection": 0,
+      "actionId": "system.property.list",
+      "parameters": {
+        "query": "java",
+        "category": "JAVA",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "system.property.list",
+          "parameters": {
+            "query": "java",
+            "category": "JAVA",
+            "offset": "0",
+            "limit": "50"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded system property inventory queries as R0",
+      "connection": 0,
+      "actionId": "system.property.list",
+      "parameters": {
+        "query": "password\n",
+        "category": "ALL",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded system property inventory queries as R0",
+      "connection": 0,
+      "actionId": "system.property.list",
+      "parameters": {
+        "query": "",
+        "category": "ALL",
+        "offset": "0",
+        "limit": "201"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded environment inventory queries as R0",
+      "connection": 0,
+      "actionId": "environment.list",
+      "parameters": {
+        "query": "JAVA",
+        "category": "JAVA",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "environment.list",
+          "parameters": {
+            "query": "JAVA",
+            "category": "JAVA",
+            "offset": "0",
+            "limit": "50"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded environment inventory queries as R0",
+      "connection": 0,
+      "actionId": "environment.list",
+      "parameters": {
+        "query": "TOKEN\n",
+        "category": "ALL",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded environment inventory queries as R0",
+      "connection": 0,
+      "actionId": "environment.list",
+      "parameters": {
+        "query": "",
+        "category": "ALL",
+        "offset": "0",
+        "limit": "201"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded JIT compiler summaries as R0",
+      "connection": 0,
+      "actionId": "jit.compiler.summary",
+      "parameters": {},
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "jit.compiler.summary",
+          "parameters": {},
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded JIT compiler summaries as R0",
+      "connection": 0,
+      "actionId": "jit.compiler.summary",
+      "parameters": {
+        "unexpected": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes a confirmed mutation as R3",
+      "connection": 0,
+      "actionId": "system.property.set",
+      "parameters": {
+        "name": "example.mode",
+        "expectedOldValue": "safe",
+        "newValue": "diagnostic",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "system.property.set",
+          "parameters": {
+            "name": "example.mode",
+            "expectedOldValue": "safe",
+            "newValue": "diagnostic",
+            "confirmed": "true"
+          },
+          "riskLevel": "R3"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires two confirmations for a GC request",
+      "connection": 0,
+      "actionId": "gc.run",
+      "parameters": {
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires two confirmations for a GC request",
+      "connection": 0,
+      "actionId": "gc.run",
+      "parameters": {
+        "confirmed": "true",
+        "confirmedSecondary": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "gc.run",
+          "parameters": {
+            "confirmed": "true",
+            "confirmedSecondary": "true"
+          },
+          "riskLevel": "R4"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "enforces the host-configured maximum risk level",
+      "connection": 0,
+      "actionId": "system.property.set",
+      "parameters": {
+        "name": "example.mode",
+        "expectedOldValue": "safe",
+        "newValue": "diagnostic",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R2",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "ACTION_DISABLED_BY_POLICY"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "rejects control characters in mutation parameters",
+      "connection": 0,
+      "actionId": "logging.set",
+      "parameters": {
+        "name": "example\nInjected",
+        "expectedOldValue": "INFO",
+        "newValue": "FINE",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires an exact preview fingerprint and two confirmations for replay",
+      "connection": 0,
+      "actionId": "invoke.replay",
+      "parameters": {
+        "className": "example.Main",
+        "classLoader": "app",
+        "methodName": "echo",
+        "parameterTypes": "java.lang.String",
+        "argumentCount": "1",
+        "argument0": "captured",
+        "argument1": "",
+        "argument2": "",
+        "argument3": "",
+        "argument4": "",
+        "argument5": "",
+        "argument6": "",
+        "argument7": "",
+        "expectedFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "confirmed": "true",
+        "confirmedSecondary": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "invoke.replay",
+          "parameters": {
+            "className": "example.Main",
+            "classLoader": "app",
+            "methodName": "echo",
+            "parameterTypes": "java.lang.String",
+            "argumentCount": "1",
+            "argument0": "captured",
+            "argument1": "",
+            "argument2": "",
+            "argument3": "",
+            "argument4": "",
+            "argument5": "",
+            "argument6": "",
+            "argument7": "",
+            "expectedFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "confirmed": "true",
+            "confirmedSecondary": "true"
+          },
+          "riskLevel": "R4"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires an exact preview fingerprint and two confirmations for replay",
+      "connection": 0,
+      "actionId": "invoke.replay",
+      "parameters": {
+        "className": "example.Main",
+        "classLoader": "app",
+        "methodName": "echo",
+        "parameterTypes": "java.lang.String",
+        "argumentCount": "1",
+        "argument0": "captured",
+        "argument1": "",
+        "argument2": "",
+        "argument3": "",
+        "argument4": "",
+        "argument5": "",
+        "argument6": "",
+        "argument7": "",
+        "expectedFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "confirmed": "true",
+        "confirmedSecondary": "false"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "rejects non-empty replay arguments beyond argumentCount",
+      "connection": 0,
+      "actionId": "invoke.replay.preview",
+      "parameters": {
+        "className": "example.Main",
+        "classLoader": "app",
+        "methodName": "echo",
+        "parameterTypes": "java.lang.String",
+        "argumentCount": "1",
+        "argument0": "only-one",
+        "argument1": "unexpected",
+        "argument2": "",
+        "argument3": "",
+        "argument4": "",
+        "argument5": "",
+        "argument6": "",
+        "argument7": ""
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "binds instance replay to an exact live snapshot",
+      "connection": 0,
+      "actionId": "invoke.replay.preview",
+      "parameters": {
+        "className": "example.Counter",
+        "classLoader": "app",
+        "methodName": "increment",
+        "parameterTypes": "int",
+        "argumentCount": "1",
+        "argument0": "2",
+        "argument1": "",
+        "argument2": "",
+        "argument3": "",
+        "argument4": "",
+        "argument5": "",
+        "argument6": "",
+        "argument7": "",
+        "snapshotId": "1001",
+        "replayMode": "INSTANCE"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "invoke.replay.preview",
+          "parameters": {
+            "className": "example.Counter",
+            "classLoader": "app",
+            "methodName": "increment",
+            "parameterTypes": "int",
+            "argumentCount": "1",
+            "snapshotId": "1001",
+            "replayMode": "INSTANCE",
+            "argument0": "2",
+            "argument1": "",
+            "argument2": "",
+            "argument3": "",
+            "argument4": "",
+            "argument5": "",
+            "argument6": "",
+            "argument7": ""
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "binds instance replay to an exact live snapshot",
+      "connection": 0,
+      "actionId": "invoke.replay.preview",
+      "parameters": {
+        "className": "example.Counter",
+        "classLoader": "app",
+        "methodName": "increment",
+        "parameterTypes": "int",
+        "argumentCount": "1",
+        "argument0": "2",
+        "argument1": "",
+        "argument2": "",
+        "argument3": "",
+        "argument4": "",
+        "argument5": "",
+        "argument6": "",
+        "argument7": "",
+        "replayMode": "INSTANCE"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms exact-class heap instance queries",
+      "connection": 0,
+      "actionId": "heap.instances",
+      "parameters": {
+        "name": "example.Order",
+        "classLoader": "app",
+        "limit": "20",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "heap.instances",
+          "parameters": {
+            "name": "example.Order",
+            "classLoader": "app",
+            "limit": "20",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms exact-class heap instance queries",
+      "connection": 0,
+      "actionId": "heap.instances",
+      "parameters": {
+        "name": "example.Order",
+        "classLoader": "app",
+        "limit": "21",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms heap histogram scans",
+      "connection": 0,
+      "actionId": "heap.histogram",
+      "parameters": {
+        "query": "example.",
+        "limit": "200",
+        "scanLimit": "5000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "heap.histogram",
+          "parameters": {
+            "query": "example.",
+            "limit": "200",
+            "scanLimit": "5000000",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms heap histogram scans",
+      "connection": 0,
+      "actionId": "heap.histogram",
+      "parameters": {
+        "query": "",
+        "limit": "201",
+        "scanLimit": "5000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms heap histogram scans",
+      "connection": 0,
+      "actionId": "heap.histogram",
+      "parameters": {
+        "query": "",
+        "limit": "100",
+        "scanLimit": "5000001",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms heap histogram scans",
+      "connection": 0,
+      "actionId": "heap.histogram",
+      "parameters": {
+        "query": "",
+        "limit": "100",
+        "scanLimit": "9999",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms class retained-size scans",
+      "connection": 0,
+      "actionId": "heap.retained.classes",
+      "parameters": {
+        "query": "example.",
+        "limit": "200",
+        "maximumNodes": "500000",
+        "maximumEdges": "2000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "heap.retained.classes",
+          "parameters": {
+            "query": "example.",
+            "limit": "200",
+            "maximumNodes": "500000",
+            "maximumEdges": "2000000",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms class retained-size scans",
+      "connection": 0,
+      "actionId": "heap.retained.classes",
+      "parameters": {
+        "query": "example.",
+        "limit": "200",
+        "maximumNodes": "500001",
+        "maximumEdges": "2000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms class retained-size scans",
+      "connection": 0,
+      "actionId": "heap.retained.classes",
+      "parameters": {
+        "query": "example.",
+        "limit": "200",
+        "maximumNodes": "500000",
+        "maximumEdges": "2000001",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms class retained-size scans",
+      "connection": 0,
+      "actionId": "heap.retained.classes",
+      "parameters": {
+        "query": "example.",
+        "limit": "200",
+        "maximumNodes": "500000",
+        "maximumEdges": "2000000",
+        "confirmed": "false"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms dominator-tree scans",
+      "connection": 0,
+      "actionId": "heap.dominator.tree",
+      "parameters": {
+        "maximumDepth": "8",
+        "maximumViewNodes": "200",
+        "rootLimit": "20",
+        "branchLimit": "20",
+        "maximumNodes": "500000",
+        "maximumEdges": "2000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "heap.dominator.tree",
+          "parameters": {
+            "maximumDepth": "8",
+            "maximumViewNodes": "200",
+            "rootLimit": "20",
+            "branchLimit": "20",
+            "maximumNodes": "500000",
+            "maximumEdges": "2000000",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms dominator-tree scans",
+      "connection": 0,
+      "actionId": "heap.dominator.tree",
+      "parameters": {
+        "maximumDepth": "9",
+        "maximumViewNodes": "200",
+        "rootLimit": "20",
+        "branchLimit": "20",
+        "maximumNodes": "500000",
+        "maximumEdges": "2000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms dominator-tree scans",
+      "connection": 0,
+      "actionId": "heap.dominator.tree",
+      "parameters": {
+        "maximumDepth": "8",
+        "maximumViewNodes": "201",
+        "rootLimit": "20",
+        "branchLimit": "20",
+        "maximumNodes": "500000",
+        "maximumEdges": "2000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds and confirms dominator-tree scans",
+      "connection": 0,
+      "actionId": "heap.dominator.tree",
+      "parameters": {
+        "maximumDepth": "8",
+        "maximumViewNodes": "200",
+        "rootLimit": "20",
+        "branchLimit": "0",
+        "maximumNodes": "500000",
+        "maximumEdges": "2000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes opaque bounded heap relation traversal",
+      "connection": 0,
+      "actionId": "heap.relations",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "direction": "INCOMING",
+        "limit": "50",
+        "scanLimit": "250000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "heap.relations",
+          "parameters": {
+            "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+            "direction": "INCOMING",
+            "limit": "50",
+            "scanLimit": "250000",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes opaque bounded heap relation traversal",
+      "connection": 0,
+      "actionId": "heap.relations",
+      "parameters": {
+        "objectHandle": "identity-hash-is-not-a-handle",
+        "direction": "INCOMING",
+        "limit": "50",
+        "scanLimit": "250000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes opaque bounded heap relation traversal",
+      "connection": 0,
+      "actionId": "heap.relations",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "direction": "INCOMING",
+        "limit": "50",
+        "scanLimit": "1000001",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded multi-layer object graphs",
+      "connection": 0,
+      "actionId": "heap.object.graph",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "direction": "INCOMING",
+        "maximumDepth": "5",
+        "maximumNodes": "80",
+        "maximumEdgesPerNode": "8",
+        "scanLimit": "1000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "heap.object.graph",
+          "parameters": {
+            "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+            "direction": "INCOMING",
+            "maximumDepth": "5",
+            "maximumNodes": "80",
+            "maximumEdgesPerNode": "8",
+            "scanLimit": "1000000",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded multi-layer object graphs",
+      "connection": 0,
+      "actionId": "heap.object.graph",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "direction": "INCOMING",
+        "maximumDepth": "6",
+        "maximumNodes": "80",
+        "maximumEdgesPerNode": "8",
+        "scanLimit": "1000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded multi-layer object graphs",
+      "connection": 0,
+      "actionId": "heap.object.graph",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "direction": "INCOMING",
+        "maximumDepth": "5",
+        "maximumNodes": "81",
+        "maximumEdgesPerNode": "8",
+        "scanLimit": "1000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded multi-layer object graphs",
+      "connection": 0,
+      "actionId": "heap.object.graph",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "direction": "INCOMING",
+        "maximumDepth": "5",
+        "maximumNodes": "80",
+        "maximumEdgesPerNode": "9",
+        "scanLimit": "1000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded GC Root path traversal",
+      "connection": 0,
+      "actionId": "heap.root.path",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "maximumDepth": "32",
+        "maximumNodes": "100000",
+        "maximumEdges": "1000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "heap.root.path",
+          "parameters": {
+            "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+            "maximumDepth": "32",
+            "maximumNodes": "100000",
+            "maximumEdges": "1000000",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded GC Root path traversal",
+      "connection": 0,
+      "actionId": "heap.root.path",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "maximumDepth": "33",
+        "maximumNodes": "100000",
+        "maximumEdges": "1000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded GC Root path traversal",
+      "connection": 0,
+      "actionId": "heap.root.path",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "maximumDepth": "32",
+        "maximumNodes": "100001",
+        "maximumEdges": "1000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded multi-path GC Root traversal",
+      "connection": 0,
+      "actionId": "heap.root.paths",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "maximumPaths": "8",
+        "maximumDepth": "32",
+        "maximumNodes": "100000",
+        "maximumEdges": "1000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "heap.root.paths",
+          "parameters": {
+            "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+            "maximumPaths": "8",
+            "maximumDepth": "32",
+            "maximumNodes": "100000",
+            "maximumEdges": "1000000",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded multi-path GC Root traversal",
+      "connection": 0,
+      "actionId": "heap.root.paths",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "maximumPaths": "9",
+        "maximumDepth": "32",
+        "maximumNodes": "100000",
+        "maximumEdges": "1000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded multi-path GC Root traversal",
+      "connection": 0,
+      "actionId": "heap.root.paths",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "maximumPaths": "8",
+        "maximumDepth": "32",
+        "maximumNodes": "100000",
+        "maximumEdges": "999",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded retained-size analysis",
+      "connection": 0,
+      "actionId": "heap.retained",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "maximumNodes": "100000",
+        "maximumEdges": "1000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "heap.retained",
+          "parameters": {
+            "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+            "maximumNodes": "100000",
+            "maximumEdges": "1000000",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded retained-size analysis",
+      "connection": 0,
+      "actionId": "heap.retained",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "maximumNodes": "100000",
+        "maximumEdges": "1000001",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded retained-size analysis",
+      "connection": 0,
+      "actionId": "heap.retained",
+      "parameters": {
+        "objectHandle": "10aab2dd-ecdf-4d28-8bc8-a6a68a099875",
+        "maximumNodes": "100000",
+        "maximumEdges": "1000000",
+        "confirmed": "false"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes a bounded retained-size ranking",
+      "connection": 0,
+      "actionId": "heap.retained.ranking",
+      "parameters": {
+        "name": "dev.tanwei.integration.HeapProbe",
+        "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+        "instanceLimit": "20",
+        "maximumNodes": "500000",
+        "maximumEdges": "2000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "heap.retained.ranking",
+          "parameters": {
+            "name": "dev.tanwei.integration.HeapProbe",
+            "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+            "instanceLimit": "20",
+            "maximumNodes": "500000",
+            "maximumEdges": "2000000",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes a bounded retained-size ranking",
+      "connection": 0,
+      "actionId": "heap.retained.ranking",
+      "parameters": {
+        "name": "dev.tanwei.integration.HeapProbe",
+        "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+        "instanceLimit": "20",
+        "maximumNodes": "500001",
+        "maximumEdges": "2000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes a bounded retained-size ranking",
+      "connection": 0,
+      "actionId": "heap.retained.ranking",
+      "parameters": {
+        "name": "dev.tanwei.integration.HeapProbe",
+        "classLoader": "jdk.internal.loader.ClassLoaders$AppClassLoader@1",
+        "instanceLimit": "20",
+        "maximumNodes": "500000",
+        "maximumEdges": "2000001",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded MBean inspection and rejects broad input",
+      "connection": 0,
+      "actionId": "mbean.list",
+      "parameters": {
+        "query": "java.lang:type=Memory",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "mbean.list",
+          "parameters": {
+            "query": "java.lang:type=Memory",
+            "offset": "0",
+            "limit": "50"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded MBean inspection and rejects broad input",
+      "connection": 0,
+      "actionId": "mbean.attribute.read",
+      "parameters": {
+        "objectName": "java.lang:type=Memory",
+        "attribute": "HeapMemoryUsage"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "mbean.attribute.read",
+          "parameters": {
+            "objectName": "java.lang:type=Memory",
+            "attribute": "HeapMemoryUsage"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded MBean inspection and rejects broad input",
+      "connection": 0,
+      "actionId": "mbean.list",
+      "parameters": {
+        "query": "",
+        "offset": "0",
+        "limit": "101"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires an exact fingerprint and two confirmations for MBean operations",
+      "connection": 0,
+      "actionId": "mbean.operation.preview",
+      "parameters": {
+        "objectName": "dev.tanwei.integration:type=Control",
+        "operation": "ping",
+        "parameterTypes": "java.lang.String",
+        "argumentCount": "1",
+        "argument0": "desktop",
+        "argument1": "",
+        "argument2": "",
+        "argument3": "",
+        "argument4": "",
+        "argument5": "",
+        "argument6": "",
+        "argument7": ""
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "mbean.operation.preview",
+          "parameters": {
+            "objectName": "dev.tanwei.integration:type=Control",
+            "operation": "ping",
+            "parameterTypes": "java.lang.String",
+            "argumentCount": "1",
+            "argument0": "desktop",
+            "argument1": "",
+            "argument2": "",
+            "argument3": "",
+            "argument4": "",
+            "argument5": "",
+            "argument6": "",
+            "argument7": ""
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires an exact fingerprint and two confirmations for MBean operations",
+      "connection": 0,
+      "actionId": "mbean.operation.invoke",
+      "parameters": {
+        "objectName": "dev.tanwei.integration:type=Control",
+        "operation": "ping",
+        "parameterTypes": "java.lang.String",
+        "argumentCount": "1",
+        "argument0": "desktop",
+        "argument1": "",
+        "argument2": "",
+        "argument3": "",
+        "argument4": "",
+        "argument5": "",
+        "argument6": "",
+        "argument7": "",
+        "expectedFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "confirmed": "true",
+        "confirmedSecondary": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "mbean.operation.invoke",
+          "parameters": {
+            "objectName": "dev.tanwei.integration:type=Control",
+            "operation": "ping",
+            "parameterTypes": "java.lang.String",
+            "argumentCount": "1",
+            "argument0": "desktop",
+            "argument1": "",
+            "argument2": "",
+            "argument3": "",
+            "argument4": "",
+            "argument5": "",
+            "argument6": "",
+            "argument7": "",
+            "expectedFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "confirmed": "true",
+            "confirmedSecondary": "true"
+          },
+          "riskLevel": "R4"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires an exact fingerprint and two confirmations for MBean operations",
+      "connection": 0,
+      "actionId": "mbean.operation.invoke",
+      "parameters": {
+        "objectName": "dev.tanwei.integration:type=Control",
+        "operation": "ping",
+        "parameterTypes": "java.lang.String",
+        "argumentCount": "1",
+        "argument0": "desktop",
+        "argument1": "unused",
+        "argument2": "",
+        "argument3": "",
+        "argument4": "",
+        "argument5": "",
+        "argument6": "",
+        "argument7": "",
+        "expectedFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "confirmed": "true",
+        "confirmedSecondary": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded OpenType JSON operation arguments",
+      "connection": 0,
+      "actionId": "mbean.operation.preview",
+      "parameters": {
+        "objectName": "dev.tanwei.integration:type=OpenControl",
+        "operation": "applySettings",
+        "parameterTypes": "javax.management.openmbean.CompositeData",
+        "argumentCount": "1",
+        "argument0": "{\n  \"enabled\": false,\n  \"labels\": [\"desktop\"],\n  \"threshold\": 42\n}",
+        "argument1": "",
+        "argument2": "",
+        "argument3": "",
+        "argument4": "",
+        "argument5": "",
+        "argument6": "",
+        "argument7": "",
+        "argumentFormat0": "OPEN_TYPE_JSON"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "mbean.operation.preview",
+          "parameters": {
+            "objectName": "dev.tanwei.integration:type=OpenControl",
+            "operation": "applySettings",
+            "parameterTypes": "javax.management.openmbean.CompositeData",
+            "argumentCount": "1",
+            "argument0": "{\n  \"enabled\": false,\n  \"labels\": [\"desktop\"],\n  \"threshold\": 42\n}",
+            "argument1": "",
+            "argument2": "",
+            "argument3": "",
+            "argument4": "",
+            "argument5": "",
+            "argument6": "",
+            "argument7": "",
+            "argumentFormat0": "OPEN_TYPE_JSON"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded OpenType JSON operation arguments",
+      "connection": 0,
+      "actionId": "mbean.operation.preview",
+      "parameters": {
+        "objectName": "dev.tanwei.integration:type=OpenControl",
+        "operation": "applySettings",
+        "parameterTypes": "javax.management.openmbean.CompositeData",
+        "argumentCount": "1",
+        "argument0": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "argument1": "",
+        "argument2": "",
+        "argument3": "",
+        "argument4": "",
+        "argument5": "",
+        "argument6": "",
+        "argument7": "",
+        "argumentFormat0": "OPEN_TYPE_JSON"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded OpenType JSON operation arguments",
+      "connection": 0,
+      "actionId": "mbean.operation.preview",
+      "parameters": {
+        "objectName": "dev.tanwei.integration:type=OpenControl",
+        "operation": "applySettings",
+        "parameterTypes": "javax.management.openmbean.CompositeData",
+        "argumentCount": "1",
+        "argument0": "{\n  \"enabled\": false,\n  \"labels\": [\"desktop\"],\n  \"threshold\": 42\n}",
+        "argument1": "",
+        "argument2": "",
+        "argument3": "",
+        "argument4": "",
+        "argument5": "",
+        "argument6": "",
+        "argument7": "",
+        "argumentFormat0": "OPEN_TYPE_JSON",
+        "argumentFormat1": "SCALAR"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires old-value preview identity and two confirmations for MBean attribute writes",
+      "connection": 0,
+      "actionId": "mbean.attribute.write.preview",
+      "parameters": {
+        "objectName": "dev.tanwei.integration:type=Control",
+        "attribute": "Mode",
+        "proposedValue": "desktop"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "mbean.attribute.write.preview",
+          "parameters": {
+            "objectName": "dev.tanwei.integration:type=Control",
+            "attribute": "Mode",
+            "proposedValue": "desktop"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires old-value preview identity and two confirmations for MBean attribute writes",
+      "connection": 0,
+      "actionId": "mbean.attribute.write",
+      "parameters": {
+        "objectName": "dev.tanwei.integration:type=Control",
+        "attribute": "Mode",
+        "proposedValue": "desktop",
+        "expectedFingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "confirmed": "true",
+        "confirmedSecondary": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "mbean.attribute.write",
+          "parameters": {
+            "objectName": "dev.tanwei.integration:type=Control",
+            "attribute": "Mode",
+            "proposedValue": "desktop",
+            "expectedFingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "confirmed": "true",
+            "confirmedSecondary": "true"
+          },
+          "riskLevel": "R4"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires old-value preview identity and two confirmations for MBean attribute writes",
+      "connection": 0,
+      "actionId": "mbean.attribute.write",
+      "parameters": {
+        "objectName": "dev.tanwei.integration:type=Control",
+        "attribute": "Mode",
+        "proposedValue": "desktop\nunsafe",
+        "expectedFingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "confirmed": "true",
+        "confirmedSecondary": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires old-value preview identity and two confirmations for MBean attribute writes",
+      "connection": 0,
+      "actionId": "mbean.attribute.write.preview",
+      "parameters": {
+        "objectName": "dev.tanwei.integration:type=Control",
+        "attribute": "Settings",
+        "valueFormat": "OPEN_TYPE_JSON",
+        "proposedValue": "{\n  \"enabled\": true,\n  \"threshold\": 42\n}"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "mbean.attribute.write.preview",
+          "parameters": {
+            "objectName": "dev.tanwei.integration:type=Control",
+            "attribute": "Settings",
+            "valueFormat": "OPEN_TYPE_JSON",
+            "proposedValue": "{\n  \"enabled\": true,\n  \"threshold\": 42\n}"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires old-value preview identity and two confirmations for MBean attribute writes",
+      "connection": 0,
+      "actionId": "mbean.attribute.write.preview",
+      "parameters": {
+        "objectName": "dev.tanwei.integration:type=Control",
+        "attribute": "Settings",
+        "valueFormat": "OPEN_TYPE_JSON",
+        "proposedValue": "{\"value\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded logger inspection and exact framework identity",
+      "connection": 0,
+      "actionId": "logger.list",
+      "parameters": {
+        "query": "dev.tanwei",
+        "framework": "ALL",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "logger.list",
+          "parameters": {
+            "query": "dev.tanwei",
+            "framework": "ALL",
+            "offset": "0",
+            "limit": "50"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded logger inspection and exact framework identity",
+      "connection": 0,
+      "actionId": "logger.describe",
+      "parameters": {
+        "framework": "JUL",
+        "contextId": "jul:platform",
+        "name": "<root>"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "logger.describe",
+          "parameters": {
+            "framework": "JUL",
+            "contextId": "jul:platform",
+            "name": "<root>"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded logger inspection and exact framework identity",
+      "connection": 0,
+      "actionId": "logger.level.preview",
+      "parameters": {
+        "framework": "LOG4J",
+        "contextId": "log4j:app@1",
+        "name": "dev.tanwei",
+        "newLevel": "DEBUG"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "logger.level.preview",
+          "parameters": {
+            "framework": "LOG4J",
+            "contextId": "log4j:app@1",
+            "name": "dev.tanwei",
+            "newLevel": "DEBUG"
+          },
+          "riskLevel": "R1"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded logger inspection and exact framework identity",
+      "connection": 0,
+      "actionId": "logger.level.set",
+      "parameters": {
+        "framework": "LOG4J2",
+        "contextId": "log4j2:app@1",
+        "name": "dev.tanwei",
+        "newLevel": "ERROR",
+        "expectedFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "logger.level.set",
+          "parameters": {
+            "framework": "LOG4J2",
+            "contextId": "log4j2:app@1",
+            "name": "dev.tanwei",
+            "newLevel": "ERROR",
+            "expectedFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "confirmed": "true"
+          },
+          "riskLevel": "R3"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded logger inspection and exact framework identity",
+      "connection": 0,
+      "actionId": "logger.list",
+      "parameters": {
+        "query": "",
+        "framework": "LOG4J1",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded logger inspection and exact framework identity",
+      "connection": 0,
+      "actionId": "logger.level.preview",
+      "parameters": {
+        "framework": "LOG4J2",
+        "contextId": "log4j2:app@1",
+        "name": "dev.tanwei",
+        "newLevel": "<inherited>"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded logger inspection and exact framework identity",
+      "connection": 0,
+      "actionId": "logger.level.set",
+      "parameters": {
+        "framework": "JUL",
+        "contextId": "jul:platform",
+        "name": "<root>",
+        "newLevel": "INFO",
+        "expectedFingerprint": "not-a-fingerprint",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes only bounded read-only PerfCounter queries",
+      "connection": 0,
+      "actionId": "perfcounter.list",
+      "parameters": {
+        "query": "java.cls",
+        "namespace": "JAVA",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "perfcounter.list",
+          "parameters": {
+            "query": "java.cls",
+            "namespace": "JAVA",
+            "offset": "0",
+            "limit": "50"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes only bounded read-only PerfCounter queries",
+      "connection": 0,
+      "actionId": "perfcounter.list",
+      "parameters": {
+        "query": "",
+        "namespace": "VENDOR",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes only bounded read-only PerfCounter queries",
+      "connection": 0,
+      "actionId": "perfcounter.list",
+      "parameters": {
+        "query": "",
+        "namespace": "ALL",
+        "offset": "0",
+        "limit": "201"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes only bounded read-only PerfCounter queries",
+      "connection": 0,
+      "actionId": "perfcounter.snapshot",
+      "parameters": {
+        "names": "java.cls.loadedClasses\nsun.gc.collector.0.invocations"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "perfcounter.snapshot",
+          "parameters": {
+            "names": "java.cls.loadedClasses\nsun.gc.collector.0.invocations"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes only bounded read-only PerfCounter queries",
+      "connection": 0,
+      "actionId": "perfcounter.snapshot",
+      "parameters": {
+        "names": "a\nb\nc\nd\ne\nf\ng\nh\ni"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes only bounded read-only PerfCounter queries",
+      "connection": 0,
+      "actionId": "perfcounter.snapshot",
+      "parameters": {
+        "names": "java.cls.loadedClasses\njava.cls.loadedClasses"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded snapshot inspection and exact deletion",
+      "connection": 0,
+      "actionId": "snapshot.list",
+      "parameters": {
+        "query": "heartbeat",
+        "outcome": "RETURNED",
+        "scope": "ROOT",
+        "taskId": "task-42",
+        "threadQuery": "worker",
+        "replay": "INSTANCE",
+        "minimumDurationMillis": "2",
+        "maximumDurationMillis": "250",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "snapshot.list",
+          "parameters": {
+            "query": "heartbeat",
+            "outcome": "RETURNED",
+            "scope": "ROOT",
+            "taskId": "task-42",
+            "threadQuery": "worker",
+            "replay": "INSTANCE",
+            "minimumDurationMillis": "2",
+            "maximumDurationMillis": "250",
+            "offset": "0",
+            "limit": "50"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded snapshot inspection and exact deletion",
+      "connection": 0,
+      "actionId": "snapshot.describe",
+      "parameters": {
+        "snapshotId": "1000"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "snapshot.describe",
+          "parameters": {
+            "snapshotId": "1000"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded snapshot inspection and exact deletion",
+      "connection": 0,
+      "actionId": "snapshot.delete",
+      "parameters": {
+        "snapshotId": "1000"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "snapshot.delete",
+          "parameters": {
+            "snapshotId": "1000"
+          },
+          "riskLevel": "R1"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded snapshot inspection and exact deletion",
+      "connection": 0,
+      "actionId": "snapshot.list",
+      "parameters": {
+        "query": "",
+        "outcome": "SUCCESS",
+        "scope": "ROOT",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded snapshot inspection and exact deletion",
+      "connection": 0,
+      "actionId": "snapshot.list",
+      "parameters": {
+        "query": "",
+        "outcome": "ALL",
+        "scope": "ROOT",
+        "replay": "REPLAYABLE",
+        "minimumDurationMillis": "251",
+        "maximumDurationMillis": "250",
+        "offset": "0",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires preview identity and two confirmations for thread interruption",
+      "connection": 0,
+      "actionId": "thread.interrupt.preview",
+      "parameters": {
+        "threadId": "42"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "thread.interrupt.preview",
+          "parameters": {
+            "threadId": "42"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires preview identity and two confirmations for thread interruption",
+      "connection": 0,
+      "actionId": "thread.interrupt",
+      "parameters": {
+        "threadId": "42",
+        "expectedName": "application-worker",
+        "confirmed": "true",
+        "confirmedSecondary": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "thread.interrupt",
+          "parameters": {
+            "threadId": "42",
+            "expectedName": "application-worker",
+            "confirmed": "true",
+            "confirmedSecondary": "true"
+          },
+          "riskLevel": "R4"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "requires preview identity and two confirmations for thread interruption",
+      "connection": 0,
+      "actionId": "thread.interrupt",
+      "parameters": {
+        "threadId": "42",
+        "expectedName": "application-worker",
+        "confirmed": "true",
+        "confirmedSecondary": "false"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds lock relationship inspection as R0",
+      "connection": 0,
+      "actionId": "thread.locks",
+      "parameters": {
+        "includeUncontended": "false",
+        "maximumNodes": "200"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "thread.locks",
+          "parameters": {
+            "includeUncontended": "false",
+            "maximumNodes": "200"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds lock relationship inspection as R0",
+      "connection": 0,
+      "actionId": "thread.locks",
+      "parameters": {
+        "includeUncontended": "false",
+        "maximumNodes": "501"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds exact thread-pool inspection and requires confirmation",
+      "connection": 0,
+      "actionId": "thread.pools",
+      "parameters": {
+        "limit": "12",
+        "memberLimit": "100",
+        "includeEvidence": "true",
+        "queueTaskLimit": "100",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "thread.pools",
+          "parameters": {
+            "limit": "12",
+            "memberLimit": "100",
+            "includeEvidence": "true",
+            "queueTaskLimit": "100",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds exact thread-pool inspection and requires confirmation",
+      "connection": 0,
+      "actionId": "thread.pools",
+      "parameters": {
+        "limit": "21",
+        "memberLimit": "100",
+        "includeEvidence": "true",
+        "queueTaskLimit": "100",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds exact thread-pool inspection and requires confirmation",
+      "connection": 0,
+      "actionId": "thread.pools",
+      "parameters": {
+        "limit": "12",
+        "memberLimit": "100",
+        "includeEvidence": "true",
+        "queueTaskLimit": "100",
+        "confirmed": "false"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds exact thread-pool inspection and requires confirmation",
+      "connection": 0,
+      "actionId": "thread.pools",
+      "parameters": {
+        "limit": "12",
+        "memberLimit": "201",
+        "includeEvidence": "true",
+        "queueTaskLimit": "100",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds exact thread-pool inspection and requires confirmation",
+      "connection": 0,
+      "actionId": "thread.pools",
+      "parameters": {
+        "limit": "12",
+        "memberLimit": "100",
+        "includeEvidence": "true",
+        "queueTaskLimit": "201",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds exact supported thread-pool attribution and its lifecycle",
+      "connection": 0,
+      "actionId": "thread.pool.latency.start",
+      "parameters": {
+        "poolIdentity": "ThreadPoolExecutor@1a2b3c",
+        "poolClassName": "java.util.concurrent.ThreadPoolExecutor",
+        "durationMillis": "30000",
+        "maximumTrackedTasks": "1024",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "thread.pool.latency.start",
+          "parameters": {
+            "poolIdentity": "ThreadPoolExecutor@1a2b3c",
+            "poolClassName": "java.util.concurrent.ThreadPoolExecutor",
+            "durationMillis": "30000",
+            "maximumTrackedTasks": "1024",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds exact supported thread-pool attribution and its lifecycle",
+      "connection": 0,
+      "actionId": "thread.pool.latency.snapshot",
+      "parameters": {
+        "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "thread.pool.latency.snapshot",
+          "parameters": {
+            "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds exact supported thread-pool attribution and its lifecycle",
+      "connection": 0,
+      "actionId": "thread.pool.latency.stop",
+      "parameters": {
+        "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "thread.pool.latency.stop",
+          "parameters": {
+            "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds exact supported thread-pool attribution and its lifecycle",
+      "connection": 0,
+      "actionId": "thread.pool.latency.start",
+      "parameters": {
+        "poolIdentity": "ScheduledThreadPoolExecutor@1a2b3c",
+        "poolClassName": "java.util.concurrent.ScheduledThreadPoolExecutor",
+        "durationMillis": "30000",
+        "maximumTrackedTasks": "1024",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "thread.pool.latency.start",
+          "parameters": {
+            "poolIdentity": "ScheduledThreadPoolExecutor@1a2b3c",
+            "poolClassName": "java.util.concurrent.ScheduledThreadPoolExecutor",
+            "durationMillis": "30000",
+            "maximumTrackedTasks": "1024",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds exact supported thread-pool attribution and its lifecycle",
+      "connection": 0,
+      "actionId": "thread.pool.latency.start",
+      "parameters": {
+        "poolIdentity": "ForkJoinPool@abc123",
+        "poolClassName": "java.util.concurrent.ForkJoinPool",
+        "durationMillis": "30000",
+        "maximumTrackedTasks": "128",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "thread.pool.latency.start",
+          "parameters": {
+            "poolIdentity": "ForkJoinPool@abc123",
+            "poolClassName": "java.util.concurrent.ForkJoinPool",
+            "durationMillis": "30000",
+            "maximumTrackedTasks": "128",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds exact supported thread-pool attribution and its lifecycle",
+      "connection": 0,
+      "actionId": "thread.pool.latency.start",
+      "parameters": {
+        "poolIdentity": "ThreadPoolExecutor@1a2b3c",
+        "poolClassName": "java.util.concurrent.ForkJoinPool",
+        "durationMillis": "30000",
+        "maximumTrackedTasks": "128",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds exact supported thread-pool attribution and its lifecycle",
+      "connection": 0,
+      "actionId": "thread.pool.latency.start",
+      "parameters": {
+        "poolIdentity": "ThreadPoolExecutor@1a2b3c",
+        "poolClassName": "java.util.concurrent.ThreadPoolExecutor",
+        "durationMillis": "300001",
+        "maximumTrackedTasks": "1024",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds thread dump artifact capture as R1",
+      "connection": 0,
+      "actionId": "thread.dump",
+      "parameters": {
+        "maximumThreads": "10000",
+        "maximumStackDepth": "256",
+        "includeLocks": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "thread.dump",
+          "parameters": {
+            "maximumThreads": "10000",
+            "maximumStackDepth": "256",
+            "includeLocks": "true"
+          },
+          "riskLevel": "R1"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds thread dump artifact capture as R1",
+      "connection": 0,
+      "actionId": "thread.dump",
+      "parameters": {
+        "maximumThreads": "10001",
+        "maximumStackDepth": "256",
+        "includeLocks": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds thread dump artifact capture as R1",
+      "connection": 0,
+      "actionId": "thread.dump",
+      "parameters": {
+        "maximumThreads": "10000",
+        "maximumStackDepth": "513",
+        "includeLocks": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "lists tasks as R0 and requires an exact confirmed identity to cancel",
+      "connection": 0,
+      "actionId": "tasks.list",
+      "parameters": {},
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "tasks.list",
+          "parameters": {},
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "lists tasks as R0 and requires an exact confirmed identity to cancel",
+      "connection": 0,
+      "actionId": "tasks.cancel",
+      "parameters": {
+        "kind": "THREAD_POOL_LATENCY",
+        "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "tasks.cancel",
+          "parameters": {
+            "kind": "THREAD_POOL_LATENCY",
+            "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+            "confirmed": "true"
+          },
+          "riskLevel": "R1"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "lists tasks as R0 and requires an exact confirmed identity to cancel",
+      "connection": 0,
+      "actionId": "tasks.cancel",
+      "parameters": {
+        "kind": "THREAD",
+        "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "lists tasks as R0 and requires an exact confirmed identity to cancel",
+      "connection": 0,
+      "actionId": "tasks.cancel",
+      "parameters": {
+        "kind": "PROFILE",
+        "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+        "confirmed": "false"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "previews a managed session reset as R0 and executes it only with an R4 fingerprint",
+      "connection": 0,
+      "actionId": "session.reset.preview",
+      "parameters": {},
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "session.reset.preview",
+          "parameters": {},
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "previews a managed session reset as R0 and executes it only with an R4 fingerprint",
+      "connection": 0,
+      "actionId": "session.reset",
+      "parameters": {
+        "expectedFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "confirmed": "true",
+        "confirmedSecondary": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "session.reset",
+          "parameters": {
+            "expectedFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "confirmed": "true",
+            "confirmedSecondary": "true"
+          },
+          "riskLevel": "R4"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "previews a managed session reset as R0 and executes it only with an R4 fingerprint",
+      "connection": 0,
+      "actionId": "session.reset",
+      "parameters": {
+        "expectedFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "confirmed": "true",
+        "confirmedSecondary": "false"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds an exact method monitor and its window reads",
+      "connection": 0,
+      "actionId": "monitor.preview",
+      "parameters": {
+        "className": "example.Main",
+        "classLoader": "app",
+        "methodName": "heartbeat",
+        "parameterTypes": "java.lang.String"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "monitor.preview",
+          "parameters": {
+            "className": "example.Main",
+            "classLoader": "app",
+            "methodName": "heartbeat",
+            "parameterTypes": "java.lang.String"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds an exact method monitor and its window reads",
+      "connection": 0,
+      "actionId": "monitor.start",
+      "parameters": {
+        "className": "example.Main",
+        "classLoader": "app",
+        "methodName": "heartbeat",
+        "parameterTypes": "java.lang.String",
+        "intervalMillis": "1000",
+        "durationMillis": "60000",
+        "minimumDurationMillis": "0",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "monitor.start",
+          "parameters": {
+            "className": "example.Main",
+            "classLoader": "app",
+            "methodName": "heartbeat",
+            "parameterTypes": "java.lang.String",
+            "intervalMillis": "1000",
+            "durationMillis": "60000",
+            "minimumDurationMillis": "0",
+            "confirmed": "true"
+          },
+          "riskLevel": "R1"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds an exact method monitor and its window reads",
+      "connection": 0,
+      "actionId": "monitor.windows",
+      "parameters": {
+        "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+        "afterSequence": "0",
+        "limit": "100"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "monitor.windows",
+          "parameters": {
+            "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+            "afterSequence": "0",
+            "limit": "100"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds an exact method monitor and its window reads",
+      "connection": 0,
+      "actionId": "monitor.threshold.update",
+      "parameters": {
+        "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+        "minimumDurationMillis": "25",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "monitor.threshold.update",
+          "parameters": {
+            "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+            "minimumDurationMillis": "25",
+            "confirmed": "true"
+          },
+          "riskLevel": "R1"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds an exact method monitor and its window reads",
+      "connection": 0,
+      "actionId": "monitor.threshold.update",
+      "parameters": {
+        "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+        "minimumDurationMillis": "60001",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds an exact method monitor and its window reads",
+      "connection": 0,
+      "actionId": "monitor.start",
+      "parameters": {
+        "className": "example.Main",
+        "classLoader": "app",
+        "methodName": "heartbeat",
+        "parameterTypes": "java.lang.String",
+        "intervalMillis": "999",
+        "durationMillis": "60000",
+        "minimumDurationMillis": "0",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds a same-loader package trace and rejects JDK scopes",
+      "connection": 0,
+      "actionId": "trace.preview",
+      "parameters": {
+        "className": "dev.tanwei.example.Main",
+        "classLoader": "app",
+        "methodName": "heartbeat",
+        "parameterTypes": "java.lang.String",
+        "scopePrefix": "dev.tanwei.example",
+        "includeRules": "dev.tanwei.example.service.*\ndev.tanwei.example.Repository#load",
+        "excludeRules": "dev.tanwei.example.service.InternalService"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "trace.preview",
+          "parameters": {
+            "className": "dev.tanwei.example.Main",
+            "classLoader": "app",
+            "methodName": "heartbeat",
+            "parameterTypes": "java.lang.String",
+            "scopePrefix": "dev.tanwei.example",
+            "includeRules": "dev.tanwei.example.service.*\ndev.tanwei.example.Repository#load",
+            "excludeRules": "dev.tanwei.example.service.InternalService"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds a same-loader package trace and rejects JDK scopes",
+      "connection": 0,
+      "actionId": "trace.start",
+      "parameters": {
+        "className": "dev.tanwei.example.Main",
+        "classLoader": "app",
+        "methodName": "heartbeat",
+        "parameterTypes": "java.lang.String",
+        "scopePrefix": "dev.tanwei.example",
+        "includeRules": "dev.tanwei.example.service.*\ndev.tanwei.example.Repository#load",
+        "excludeRules": "dev.tanwei.example.service.InternalService",
+        "maximumTraces": "5",
+        "maximumDepth": "12",
+        "maximumSpans": "256",
+        "minimumDurationMillis": "0",
+        "timeoutMillis": "15000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "trace.start",
+          "parameters": {
+            "className": "dev.tanwei.example.Main",
+            "classLoader": "app",
+            "methodName": "heartbeat",
+            "parameterTypes": "java.lang.String",
+            "scopePrefix": "dev.tanwei.example",
+            "includeRules": "dev.tanwei.example.service.*\ndev.tanwei.example.Repository#load",
+            "excludeRules": "dev.tanwei.example.service.InternalService",
+            "maximumTraces": "5",
+            "maximumDepth": "12",
+            "maximumSpans": "256",
+            "minimumDurationMillis": "0",
+            "timeoutMillis": "15000",
+            "confirmed": "true"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds a same-loader package trace and rejects JDK scopes",
+      "connection": 0,
+      "actionId": "trace.events",
+      "parameters": {
+        "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+        "limit": "5"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "trace.events",
+          "parameters": {
+            "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+            "limit": "5"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds a same-loader package trace and rejects JDK scopes",
+      "connection": 0,
+      "actionId": "trace.threshold.update",
+      "parameters": {
+        "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+        "minimumDurationMillis": "25",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "trace.threshold.update",
+          "parameters": {
+            "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+            "minimumDurationMillis": "25",
+            "confirmed": "true"
+          },
+          "riskLevel": "R1"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds a same-loader package trace and rejects JDK scopes",
+      "connection": 0,
+      "actionId": "trace.threshold.update",
+      "parameters": {
+        "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7",
+        "minimumDurationMillis": "60001",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds a same-loader package trace and rejects JDK scopes",
+      "connection": 0,
+      "actionId": "trace.preview",
+      "parameters": {
+        "className": "java.lang.String",
+        "classLoader": "app",
+        "methodName": "heartbeat",
+        "parameterTypes": "java.lang.String",
+        "scopePrefix": "java.lang",
+        "includeRules": "dev.tanwei.example.service.*\ndev.tanwei.example.Repository#load",
+        "excludeRules": "dev.tanwei.example.service.InternalService"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds a same-loader package trace and rejects JDK scopes",
+      "connection": 0,
+      "actionId": "trace.preview",
+      "parameters": {
+        "className": "dev.tanwei.example.Main",
+        "classLoader": "app",
+        "methodName": "heartbeat",
+        "parameterTypes": "java.lang.String",
+        "scopePrefix": "dev.tanwei.example",
+        "includeRules": "dev.other.Service#run",
+        "excludeRules": "dev.tanwei.example.service.InternalService"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "bounds a same-loader package trace and rejects JDK scopes",
+      "connection": 0,
+      "actionId": "trace.preview",
+      "parameters": {
+        "className": "dev.tanwei.example.Main",
+        "classLoader": "app",
+        "methodName": "heartbeat",
+        "parameterTypes": "java.lang.String",
+        "scopePrefix": "dev.tanwei.example",
+        "includeRules": "dev.tanwei.example.*#run",
+        "excludeRules": "dev.tanwei.example.service.InternalService"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "keeps static metadata R0 and requires an exact confirmed R3 read",
+      "connection": 0,
+      "actionId": "class.static.fields",
+      "parameters": {
+        "name": "example.Main",
+        "classLoader": "app"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "class.static.fields",
+          "parameters": {
+            "name": "example.Main",
+            "classLoader": "app"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "keeps static metadata R0 and requires an exact confirmed R3 read",
+      "connection": 0,
+      "actionId": "classloader.resources",
+      "parameters": {
+        "name": "example.Main",
+        "classLoader": "app",
+        "resourceName": "example/Main.class"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "classloader.resources",
+          "parameters": {
+            "name": "example.Main",
+            "classLoader": "app",
+            "resourceName": "example/Main.class"
+          },
+          "riskLevel": "R1"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "keeps static metadata R0 and requires an exact confirmed R3 read",
+      "connection": 0,
+      "actionId": "classloader.resources",
+      "parameters": {
+        "name": "example.Main",
+        "classLoader": "app",
+        "resourceName": "../application.properties"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "keeps static metadata R0 and requires an exact confirmed R3 read",
+      "connection": 0,
+      "actionId": "class.static.read.preview",
+      "parameters": {
+        "name": "example.Main",
+        "classLoader": "app",
+        "declaringClass": "example.Main",
+        "fieldName": "CONFIG"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "class.static.read.preview",
+          "parameters": {
+            "name": "example.Main",
+            "classLoader": "app",
+            "declaringClass": "example.Main",
+            "fieldName": "CONFIG"
+          },
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "keeps static metadata R0 and requires an exact confirmed R3 read",
+      "connection": 0,
+      "actionId": "class.static.read",
+      "parameters": {
+        "name": "example.Main",
+        "classLoader": "app",
+        "declaringClass": "example.Main",
+        "fieldName": "CONFIG",
+        "expectedFingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "class.static.read",
+          "parameters": {
+            "name": "example.Main",
+            "classLoader": "app",
+            "declaringClass": "example.Main",
+            "fieldName": "CONFIG",
+            "expectedFingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+            "confirmed": "true"
+          },
+          "riskLevel": "R3"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "keeps static metadata R0 and requires an exact confirmed R3 read",
+      "connection": 0,
+      "actionId": "class.static.read",
+      "parameters": {
+        "name": "example.Main",
+        "classLoader": "app",
+        "declaringClass": "example.Main",
+        "fieldName": "CONFIG",
+        "expectedFingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+        "confirmed": "false"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded ClassLoader metaspace sampling as R1",
+      "connection": 0,
+      "actionId": "classloader.metaspace",
+      "parameters": {
+        "durationMillis": "1000",
+        "periodMillis": "250",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "classloader.metaspace",
+          "parameters": {
+            "durationMillis": "1000",
+            "periodMillis": "250",
+            "limit": "50"
+          },
+          "riskLevel": "R1"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded ClassLoader metaspace sampling as R1",
+      "connection": 0,
+      "actionId": "classloader.metaspace",
+      "parameters": {
+        "durationMillis": "1000",
+        "periodMillis": "1001",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "authorizes bounded ClassLoader metaspace sampling as R1",
+      "connection": 0,
+      "actionId": "classloader.metaspace",
+      "parameters": {
+        "durationMillis": "500",
+        "periodMillis": "750",
+        "limit": "50"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "binds a same-loader class change set to one R3 fingerprint",
+      "connection": 0,
+      "actionId": "class.change-set.preview",
+      "parameters": {
+        "count": "2",
+        "item0Name": "example.Main",
+        "item0ClassLoader": "app-loader",
+        "item0BytecodeBase64": "QUFBQUFBQUFB",
+        "item1Name": "example.Support",
+        "item1ClassLoader": "app-loader",
+        "item1BytecodeBase64": "QUFBQUFBQUFB"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "class.change-set.preview",
+          "parameters": {
+            "count": "2",
+            "item0Name": "example.Main",
+            "item0ClassLoader": "app-loader",
+            "item0BytecodeBase64": "QUFBQUFBQUFB",
+            "item1Name": "example.Support",
+            "item1ClassLoader": "app-loader",
+            "item1BytecodeBase64": "QUFBQUFBQUFB"
+          },
+          "riskLevel": "R2"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "binds a same-loader class change set to one R3 fingerprint",
+      "connection": 0,
+      "actionId": "class.change-set.apply",
+      "parameters": {
+        "count": "2",
+        "item0Name": "example.Main",
+        "item0ClassLoader": "app-loader",
+        "item0BytecodeBase64": "QUFBQUFBQUFB",
+        "item1Name": "example.Support",
+        "item1ClassLoader": "app-loader",
+        "item1BytecodeBase64": "QUFBQUFBQUFB",
+        "expectedFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "class.change-set.apply",
+          "parameters": {
+            "count": "2",
+            "item0Name": "example.Main",
+            "item0ClassLoader": "app-loader",
+            "item0BytecodeBase64": "QUFBQUFBQUFB",
+            "item1Name": "example.Support",
+            "item1ClassLoader": "app-loader",
+            "item1BytecodeBase64": "QUFBQUFBQUFB",
+            "expectedFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "confirmed": "true"
+          },
+          "riskLevel": "R3"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "binds a same-loader class change set to one R3 fingerprint",
+      "connection": 0,
+      "actionId": "class.change-set.restore",
+      "parameters": {
+        "rollbackToken": "5de4860f-1d3f-46bd-b465-2190967702e7",
+        "expectedCurrentFingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "confirmed": "true"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "class.change-set.restore",
+          "parameters": {
+            "rollbackToken": "5de4860f-1d3f-46bd-b465-2190967702e7",
+            "expectedCurrentFingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "confirmed": "true"
+          },
+          "riskLevel": "R3"
+        }
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "binds a same-loader class change set to one R3 fingerprint",
+      "connection": 0,
+      "actionId": "class.change-set.preview",
+      "parameters": {
+        "count": "2",
+        "item0Name": "example.Main",
+        "item0ClassLoader": "app-loader",
+        "item0BytecodeBase64": "QUFBQUFBQUFB",
+        "item1Name": "example.Support",
+        "item1ClassLoader": "other-loader",
+        "item1BytecodeBase64": "QUFBQUFBQUFB"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "binds a same-loader class change set to one R3 fingerprint",
+      "connection": 0,
+      "actionId": "class.change-set.preview",
+      "parameters": {
+        "count": "2",
+        "item0Name": "example.Main",
+        "item0ClassLoader": "app-loader",
+        "item0BytecodeBase64": "QUFBQUFBQUFB",
+        "item1Name": "example.Main",
+        "item1ClassLoader": "app-loader",
+        "item1BytecodeBase64": "QUFBQUFBQUFB"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "authorizeAction",
+      "suite": "runtime mutation policy",
+      "test": "binds a same-loader class change set to one R3 fingerprint",
+      "connection": 0,
+      "actionId": "class.change-set.preview",
+      "parameters": {
+        "count": "2",
+        "item0Name": "example.Main",
+        "item0ClassLoader": "app-loader",
+        "item0BytecodeBase64": "QUFBQUFBQUFB",
+        "item1Name": "example.Support",
+        "item1ClassLoader": "app-loader",
+        "item1BytecodeBase64": "QUFBQUFBQUFB",
+        "item2Name": "example.Uncounted",
+        "item2ClassLoader": "app-loader",
+        "item2BytecodeBase64": "QUFBQUFBQUFB"
+      },
+      "maximumRiskLevel": "R4",
+      "contractVersion": "1.0",
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "validateDiagnosticTemplateAction",
+      "suite": "runtime mutation policy",
+      "test": "allows only schema-valid R0/R1 templates and picks the stricter ceiling",
+      "actionId": "jvm.info",
+      "parameters": {},
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "jvm.info",
+          "parameters": {},
+          "riskLevel": "R0"
+        }
+      }
+    },
+    {
+      "api": "validateDiagnosticTemplateAction",
+      "suite": "runtime mutation policy",
+      "test": "allows only schema-valid R0/R1 templates and picks the stricter ceiling",
+      "actionId": "profile.start",
+      "parameters": {
+        "event": "CPU",
+        "intervalMillis": "10",
+        "durationMillis": "1000",
+        "stackDepth": "256",
+        "threads": "false",
+        "includeRules": "",
+        "excludeRules": ""
+      },
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "profile.start",
+          "parameters": {
+            "event": "CPU",
+            "intervalMillis": "10",
+            "durationMillis": "1000",
+            "stackDepth": "256",
+            "threads": "false",
+            "includeRules": "",
+            "excludeRules": ""
+          },
+          "riskLevel": "R1"
+        }
+      }
+    },
+    {
+      "api": "validateDiagnosticTemplateAction",
+      "suite": "runtime mutation policy",
+      "test": "allows only schema-valid R0/R1 templates and picks the stricter ceiling",
+      "actionId": "profile.dump",
+      "parameters": {
+        "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7"
+      },
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "profile.dump",
+          "parameters": {
+            "taskId": "5de4860f-1d3f-46bd-b465-2190967702e7"
+          },
+          "riskLevel": "R1"
+        }
+      }
+    },
+    {
+      "api": "validateDiagnosticTemplateAction",
+      "suite": "runtime mutation policy",
+      "test": "allows only schema-valid R0/R1 templates and picks the stricter ceiling",
+      "actionId": "jfr.start",
+      "parameters": {
+        "configuration": "PROFILE",
+        "maxAgeMillis": "60000",
+        "maxSizeBytes": "1048576",
+        "recordingName": "checkout-profile"
+      },
+      "result": {
+        "ok": true,
+        "value": {
+          "actionId": "jfr.start",
+          "parameters": {
+            "configuration": "PROFILE",
+            "maxAgeMillis": "60000",
+            "maxSizeBytes": "1048576",
+            "recordingName": "checkout-profile"
+          },
+          "riskLevel": "R1"
+        }
+      }
+    },
+    {
+      "api": "validateDiagnosticTemplateAction",
+      "suite": "runtime mutation policy",
+      "test": "allows only schema-valid R0/R1 templates and picks the stricter ceiling",
+      "actionId": "jfr.start",
+      "parameters": {
+        "configuration": "PROFILE",
+        "maxAgeMillis": "60000",
+        "maxSizeBytes": "1048576",
+        "recordingName": "unsafe\nname"
+      },
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "validateDiagnosticTemplateAction",
+      "suite": "runtime mutation policy",
+      "test": "allows only schema-valid R0/R1 templates and picks the stricter ceiling",
+      "actionId": "profile.start",
+      "parameters": {
+        "event": "CPU",
+        "intervalMillis": "10",
+        "durationMillis": "1000",
+        "stackDepth": "256",
+        "threads": "false",
+        "includeRules": "com/*/Service",
+        "excludeRules": ""
+      },
+      "result": {
+        "ok": false,
+        "errorCode": "INVALID_ACTION_PARAMETERS"
+      }
+    },
+    {
+      "api": "validateDiagnosticTemplateAction",
+      "suite": "runtime mutation policy",
+      "test": "allows only schema-valid R0/R1 templates and picks the stricter ceiling",
+      "actionId": "heap.dump",
+      "parameters": {
+        "confirmed": "true",
+        "live": "true"
+      },
+      "result": {
+        "ok": false,
+        "errorCode": "TEMPLATE_RISK_NOT_ALLOWED"
+      }
+    }
+  ]
+}

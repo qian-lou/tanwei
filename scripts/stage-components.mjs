@@ -10,6 +10,7 @@ import {
 } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { materializeRuntimeLinks } from "./materialize-runtime-links.mjs";
 import {
   componentFiles,
   parseBuildMetadata,
@@ -233,6 +234,7 @@ if (process.env.TANWEI_SKIP_RUNTIME !== "1") {
     ],
     { stdio: "inherit" },
   );
+  await materializeRuntimeLinks(runtimeStageRoot);
   for (const relativeFile of [
     path.join("bin", process.platform === "win32" ? "java.exe" : "java"),
     path.join("bin", process.platform === "win32" ? "javac.exe" : "javac"),

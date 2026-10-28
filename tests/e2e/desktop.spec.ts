@@ -1,45 +1,23 @@
 import { spawn, type ChildProcess } from "node:child_process";
-import { mkdir, mkdtemp, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
+import type { TanweiDesktopApi } from "../../apps/desktop/src/shared/contracts.js";
 import {
-  _electron as electron,
   expect,
   test,
-  type ElectronApplication,
+  DesktopApplication,
+  desktopPaths,
   type Locator,
   type Page,
-} from "@playwright/test";
+} from "./desktop-driver.js";
 
 const projectRoot = process.cwd();
-const packagedRoot = path.join(
-  projectRoot,
-  "apps",
-  "desktop",
-  "release",
-  process.platform === "darwin"
-    ? process.arch === "arm64"
-      ? "mac-arm64"
-      : "mac"
-    : process.platform === "win32"
-      ? "win-unpacked"
-      : "linux-unpacked",
-);
-const executablePath =
-  process.env.TANWEI_E2E_EXECUTABLE?.trim() ??
-  (process.platform === "darwin"
-    ? path.join(packagedRoot, "探微.app", "Contents", "MacOS", "探微")
-    : process.platform === "win32"
-      ? path.join(packagedRoot, "探微.exe")
-      : path.join(packagedRoot, "tanwei"));
-const resourcesPath =
-  process.platform === "darwin"
-    ? path.join(packagedRoot, "探微.app", "Contents", "Resources")
-    : path.join(packagedRoot, "resources");
+const { executablePath, resourcesPath } = desktopPaths(projectRoot);
 
 let targetProcess: ChildProcess | null = null;
-let electronApplication: ElectronApplication | null = null;
+let desktopApplication: DesktopApplication | null = null;
 let page: Page | null = null;
 let userDataDirectory: string | null = null;
 
@@ -86,25 +64,22 @@ test.beforeAll(async () => {
   userDataDirectory = await mkdtemp(
     path.join(os.tmpdir(), "tanwei-desktop-e2e-"),
   );
-  electronApplication = await electron.launch({
+  desktopApplication = await DesktopApplication.launch({
     executablePath,
     env: {
       ...process.env,
       TANWEI_E2E: "1",
       TANWEI_USER_DATA_DIR: userDataDirectory,
+      TANWEI_RESOURCES_DIR: resourcesPath,
+      TANWEI_JAVA_HOME: path.join(resourcesPath, "runtime"),
     },
   });
-  page = await electronApplication.firstWindow();
+  page = await desktopApplication.firstWindow();
   await page.waitForLoadState("domcontentloaded");
 });
 
 test.afterAll(async () => {
-  await electronApplication
-    ?.evaluate(({ app }) => {
-      setImmediate(() => app.exit(0));
-    })
-    .catch(() => undefined);
-  await electronApplication?.close().catch(() => undefined);
+  await desktopApplication?.close().catch(() => undefined);
   targetProcess?.kill();
   targetProcess = null;
   if (userDataDirectory) {
@@ -113,13 +88,30 @@ test.afterAll(async () => {
   }
 });
 
+test.afterEach(async ({}, result) => {
+  if (result.status === result.expectedStatus || !page) return;
+  const state = await page.evaluate(() => document.body.innerText).catch(() => "Tauri WebView unavailable");
+  await writeFile(result.outputPath("tauri-ui-state.txt"), state);
+  await result.attach("tauri-ui-state", { body: state, contentType: "text/plain" });
+  const layout = await page.evaluate(() => ({
+    viewport: { width: innerWidth, height: innerHeight, ratio: devicePixelRatio },
+    narrow: matchMedia("(width < 768px)").matches,
+    grid: document.querySelector(".app-shell") ? getComputedStyle(document.querySelector(".app-shell")!).gridTemplateColumns : null,
+    dialogs: Array.from(document.querySelectorAll('[role="dialog"]')).map(element => element.outerHTML),
+    threads: Array.from(document.querySelectorAll(".thread-row")).slice(0,20).map(element => element.outerHTML),
+    inputs: Array.from(document.querySelectorAll("input")).map(element => ({ id: element.id, value: element.value })),
+    focus: document.activeElement ? { html: document.activeElement.outerHTML, visible: document.activeElement.matches(":focus-visible"), shadow: getComputedStyle(document.activeElement).boxShadow, ring: getComputedStyle(document.activeElement).getPropertyValue("--tw-ring-shadow") } : null,
+  })).catch(() => null);
+  await writeFile(result.outputPath("tauri-layout-state.json"), JSON.stringify(layout, null, 2));
+  await result.attach("tauri-layout-state", { body: JSON.stringify(layout, null, 2), contentType: "application/json" });
+  await page.screenshot({ path: result.outputPath("tauri-failure.png") }).catch(() => undefined);
+});
+
 test("main window becomes visible after the renderer loads", async () => {
-  const application = requiredElectronApplication();
+  await expect(requiredPage().getByRole("heading", { name: "连接目标。" })).toBeVisible({ timeout: 30_000 });
+  await expect(requiredPage().locator("article.target-row").filter({ hasText: "dev.tanwei.integration.TestTargetMain" })).toBeVisible({ timeout: 30_000 });
   await expect
-    .poll(() =>
-      application.evaluate(({ BrowserWindow }) =>
-        BrowserWindow.getAllWindows().some((window) => window.isVisible()),
-      ),
+    .poll(async () => (await requiredPage().nativeState()).visible,
       { timeout: 30_000 },
     )
     .toBe(true);
@@ -133,28 +125,9 @@ test("main window becomes visible after the renderer loads", async () => {
 });
 
 test("main window keeps native chrome consistent with the dark renderer", async () => {
-  const appearance = await requiredElectronApplication().evaluate(
-    ({ BrowserWindow, nativeTheme }) => {
-      const mainWindow = BrowserWindow.getAllWindows()[0];
-      if (!mainWindow) {
-        throw new Error("Main BrowserWindow is unavailable");
-      }
-      return {
-        backgroundColor: mainWindow.getBackgroundColor().toLowerCase(),
-        shouldUseDarkColors: nativeTheme.shouldUseDarkColors,
-        shouldUseDarkColorsForSystemIntegratedUI:
-          nativeTheme.shouldUseDarkColorsForSystemIntegratedUI,
-        themeSource: nativeTheme.themeSource,
-      };
-    },
-  );
-
-  expect(appearance).toEqual({
-    backgroundColor: "#0a0a0a",
-    shouldUseDarkColors: true,
-    shouldUseDarkColorsForSystemIntegratedUI: true,
-    themeSource: "dark",
-  });
+  const appearance = await requiredPage().nativeState();
+  expect(appearance.configuredBackgroundColor).toBe("#0a0a0a");
+  expect(appearance.theme.toLowerCase()).toBe("dark");
 });
 
 test("packaged app discovers, attaches and renders real diagnostics", async () => {
@@ -244,14 +217,14 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
   });
 
   const targetDesktopViewport = await window.evaluate(() => ({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: globalThis.innerWidth,
+    height: globalThis.innerHeight,
   }));
   await window.setViewportSize({ width: 767, height: 720 });
   await expect
     .poll(() =>
       window.evaluate(
-        () => document.documentElement.scrollWidth <= window.innerWidth,
+        () => document.documentElement.scrollWidth <= globalThis.innerWidth,
       ),
     )
     .toBe(true);
@@ -267,7 +240,7 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
   });
   await window.setViewportSize(targetDesktopViewport);
   await expect
-    .poll(() => window.evaluate(() => window.innerWidth))
+    .poll(() => window.evaluate(() => globalThis.innerWidth))
     .toBe(targetDesktopViewport.width);
 
   await window.getByRole("link", { name: /设置/ }).click();
@@ -327,8 +300,8 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
   });
 
   const overviewDesktopViewport = await window.evaluate(() => ({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: globalThis.innerWidth,
+    height: globalThis.innerHeight,
   }));
   await window.setViewportSize({ width: 767, height: 720 });
   const overviewMetricCards = window
@@ -353,7 +326,7 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
   });
   await window.setViewportSize(overviewDesktopViewport);
   await expect
-    .poll(() => window.evaluate(() => window.innerWidth))
+    .poll(() => window.evaluate(() => globalThis.innerWidth))
     .toBe(overviewDesktopViewport.width);
 
   await window.keyboard.press("Meta+K");
@@ -1395,25 +1368,14 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
     animations: "disabled",
   });
   const inspectedArtifactMatch = /[?&]inspect=([0-9a-f-]{36})(?:&|$)/iu.exec(
-    window.url(),
+    await window.url(),
   );
   const inspectedArtifactId = inspectedArtifactMatch?.[1];
   if (!inspectedArtifactId) {
     throw new Error("JIT evidence route did not expose its artifact UUID");
   }
   await window.getByRole("link", { name: /计数器/ }).click();
-  await requiredElectronApplication().evaluate(
-    ({ BrowserWindow }, input) => {
-      const owner = BrowserWindow.getAllWindows().find(
-        (candidate) => !candidate.isDestroyed(),
-      );
-      owner?.webContents.send(input.channel, input.artifactId);
-    },
-    {
-      channel: "tanwei:open-diagnostic-evidence",
-      artifactId: inspectedArtifactId,
-    },
-  );
+  await window.emitDiagnosticEvidence(inspectedArtifactId);
   await expect(
     window.getByTestId("jit-trend-artifact-inspector"),
   ).toBeVisible();
@@ -1601,8 +1563,8 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
     animations: "disabled",
   });
   const observationDesktopViewport = await window.evaluate(() => ({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: globalThis.innerWidth,
+    height: globalThis.innerHeight,
   }));
   await window.setViewportSize({ width: 767, height: 720 });
   const methodIdentityBox = await window
@@ -1628,7 +1590,7 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
   });
   await window.setViewportSize(observationDesktopViewport);
   await expect
-    .poll(() => window.evaluate(() => window.innerWidth))
+    .poll(() => window.evaluate(() => globalThis.innerWidth))
     .toBe(observationDesktopViewport.width);
   await window.getByRole("button", { name: "预检匹配" }).click();
   await expect(window.getByText("匹配 1 个方法")).toBeVisible();
@@ -2738,8 +2700,8 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
     ),
   });
   const systemPropertyViewport = await window.evaluate(() => ({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: globalThis.innerWidth,
+    height: globalThis.innerHeight,
   }));
   await window.setViewportSize({ width: 1920, height: 1080 });
   await expectPageToFillWorkspace(window);
@@ -2938,7 +2900,8 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
     throw new Error("The E2E target PID is unavailable");
   }
   const retainedHeapProbes = await window.evaluate(async (pid) => {
-    const targets = await window.tanwei.listTargets();
+    const desktopApi = (globalThis as unknown as { tanwei: TanweiDesktopApi }).tanwei;
+    const targets = await desktopApi.listTargets();
     const target = targets.value?.find((item) => item.pid === pid);
     if (!targets.ok || !target) {
       throw new Error("Unable to resolve the E2E target");
@@ -2957,7 +2920,7 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
       argument6: "",
       argument7: "",
     };
-    const preview = await window.tanwei.executeAction({
+    const preview = await desktopApi.executeAction({
       targetId: target.id,
       actionId: "mbean.operation.preview",
       parameters,
@@ -2966,7 +2929,7 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
     if (!preview.ok || preview.value?.status !== "SUCCEEDED" || !fingerprint) {
       throw new Error(preview.errorMessage ?? "Heap growth preview failed");
     }
-    const invocation = await window.tanwei.executeAction({
+    const invocation = await desktopApi.executeAction({
       targetId: target.id,
       actionId: "mbean.operation.invoke",
       parameters: {
@@ -3149,9 +3112,7 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
   await window.getByRole("link", { name: /剖析/ }).click();
   await window.getByRole("button", { name: "开始剖析" }).click();
   await expect(window.getByText(/RUNNING/u)).toBeVisible();
-  await requiredElectronApplication().evaluate(({ app }) => {
-    app.quit();
-  });
+  await window.requestClose();
   const exitGuard = window.getByRole("dialog", {
     name: "退出会终止仍在运行的诊断。",
   });
@@ -3216,7 +3177,7 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
     timeout: 15_000,
   });
   const profileReportWindowPromise =
-    requiredElectronApplication().waitForEvent("window");
+    requiredDesktopApplication().waitForEvent("window");
   await window.getByRole("button", { name: "打开交互报告" }).click();
   const profileReportWindow = await profileReportWindowPromise;
   await profileReportWindow.waitForLoadState("domcontentloaded");
@@ -3488,7 +3449,10 @@ test("shadcn neutral dark contract holds across desktop widths", async () => {
   await window.setViewportSize({ width: 767, height: 720 });
   expect(await gridColumnCount(window)).toBe(1);
 
-  await window.setViewportSize({ width: 768, height: 720 });
+  // WKWebView excludes classic scrollbar width from CSS media queries.
+  const scrollbarWidth = await window.evaluate(() => innerWidth - (visualViewport?.width ?? innerWidth));
+  await window.setViewportSize({ width: 768 + scrollbarWidth, height: 720 });
+  await expect.poll(() => window.evaluate(() => matchMedia("(width >= 768px)").matches)).toBe(true);
   expect(await gridColumnCount(window)).toBe(2);
 
   const workspaceModeTabs = window.getByRole("tablist", {
@@ -3588,16 +3552,16 @@ test("shadcn neutral dark contract holds across desktop widths", async () => {
 
 function requiredPage(): Page {
   if (!page) {
-    throw new Error("Electron window was not initialized");
+    throw new Error("Tauri window was not initialized");
   }
   return page;
 }
 
-function requiredElectronApplication(): ElectronApplication {
-  if (!electronApplication) {
-    throw new Error("Electron application was not initialized");
+function requiredDesktopApplication(): DesktopApplication {
+  if (!desktopApplication) {
+    throw new Error("Tauri application was not initialized");
   }
-  return electronApplication;
+  return desktopApplication;
 }
 
 function requiredTargetProcess(): ChildProcess {
@@ -3700,7 +3664,9 @@ async function selectShadcnValue(
   if (!selectedLabel) {
     throw new Error(`Select option ${value} has no accessible label`);
   }
-  await option.click();
+  await option.focus();
+  await trigger.page().keyboard.press("Enter");
+  await expect(option).toBeHidden();
   await expect(trigger).toContainText(selectedLabel);
 }
 
@@ -3715,7 +3681,7 @@ async function screenshotVisiblePanel(
     let ancestor = element.parentElement;
     let verticalScroller: HTMLElement | null = null;
     while (ancestor) {
-      const style = window.getComputedStyle(ancestor);
+      const style = globalThis.getComputedStyle(ancestor);
       if (
         ancestor.scrollWidth > ancestor.clientWidth &&
         (style.overflowX === "auto" || style.overflowX === "scroll")
@@ -3734,12 +3700,12 @@ async function screenshotVisiblePanel(
     if (verticalScroller) {
       verticalScroller.scrollTop = Math.max(0, verticalScroller.scrollTop - 96);
     }
-    window.scrollTo({ left: 0 });
+    globalThis.scrollTo({ left: 0 });
   });
   const bounds = await panel.boundingBox();
   const viewport = await window.evaluate(() => ({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: globalThis.innerWidth,
+    height: globalThis.innerHeight,
   }));
   if (!bounds) {
     throw new Error(`${fileName} panel has no visible bounds`);

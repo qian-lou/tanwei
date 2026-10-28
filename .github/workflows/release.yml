@@ -1,45 +1,85 @@
-name: Signed release
+name: Desktop release
 
 on:
   push:
-    tags:
-      - "v*"
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "发布版本，必须匹配产品版本（例如 v0.3.0）"
+        required: true
+        default: v0.3.0
+        type: string
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: desktop-release-${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+env:
+  TANWEI_RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
 
 jobs:
+  preflight:
+    name: Validate release version
+    runs-on: ubuntu-22.04
+    outputs:
+      revision: ${{ steps.version.outputs.revision }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Validate version and immutable tag
+        id: version
+        shell: bash
+        run: |
+          node --input-type=module <<'JS'
+          import { execFileSync } from "node:child_process";
+          import { readFileSync, appendFileSync } from "node:fs";
+          const tag = process.env.TANWEI_RELEASE_TAG;
+          const version = JSON.parse(readFileSync("package.json", "utf8")).version;
+          if (!/^v\d+\.\d+\.\d+$/u.test(tag) || tag !== `v${version}`) throw new Error("发布标签必须与产品版本一致");
+          const revision = execFileSync("git", ["rev-parse", "HEAD"], {encoding:"utf8"}).trim();
+          const refs = execFileSync("git", ["ls-remote", "--tags", "origin", `refs/tags/${tag}`, `refs/tags/${tag}^{}`], {encoding:"utf8"}).trim();
+          if (refs) {
+            const entries = refs.split("\n").map(line => line.split(/\s+/u));
+            const commit = entries.find(entry => entry[1].endsWith("^{}"))?.[0] ?? entries[0][0];
+            if (commit !== revision) throw new Error("发布标签已存在且指向其他提交，拒绝覆盖");
+          }
+          appendFileSync(process.env.GITHUB_OUTPUT, `revision=${revision}\n`);
+          JS
+
   package:
     name: Package ${{ matrix.name }}
+    needs: preflight
     strategy:
       fail-fast: false
       matrix:
         include:
           - name: macOS-arm64
             runner: macos-14
-            signing: macos
             e2e: smoke
           - name: macOS-x64
             runner: macos-15-intel
-            signing: macos
             e2e: smoke
           - name: Linux-x64
             runner: ubuntu-22.04
-            signing: none
             e2e: full
           - name: Windows-x64
             runner: windows-2022
-            signing: windows
             e2e: smoke
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 60
+    timeout-minutes: 120
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      CSC_LINK: ${{ matrix.signing == 'macos' && secrets.MAC_CSC_LINK || matrix.signing == 'windows' && secrets.WINDOWS_CSC_LINK || '' }}
-      CSC_KEY_PASSWORD: ${{ matrix.signing == 'macos' && secrets.MAC_CSC_KEY_PASSWORD || matrix.signing == 'windows' && secrets.WINDOWS_CSC_KEY_PASSWORD || '' }}
-      APPLE_ID: ${{ matrix.signing == 'macos' && secrets.APPLE_ID || '' }}
-      APPLE_APP_SPECIFIC_PASSWORD: ${{ matrix.signing == 'macos' && secrets.APPLE_APP_SPECIFIC_PASSWORD || '' }}
-      APPLE_TEAM_ID: ${{ matrix.signing == 'macos' && secrets.APPLE_TEAM_ID || '' }}
+      TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+      TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+      TANWEI_UPDATER_PUBLIC_KEY: ${{ secrets.TANWEI_UPDATER_PUBLIC_KEY }}
+      MACOS_CERTIFICATE: ${{ startsWith(matrix.name, 'macOS-') && secrets.MACOS_CERTIFICATE || '' }}
+      MACOS_CERTIFICATE_PASSWORD: ${{ startsWith(matrix.name, 'macOS-') && secrets.MACOS_CERTIFICATE_PASSWORD || '' }}
+      MACOS_CERTIFICATE_SHA256: ${{ startsWith(matrix.name, 'macOS-') && secrets.MACOS_CERTIFICATE_SHA256 || '' }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -53,88 +93,111 @@ jobs:
           cache: maven
       - uses: ilammy/msvc-dev-cmd@v1
         if: runner.os == 'Windows'
+      - uses: dtolnay/rust-toolchain@1.90.0
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: apps/desktop/src-tauri
+          key: ${{ matrix.name }}
+      - uses: arduino/setup-protoc@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Linux Tauri dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libssl-dev xvfb
       - name: Use repository npm version
         run: npm install --global npm@11.6.2
       - run: npm ci
-      - name: Require platform signing credentials
-        if: runner.os != 'Linux'
+      - name: Require updater keys and fixed macOS certificate
         shell: bash
         run: |
-          test -n "$CSC_LINK"
-          test -n "$CSC_KEY_PASSWORD"
+          set -euo pipefail
+          test -n "$TAURI_SIGNING_PRIVATE_KEY"
+          test -n "$TAURI_SIGNING_PRIVATE_KEY_PASSWORD"
+          test -n "$TANWEI_UPDATER_PUBLIC_KEY"
           if [ "$RUNNER_OS" = "macOS" ]; then
-            test -n "$APPLE_ID"
-            test -n "$APPLE_APP_SPECIFIC_PASSWORD"
-            test -n "$APPLE_TEAM_ID"
+            test -n "$MACOS_CERTIFICATE"
+            test -n "$MACOS_CERTIFICATE_PASSWORD"
+            test -n "$MACOS_CERTIFICATE_SHA256"
           fi
       - run: npm run test:desktop
       - name: Verify JVM integration
         if: runner.os == 'Linux'
         run: npm run test:jvm
-      - name: Build signed release
+      - name: Build Tauri WebDriver test package
+        env:
+          MAVEN_ARGS: -ntp -DskipTests
+        run: npm run package:test
+      - name: Packaged test application launch smoke
+        if: matrix.e2e == 'smoke'
+        run: npm run test:e2e -- --grep "main window"
+      - name: Full packaged test application E2E (Xvfb)
+        if: matrix.e2e == 'full'
+        run: xvfb-run -a npm run test:e2e
+      - name: Build production release without WebDriver
         env:
           MAVEN_ARGS: -ntp -DskipTests
         run: npm run package:release
-      - name: Verify macOS signature and notarization ticket
-        if: runner.os == 'macOS'
+      - name: Production application startup
+        if: runner.os != 'Linux'
+        run: node scripts/release-smoke.mjs
+      - name: Production AppImage startup (Xvfb)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a node scripts/release-smoke.mjs
+      - name: Verify Debian package metadata
+        if: runner.os == 'Linux'
         shell: bash
         run: |
           set -euo pipefail
-          app_path="$(find apps/desktop/release -maxdepth 2 -name '*.app' -print -quit)"
-          test -n "$app_path"
-          codesign --verify --deep --strict --verbose=2 "$app_path"
-          spctl --assess --type execute --verbose=2 "$app_path"
-          for artifact in apps/desktop/release/*.dmg; do
-            xcrun stapler validate "$artifact"
+          for artifact in apps/desktop/release/*.deb; do
+            dpkg-deb --info "$artifact"
+            test "$(dpkg-deb --field "$artifact" Package)" = "tanwei"
+            test "$(dpkg-deb --field "$artifact" Version)" = "${TANWEI_RELEASE_TAG#v}"
+            test "$(dpkg-deb --field "$artifact" Architecture)" = "amd64"
           done
-      - name: Verify Windows Authenticode signature
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          $installers = @(Get-ChildItem 'apps/desktop/release/*.exe')
-          if ($installers.Count -eq 0) { throw 'No Windows installer was produced' }
-          foreach ($installer in $installers) {
-            $signature = Get-AuthenticodeSignature $installer.FullName
-            if ($signature.Status -ne 'Valid') {
-              throw "Invalid Authenticode signature for $($installer.Name): $($signature.Status)"
-            }
-          }
-      - name: Packaged application launch smoke
-        if: matrix.e2e == 'smoke'
-        run: npm run test:e2e -- --grep "main window"
-      - name: Full packaged application E2E (Xvfb)
-        if: matrix.e2e == 'full'
-        run: xvfb-run -a npm run test:e2e
       - uses: actions/upload-artifact@v7
         with:
           name: release-${{ matrix.name }}
-          path: |
-            apps/desktop/release/*.dmg
-            apps/desktop/release/*.zip
-            apps/desktop/release/*.exe
-            apps/desktop/release/*.AppImage
-            apps/desktop/release/*.deb
-            apps/desktop/release/*.yml
-            apps/desktop/release/*.blockmap
+          path: apps/desktop/release/*
           if-no-files-found: error
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: diagnostics-${{ matrix.name }}
+          path: |
+            output/
+            jvm/**/target/surefire-reports/
+          if-no-files-found: ignore
 
   publish:
-    name: Publish immutable release
-    needs: package
+    name: Publish four-platform release
+    needs: [preflight, package]
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
       - uses: actions/download-artifact@v8
         with:
           pattern: release-*
           path: release-assets
           merge-multiple: true
-      - name: Publish installers and updater metadata
+      - name: Combine signed update manifests
+        run: node scripts/merge-update-manifests.mjs release-assets
+      - name: Generate SHA-256 checksums
+        run: |
+          cd release-assets
+          find . -maxdepth 1 -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS.txt
+      - name: Publish installers and updater manifest
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_REVISION: ${{ needs.preflight.outputs.revision }}
         run: >-
-          gh release create "$GITHUB_REF_NAME"
+          gh release create "$TANWEI_RELEASE_TAG"
           release-assets/*
-          --verify-tag
-          --generate-notes
-          --title "探微 $GITHUB_REF_NAME"
+          --target "$RELEASE_REVISION"
+          --notes-file RELEASE_NOTES.md
+          --title "探微 $TANWEI_RELEASE_TAG"
+          --latest
