@@ -467,7 +467,9 @@ pub fn run() {
                         let _ = window.show();
                     }
                 })
-                .build()?;
+                .build()?
+                // Tao 的 Linux 构造器忽略初始主题，需要在窗口创建后显式应用。
+                .set_theme(main.theme)?;
             Ok(())
         })
         .on_window_event(|window, event| {

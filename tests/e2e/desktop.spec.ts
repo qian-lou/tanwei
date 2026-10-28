@@ -3,6 +3,7 @@ import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
+import { BUILD_METADATA } from "../../apps/desktop/src/shared/build-metadata.generated.js";
 import type { TanweiDesktopApi } from "../../apps/desktop/src/shared/contracts.js";
 import {
   expect,
@@ -261,7 +262,9 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
   await expect(
     window.getByRole("heading", { name: "运行正在发生。" }),
   ).toBeVisible({ timeout: 45_000 });
-  await expect(window.getByText(/AGENT 0\.1\.0/)).toBeVisible();
+  await expect(
+    window.getByText(`AGENT ${BUILD_METADATA.productVersion}`),
+  ).toBeVisible();
   await expect(window.getByText("HEAP USED")).toBeVisible();
   await expect(window.getByText("等待目标数据")).toHaveCount(0, {
     timeout: 15_000,
