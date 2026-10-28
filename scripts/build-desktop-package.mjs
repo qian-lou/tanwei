@@ -17,5 +17,14 @@ execFileSync(process.execPath, [path.join(root, "node_modules/@tauri-apps/cli/ta
   cwd: path.join(root, "apps/desktop"),
   stdio: "inherit",
   // linuxdeploy 自带 strip 不兼容现代 ELF，也不能改写已校验的运行时组件。
-  env: { ...process.env, ...(process.platform === "linux" ? { NO_STRIP: "true" } : {}) },
+  env: {
+    ...process.env,
+    ...(process.platform === "linux" ? { NO_STRIP: "true" } : {}),
+    // 测试仍执行 release 初始化和完整性检查，减少反复诊断的编译等待。
+    ...(testing ? {
+      CARGO_PROFILE_RELEASE_OPT_LEVEL: "1",
+      CARGO_PROFILE_RELEASE_CODEGEN_UNITS: "16",
+      CARGO_PROFILE_RELEASE_LTO: "false",
+    } : {}),
+  },
 });

@@ -125,6 +125,7 @@ jobs:
         if: runner.os == 'Linux'
         run: npm run test:jvm
       - name: Build Tauri WebDriver test package
+        id: test_package
         env:
           MAVEN_ARGS: -ntp -DskipTests
         run: npm run package:test
@@ -135,6 +136,8 @@ jobs:
         if: matrix.e2e == 'full'
         run: xvfb-run -a npm run test:e2e
       - name: Build production release without WebDriver
+        id: production_package
+        if: ${{ !cancelled() && steps.test_package.outcome == 'success' }}
         env:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
@@ -145,13 +148,13 @@ jobs:
           MAVEN_ARGS: -ntp -DskipTests
         run: npm run package:release
       - name: Production application startup
-        if: runner.os != 'Linux'
+        if: ${{ !cancelled() && steps.production_package.outcome == 'success' && runner.os != 'Linux' }}
         run: node scripts/release-smoke.mjs
       - name: Production AppImage startup (Xvfb)
-        if: runner.os == 'Linux'
+        if: ${{ !cancelled() && steps.production_package.outcome == 'success' && runner.os == 'Linux' }}
         run: xvfb-run -a node scripts/release-smoke.mjs
       - name: Verify Debian package metadata
-        if: runner.os == 'Linux'
+        if: ${{ !cancelled() && steps.production_package.outcome == 'success' && runner.os == 'Linux' }}
         shell: bash
         run: |
           set -euo pipefail

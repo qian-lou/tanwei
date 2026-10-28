@@ -128,6 +128,7 @@ export async function launchTauri({ executablePath, env = {}, startupTimeout = 6
   child.stderr.on("data", chunk => { log = `${log}${chunk}`.slice(-32_768); });
   const baseUrl = `http://127.0.0.1:${port}`;
   let browser;
+  let phase = "waiting for WebDriver status";
   try {
     const deadline = Date.now() + startupTimeout;
     let ready = false;
@@ -139,10 +140,12 @@ export async function launchTauri({ executablePath, env = {}, startupTimeout = 6
     }
     if (!ready) throw new Error(`Embedded WebDriver did not start. Build with --features desktop-e2e.\n${log}`);
     const remainingStartup = () => Math.max(1, Math.min(30_000, deadline - Date.now()));
+    phase = "creating WebDriver session";
     const response = await fetch(`${baseUrl}/session`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ capabilities: { alwaysMatch: {} } }), signal: AbortSignal.timeout(remainingStartup()) });
     const payload = await response.json();
     if (!response.ok || !payload.value?.sessionId) throw new Error(`Unable to create WebDriver session: ${JSON.stringify(payload)}`);
     browser = new WebDriver(baseUrl, payload.value.sessionId);
+    phase = "configuring WebDriver timeouts";
     await browser.command("POST", "/timeouts", { script: 120_000, pageLoad: 60_000, implicit: 0 }, remainingStartup());
     let queue = Promise.resolve();
     let closing;
@@ -167,12 +170,14 @@ export async function launchTauri({ executablePath, env = {}, startupTimeout = 6
       },
     };
   } catch (error) {
+    await delay(50);
+    const startupError = new Error(`Tauri startup failed while ${phase}; exit=${child.exitCode}, signal=${child.signalCode}: ${error.message}\n${log}`, { cause: error });
     try {
       await browser?.deleteSession(CLOSE_COMMAND_TIMEOUT).catch(() => undefined);
       await terminateProcessTree(child);
     } catch (cleanupError) {
-      throw new AggregateError([error, cleanupError], `${error.message}; startup cleanup failed: ${cleanupError.message}`);
+      throw new AggregateError([startupError, cleanupError], `${startupError.message}; startup cleanup failed: ${cleanupError.message}`);
     }
-    throw error;
+    throw startupError;
   }
 }

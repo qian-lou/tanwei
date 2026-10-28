@@ -20,6 +20,11 @@ child.stdout.once("data", () => {
   http.createServer((request, response) => {
     const reply = (value, status = 200) => { response.writeHead(status, { "content-type": "application/json" }); response.end(JSON.stringify({ value })); };
     if (request.url === "/status") return reply({ ready: true });
+    if (request.url === "/session" && process.env.FAKE_DRIVER_MODE === "startup-reset") {
+      console.error("deliberate startup reset diagnostic");
+      request.socket.destroy();
+      return;
+    }
     if (request.url === "/session") return process.env.FAKE_DRIVER_MODE === "startup-failure"
       ? reply({ error: "session not created", message: "deliberate startup failure" }, 500)
       : reply({ sessionId: "fixture" });
@@ -88,6 +93,15 @@ test("hung close commands remain bounded and concurrent callers await the comple
 test("startup failure terminates and awaits both the fake Host and its child", { timeout: 15_000 }, async () => {
   await fixture("startup-failure", async (options, pids) => {
     await assert.rejects(launchTauri(options), /deliberate startup failure/u);
+    const recorded = await pids();
+    assert.equal(alive(recorded.host), false);
+    assert.equal(alive(recorded.child), false);
+  });
+});
+
+test("startup connection reset includes its phase and process output and cleans both processes", { timeout: 15_000 }, async () => {
+  await fixture("startup-reset", async (options, pids) => {
+    await assert.rejects(launchTauri(options), /creating WebDriver session.*\n.*deliberate startup reset diagnostic/su);
     const recorded = await pids();
     assert.equal(alive(recorded.host), false);
     assert.equal(alive(recorded.child), false);
