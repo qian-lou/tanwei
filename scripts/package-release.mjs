@@ -54,7 +54,11 @@ await rm(bundleRoot, { recursive: true, force: true });
 // Invoke the installed JavaScript CLI directly; Windows .cmd wrappers require a shell.
 const cli = path.join(projectRoot, "node_modules", "@tauri-apps", "cli", "tauri.js");
 function build() {
-  execFileSync(process.execPath, [cli, "build", "--config", JSON.stringify(configuration)], { cwd: desktopRoot, stdio: "inherit", env: process.env });
+  execFileSync(process.execPath, [cli, "build", ...(process.platform === "linux" ? ["--verbose"] : []), "--config", JSON.stringify(configuration)], {
+    cwd: desktopRoot,
+    stdio: "inherit",
+    env: { ...process.env, ...(process.platform === "linux" ? { NO_STRIP: "true" } : {}) },
+  });
 }
 if (process.platform === "darwin") {
   await withMacSigning(path.join(desktopRoot, "build-resources"), async (identity) => {

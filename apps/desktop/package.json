@@ -17,9 +17,9 @@
     "test:unit": "cross-env NODE_OPTIONS=--experimental-sqlite vitest run",
     "test:unit:watch": "cross-env NODE_OPTIONS=--experimental-sqlite vitest",
     "test:host": "cargo test --manifest-path src-tauri/Cargo.toml --lib",
-    "package:dir": "node ../../scripts/generate-rust-contracts.mjs && tauri build",
-    "package:test": "node ../../scripts/generate-rust-contracts.mjs && tauri build --features desktop-e2e",
-    "package": "node ../../scripts/generate-rust-contracts.mjs && tauri build"
+    "package:dir": "node ../../scripts/build-desktop-package.mjs",
+    "package:test": "node ../../scripts/build-desktop-package.mjs --test",
+    "package": "node ../../scripts/build-desktop-package.mjs"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.23",
