@@ -172,6 +172,7 @@ jobs:
             test "$(dpkg-deb --field "$artifact" Architecture)" = "amd64"
           done
       - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() && steps.production_package.outcome == 'success' }}
         with:
           name: release-${{ matrix.name }}
           path: apps/desktop/release/*

@@ -14,6 +14,8 @@ let processError;
 let exited = false;
 try {
   let executable;
+  let appImage;
+  const environment = { ...process.env, TANWEI_USER_DATA_DIR: path.join(temporary, "workspace") };
   if (process.platform === "darwin") {
     const apps = (await readdir(path.join(bundle, "macos"))).filter((name) => name.endsWith(".app"));
     if (apps.length !== 1) throw new Error("必须存在且仅存在一个正式 macOS App");
@@ -27,10 +29,22 @@ try {
   } else {
     const images = (await readdir(releases)).filter((name) => name.endsWith(".AppImage"));
     if (images.length !== 1) throw new Error("必须存在且仅存在一个 Linux AppImage");
-    executable = path.join(releases, images[0]);
+    appImage = path.join(releases, images[0]);
+    console.log("Extracting the production AppImage before starting its AppRun entry point.");
+    try {
+      execFileSync(appImage, ["--appimage-extract"], {
+        cwd: temporary, timeout: 120_000, stdio: ["ignore", "ignore", "pipe"],
+      });
+    } catch (error) {
+      throw new Error(`正式 AppImage 解包失败：${error.stderr?.toString("utf8") ?? error.message}`);
+    }
+    const appDir = path.join(temporary, "squashfs-root");
+    Object.assign(environment, { APPDIR: appDir, APPIMAGE: appImage, ARGV0: appImage, OWD: root });
+    executable = path.join(appDir, "AppRun");
   }
   processHandle = spawn(executable, [], {
-    env: { ...process.env, TANWEI_USER_DATA_DIR: path.join(temporary, "workspace"), APPIMAGE_EXTRACT_AND_RUN: "1" },
+    env: environment,
+    argv0: appImage ?? executable,
     detached: process.platform !== "win32",
     stdio: ["ignore", "pipe", "pipe"],
   });
@@ -39,13 +53,19 @@ try {
   processHandle.stderr.on("data", append);
   processHandle.once("error", (error) => { processError = error; });
   processHandle.once("exit", () => { exited = true; });
-  for (let second = 0; second < 20; second += 1) {
+  const database = path.join(temporary, "workspace", "tanwei.sqlite");
+  let initialized = false;
+  for (let second = 0; second < 60; second += 1) {
     await delay(1000);
     if (processError || exited) throw new Error(`正式应用启动失败：${processError?.message ?? output}`);
+    if (!initialized) {
+      try { initialized = (await stat(database)).isFile(); }
+      catch (error) { if (error.code !== "ENOENT") throw error; }
+    }
+    if (initialized && second >= 19) break;
   }
-  const database = path.join(temporary, "workspace", "tanwei.sqlite");
-  if (!(await stat(database)).isFile()) throw new Error("正式应用没有完成工作区初始化");
-  if (/panicked at|failed to run tauri application|启动完整性校验失败/i.test(output)) throw new Error(`正式应用输出启动错误：${output}`);
+  if (!initialized) throw new Error(`正式应用没有完成工作区初始化（exit=${processHandle.exitCode}）：${output}`);
+  if (/panicked at|has overflowed its stack|failed to run tauri application|启动完整性校验失败/i.test(output)) throw new Error(`正式应用输出启动错误：${output}`);
   console.log(`Production Tauri startup verified on ${process.platform}/${process.arch}; no WebDriver feature required.`);
 } finally {
   if (processHandle?.pid && !exited) {
