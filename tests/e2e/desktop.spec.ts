@@ -90,7 +90,11 @@ test.afterAll(async () => {
 });
 
 test.afterEach(async ({}, result) => {
-  if (result.status === result.expectedStatus || !page) return;
+  if (result.status === result.expectedStatus) return;
+  const processOutput = desktopApplication?.session.log ?? "Tauri process unavailable";
+  await writeFile(result.outputPath("tauri-process-output.txt"), processOutput);
+  await result.attach("tauri-process-output", { body: processOutput, contentType: "text/plain" });
+  if (!page) return;
   const state = await page.evaluate(() => document.body.innerText).catch(() => "Tauri WebView unavailable");
   await writeFile(result.outputPath("tauri-ui-state.txt"), state);
   await result.attach("tauri-ui-state", { body: state, contentType: "text/plain" });
@@ -676,11 +680,17 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
   });
   await window.getByRole("button", { name: "生成线程转储" }).click();
   await expect(
+    window.getByRole("button", { name: "生成线程转储" }),
+  ).toBeEnabled();
+  await expect(
     window.getByRole("button", {
       name: "在线程转储检查器中打开",
     }),
   ).toBeVisible();
   await window.getByRole("button", { name: "生成线程转储" }).click();
+  await expect(
+    window.getByRole("button", { name: "生成线程转储" }),
+  ).toBeEnabled();
   await expect(
     window.getByRole("button", {
       name: "在线程转储检查器中打开",

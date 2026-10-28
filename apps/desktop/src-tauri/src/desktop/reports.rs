@@ -12,9 +12,22 @@ static ASSETS: LazyLock<Value> = LazyLock::new(|| {
 const MAX_REPORT_BYTES: u64 = 64 * 1024 * 1024;
 const REPORT_CSP: &str = "sandbox allow-scripts; default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'";
 
+struct ReportDocument {
+    content: Vec<u8>,
+    #[cfg(target_os = "linux")]
+    context_directory: std::path::PathBuf,
+}
+
+#[cfg(target_os = "linux")]
+impl Drop for ReportDocument {
+    fn drop(&mut self) {
+        let _ = std::fs::remove_dir_all(&self.context_directory);
+    }
+}
+
 #[derive(Default)]
 pub struct Reports {
-    documents: Mutex<HashMap<String, Arc<Vec<u8>>>>,
+    documents: Mutex<HashMap<String, Arc<ReportDocument>>>,
 }
 
 impl Reports {
@@ -40,23 +53,37 @@ impl Reports {
         ));
         content.push_str("</script>");
         let label = format!("report-{}", uuid::Uuid::new_v4());
+        #[cfg(target_os = "linux")]
+        let context_directory = app
+            .state::<super::Host>()
+            .paths
+            .user_data
+            .join("report-contexts")
+            .join(&label);
         let url: tauri::Url = format!("tanwei-report://localhost/{label}")
             .parse()
             .map_err(super::desktop_error)?;
-        self.documents
-            .lock()
-            .map_err(super::desktop_error)?
-            .insert(label.clone(), Arc::new(content.into_bytes()));
+        self.documents.lock().map_err(super::desktop_error)?.insert(
+            label.clone(),
+            Arc::new(ReportDocument {
+                content: content.into_bytes(),
+                #[cfg(target_os = "linux")]
+                context_directory: context_directory.clone(),
+            }),
+        );
         let allowed = label.clone();
-        let window = WebviewWindowBuilder::new(app, &label, WebviewUrl::External(url))
+        let builder = WebviewWindowBuilder::new(app, &label, WebviewUrl::External(url))
             .title(&title)
             .inner_size(1440., 960.)
             .min_inner_size(760., 560.)
             .incognito(true)
             .theme(Some(tauri::Theme::Light))
             .on_navigation(move |url| permitted_url(url, &allowed))
-            .on_new_window(|_, _| tauri::webview::NewWindowResponse::Deny)
-            .build();
+            .on_new_window(|_, _| tauri::webview::NewWindowResponse::Deny);
+        // Linux 按 data_directory 缓存协议注册；隐私窗口需要独立键，才能在其临时 WebContext 注册报告协议。
+        #[cfg(target_os = "linux")]
+        let builder = builder.data_directory(context_directory);
+        let window = builder.build();
         if let Err(error) = window {
             self.remove(&label);
             return Err(super::desktop_error(error));
@@ -65,9 +92,12 @@ impl Reports {
     }
 
     pub fn remove(&self, label: &str) {
-        if let Ok(mut documents) = self.documents.lock() {
-            documents.remove(label);
-        }
+        let document = self
+            .documents
+            .lock()
+            .ok()
+            .and_then(|mut documents| documents.remove(label));
+        drop(document);
     }
 }
 
@@ -116,7 +146,7 @@ pub fn respond(
         .header("Cache-Control", "no-store")
         .body(
             document
-                .map(|bytes| bytes.as_ref().clone())
+                .map(|document| document.content.clone())
                 .unwrap_or_default(),
         )
         .expect("static report response")

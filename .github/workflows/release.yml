@@ -135,6 +135,13 @@ jobs:
       - name: Full packaged test application E2E (Xvfb)
         if: matrix.e2e == 'full'
         run: xvfb-run -a npm run test:e2e
+      - name: Upload early E2E diagnostics
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: e2e-diagnostics-${{ matrix.name }}
+          path: output/
+          if-no-files-found: ignore
       - name: Build production release without WebDriver
         id: production_package
         if: ${{ !cancelled() && steps.test_package.outcome == 'success' }}

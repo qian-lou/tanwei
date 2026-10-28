@@ -108,5 +108,12 @@ test("release gate verifies real Tauri CLI signatures and rejects artifact, comm
     data[2] ^= 1;
     lines[1] = data.toString("base64");
     await assert.rejects(verifyUpdaterSignature(artifact, signature, Buffer.from(lines.join("\n")).toString("base64")), /内置公钥不匹配/u);
+    await writeFile(artifact, "repacked artifact with original vendor runtime");
+    await execute(process.execPath, [cli, "signer", "sign", artifact], {
+      env: { ...environment, TAURI_SIGNING_PRIVATE_KEY: await readFile(keyPath, "utf8"), TAURI_SIGNING_PRIVATE_KEY_PASSWORD: "test-only" },
+    });
+    const repackedSignature = (await readFile(`${artifact}.sig`, "utf8")).trim();
+    assert.notEqual(repackedSignature, signature);
+    await verifyUpdaterSignature(artifact, repackedSignature, publicKey);
   } finally { await rm(directory, { recursive: true, force: true }); }
 });

@@ -459,7 +459,7 @@ pub fn run() {
                 .iter()
                 .find(|window| window.label == "main")
                 .ok_or("缺少主窗口配置")?;
-            tauri::WebviewWindowBuilder::from_config(app.handle(), main)?
+            let main_window = tauri::WebviewWindowBuilder::from_config(app.handle(), main)?
                 .on_navigation(|url| trusted_main_url(url, cfg!(debug_assertions)))
                 .on_new_window(|_, _| tauri::webview::NewWindowResponse::Deny)
                 .on_page_load(|window, event| {
@@ -467,9 +467,11 @@ pub fn run() {
                         let _ = window.show();
                     }
                 })
-                .build()?
+                .build()?;
+            if cfg!(target_os = "linux") {
                 // Tao 的 Linux 构造器忽略初始主题，需要在窗口创建后显式应用。
-                .set_theme(main.theme)?;
+                main_window.set_theme(main.theme)?;
+            }
             Ok(())
         })
         .on_window_event(|window, event| {

@@ -1,6 +1,12 @@
 use std::{env, fs, path::PathBuf};
 
 fn main() {
+    if env::var("CARGO_CFG_TARGET_OS").as_deref() == Ok("windows")
+        && env::var("CARGO_CFG_TARGET_ENV").as_deref() == Ok("msvc")
+    {
+        // 将 Windows 默认的 1 MiB 主线程栈提高到 8 MiB，承载桌面 Host 初始化。
+        println!("cargo:rustc-link-arg-bin=tanwei-desktop=/STACK:8388608");
+    }
     let root = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap()).join("../../..");
     let package_path = root.join("package.json");
     let package: serde_json::Value =
