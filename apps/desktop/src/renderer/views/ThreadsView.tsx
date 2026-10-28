@@ -1321,6 +1321,9 @@ export default function ThreadsView() {
         identity.targetId,
         identity.taskId,
       );
+      if (identity !== latestRef.current.threadPoolLatencyIdentity) {
+        return;
+      }
       if (!silent) {
         if (!result.ok || !result.value) {
           throw new Error(
@@ -1332,7 +1335,7 @@ export default function ThreadsView() {
         });
       }
     } catch (error) {
-      if (!silent) {
+      if (!silent && identity === latestRef.current.threadPoolLatencyIdentity) {
         apply({
           threadPoolLatencyErrorMessage:
             error instanceof Error

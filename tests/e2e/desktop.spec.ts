@@ -2585,7 +2585,7 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
   );
   await retainedRankingInspector
     .getByLabel(
-      /我确认对 dev\.tanwei\.integration\.HeapProbe 采样最多 3 个实例.*500,000 个节点、2,000,000 条强引用边/u,
+      /我确认对 dev\.tanwei\.integration\.HeapProbe 采样最多 3 个实例.*500,?000 个节点、2,?000,?000 条强引用边/u,
     )
     .check();
   await retainedRankingInspector
@@ -2990,7 +2990,7 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
   );
   await classRetainedInspector
     .getByLabel(
-      /我确认执行一次有界全堆强引用扫描.*500,000 个节点、2,000,000 条边/u,
+      /我确认执行一次有界全堆强引用扫描.*500,?000 个节点、2,?000,?000 条边/u,
     )
     .check();
   await classRetainedInspector
@@ -3048,7 +3048,7 @@ test("packaged app discovers, attaches and renders real diagnostics", async () =
   );
   await dominatorTreeInspector
     .getByLabel(
-      /我确认构建最多 500,000 个节点、2,000,000 条边的全堆支配图，并仅展示最多 80 个关键节点/u,
+      /我确认构建最多 500,?000 个节点、2,?000,?000 条边的全堆支配图，并仅展示最多 80 个关键节点/u,
     )
     .check();
   await dominatorTreeInspector

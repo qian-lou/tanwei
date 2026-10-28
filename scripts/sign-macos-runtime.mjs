@@ -20,9 +20,9 @@ export function validateMacCertificate(pem, fingerprint) {
   return certificate;
 }
 
-function signingCommand(command, args) {
+function signingCommand(command, args, timeout = 120_000) {
   try {
-    return execFileSync(command, args, { stdio: ["ignore", "pipe", "pipe"], timeout: 120_000 });
+    return execFileSync(command, args, { stdio: ["ignore", "pipe", "pipe"], timeout });
   } catch (error) {
     // execFileSync's default error contains argv, including keychain passwords.
     throw new Error(`macOS 运行时签名步骤 ${command} 失败（退出码 ${error.status ?? "未知"}）`);
@@ -110,7 +110,16 @@ export async function withMacSigning(stageRoot, build) {
     try {
       if (trusted) {
         const args = ["remove-trusted-cert", ...(admin ? ["-d"] : []), certificatePem];
-        signingCommand(admin ? "sudo" : "security", admin ? ["-n", "security", ...args] : args);
+        if (admin) {
+          // 与 writer-agent 一致：临时 CI 主机的信任清理限时执行，仍继续删除私钥钥匙串。
+          try {
+            signingCommand("sudo", ["-n", "/usr/bin/perl", "-e", "alarm shift; exec @ARGV", "15", "/usr/bin/security", ...args], 20_000);
+          } catch {
+            console.warn("临时 CI 主机的证书信任清理未完成，继续恢复钥匙串并删除临时私钥。");
+          }
+        } else {
+          signingCommand("security", args);
+        }
       }
     } finally {
       try {
