@@ -73,13 +73,6 @@ jobs:
             e2e: smoke
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 120
-    env:
-      TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
-      TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
-      TANWEI_UPDATER_PUBLIC_KEY: ${{ secrets.TANWEI_UPDATER_PUBLIC_KEY }}
-      MACOS_CERTIFICATE: ${{ startsWith(matrix.name, 'macOS-') && secrets.MACOS_CERTIFICATE || '' }}
-      MACOS_CERTIFICATE_PASSWORD: ${{ startsWith(matrix.name, 'macOS-') && secrets.MACOS_CERTIFICATE_PASSWORD || '' }}
-      MACOS_CERTIFICATE_SHA256: ${{ startsWith(matrix.name, 'macOS-') && secrets.MACOS_CERTIFICATE_SHA256 || '' }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -98,6 +91,7 @@ jobs:
         with:
           workspaces: apps/desktop/src-tauri
           key: ${{ matrix.name }}
+          cache-on-failure: true
       - uses: arduino/setup-protoc@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -108,6 +102,13 @@ jobs:
         run: npm install --global npm@11.6.2
       - run: npm ci
       - name: Require updater keys and fixed macOS certificate
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+          TANWEI_UPDATER_PUBLIC_KEY: ${{ secrets.TANWEI_UPDATER_PUBLIC_KEY }}
+          MACOS_CERTIFICATE: ${{ startsWith(matrix.name, 'macOS-') && secrets.MACOS_CERTIFICATE || '' }}
+          MACOS_CERTIFICATE_PASSWORD: ${{ startsWith(matrix.name, 'macOS-') && secrets.MACOS_CERTIFICATE_PASSWORD || '' }}
+          MACOS_CERTIFICATE_SHA256: ${{ startsWith(matrix.name, 'macOS-') && secrets.MACOS_CERTIFICATE_SHA256 || '' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -135,6 +136,12 @@ jobs:
         run: xvfb-run -a npm run test:e2e
       - name: Build production release without WebDriver
         env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+          TANWEI_UPDATER_PUBLIC_KEY: ${{ secrets.TANWEI_UPDATER_PUBLIC_KEY }}
+          MACOS_CERTIFICATE: ${{ startsWith(matrix.name, 'macOS-') && secrets.MACOS_CERTIFICATE || '' }}
+          MACOS_CERTIFICATE_PASSWORD: ${{ startsWith(matrix.name, 'macOS-') && secrets.MACOS_CERTIFICATE_PASSWORD || '' }}
+          MACOS_CERTIFICATE_SHA256: ${{ startsWith(matrix.name, 'macOS-') && secrets.MACOS_CERTIFICATE_SHA256 || '' }}
           MAVEN_ARGS: -ntp -DskipTests
         run: npm run package:release
       - name: Production application startup

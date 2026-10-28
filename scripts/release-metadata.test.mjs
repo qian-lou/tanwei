@@ -27,7 +27,8 @@ test("four-platform release keeps update signatures without official certificate
   const source = await readFile(new URL("../.github/workflows/release.yml", import.meta.url), "utf8");
   const workflow = yaml.load(source);
   assert.equal(workflow.jobs.package.strategy.matrix.include.length, 4);
-  for (const name of ["TAURI_SIGNING_PRIVATE_KEY", "TAURI_SIGNING_PRIVATE_KEY_PASSWORD", "TANWEI_UPDATER_PUBLIC_KEY", "MACOS_CERTIFICATE", "MACOS_CERTIFICATE_PASSWORD", "MACOS_CERTIFICATE_SHA256"]) assert(workflow.jobs.package.env[name]);
+  const credentials = workflow.jobs.package.steps.find(step => step.name === "Require updater keys and fixed macOS certificate").env;
+  for (const name of ["TAURI_SIGNING_PRIVATE_KEY", "TAURI_SIGNING_PRIVATE_KEY_PASSWORD", "TANWEI_UPDATER_PUBLIC_KEY", "MACOS_CERTIFICATE", "MACOS_CERTIFICATE_PASSWORD", "MACOS_CERTIFICATE_SHA256"]) assert(credentials[name]);
   assert.doesNotMatch(source, /APPLE_ID|APPLE_TEAM_ID|APPLE_PASSWORD|WINDOWS_CERTIFICATE|notarytool|spctl/u);
   assert.deepEqual(workflow.jobs.publish.needs, ["preflight", "package"]);
   assert(workflow.jobs.package.steps.some(step => step.run === "npm run package:release"));
@@ -40,7 +41,7 @@ async function fixture(directory, selected = platforms) {
     await writeFile(path.join(directory, `updater-${platform}.json`), JSON.stringify({ version: "1.2.3", pub_date: "2026-01-01T00:00:00.000Z", platforms: { [platform]: { signature: `signature-${platform}`, url: `https://github.com/tanwei/test/releases/download/v1.2.3/${file}` } } }));
   }
 }
-function merge(directory) { return execute(process.execPath, [script, directory], { env: { ...process.env, GITHUB_REPOSITORY: "tanwei/test", GITHUB_REF_NAME: "v1.2.3" } }); }
+function merge(directory) { return execute(process.execPath, [script, directory], { env: { ...process.env, GITHUB_REPOSITORY: "tanwei/test", GITHUB_REF_NAME: "v1.2.3", TANWEI_RELEASE_TAG: "v1.2.3" } }); }
 
 test("updater release metadata requires all platforms and both Linux installer formats", async () => {
   const directory = await mkdtemp(path.join(os.tmpdir(), "tanwei-release-test-"));
@@ -86,10 +87,13 @@ test("release gate verifies real Tauri CLI signatures and rejects artifact, comm
   const cli = path.resolve("node_modules/@tauri-apps/cli/tauri.js");
   const keyPath = path.join(directory, "test.key");
   const artifact = path.join(directory, "test.AppImage");
+  const environment = { ...process.env };
+  delete environment.TAURI_SIGNING_PRIVATE_KEY;
+  delete environment.TAURI_SIGNING_PRIVATE_KEY_PASSWORD;
   try {
-    await execute(process.execPath, [cli, "signer", "generate", "--ci", "--password", "test-only", "--write-keys", keyPath]);
+    await execute(process.execPath, [cli, "signer", "generate", "--ci", "--password", "test-only", "--write-keys", keyPath], { env: environment });
     await writeFile(artifact, "updater signature integration fixture");
-    await execute(process.execPath, [cli, "signer", "sign", "--private-key-path", keyPath, "--password", "test-only", artifact]);
+    await execute(process.execPath, [cli, "signer", "sign", "--private-key-path", keyPath, "--password", "test-only", artifact], { env: environment });
     const publicKey = (await readFile(`${keyPath}.pub`, "utf8")).trim();
     const signature = (await readFile(`${artifact}.sig`, "utf8")).trim();
     await verifyUpdaterSignature(artifact, signature, publicKey);
